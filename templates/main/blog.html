@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,27 +8,28 @@
     
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
     
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
 
-    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
 
-    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
     
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/self.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
   </head>
   <body>
 <div class="bg-top navbar-light d-flex flex-column-reverse">
       <div class="container py-3">
         <div class="row no-gutters d-flex align-items-center align-items-stretch">
           <div class="col-md-4 d-flex align-items-center py-4">
-            <a class="navbar-brand" href="index.html">CRAZYCODER<span>.COM</span></a>
+            <a class="navbar-brand" href="{% url 'home' %}">Youdemy<span>.COM</span></a>
           </div>
           <div class="col-lg-8 d-block">
             <div class="row d-flex">
@@ -35,7 +37,7 @@
                 <div class="icon d-flex justify-content-center align-items-center"><span class="ion-ios-paper-plane"></span></div>
                 <div class="text">
                   <span>Email</span>
-                  <span>kunalkatiyar50@gmail.com</span>
+                  <span>support@youdemy.co</span>
                 </div>
               </div>
               <div class="col-md d-flex topper align-items-center align-items-stretch py-md-4">
@@ -49,7 +51,7 @@
                 <div class="icon d-flex justify-content-center align-items-center"><span class="ion-logo-facebook"></span></div>
                 <div class="text">
                   <span>Facebook</span>
-                  <span>www.facebook.com/crazycoder</span>
+                  <span>www.facebook.com/Youdemy</span>
                 </div>
               </div>
             </div>
@@ -86,12 +88,17 @@
         </form>
         <div class="collapse navbar-collapse" id="ftco-nav">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="services.html" class="nav-link">Courses</a></li>
+            <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="{% url 'courses' %}" class="nav-link">Courses</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Problems</a></li>
-            <li class="nav-item"><a href="project.html" class="nav-link">Projects</a></li>
-            <li class="nav-item active"><a href="blog.html" class="nav-link">Blog</a></li>
-            <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="{% url 'projects' %}" class="nav-link">Projects</a></li>
+            <li class="nav-item active"><a href="{% url 'blog' %}" class="nav-link">Blog</a></li>
+                  <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
+                  
+            {% if user.is_authenticated %}
+                  <li class="nav-item"><a href="" class="nav-link">{{fname}}</a></li>
+            <li class="nav-item"><a href="/signout" class="nav-link">Sign Out</a></li>
+            {% endif %}
           </ul>
         </div>
       </div>
@@ -103,7 +110,7 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
             <h1 class="mb-2 bread">Blog</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Blog <i class="ion-ios-arrow-forward"></i></span></p>
+            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'blog' %}">Blog <i class="ion-ios-arrow-forward"></i></p>
           </div>
         </div>
       </div>
@@ -114,7 +121,7 @@
 				<div class="row">
           <div class="col-md-6 col-lg-4 ftco-animate">
             <div class="blog-entry">
-              <a href="blog-single.html" class="block-20 d-flex align-items-end" style="background-image: url('images/image_2.jpg');">
+              <a href="{% url 'blog_single' %}" class="block-20 d-flex align-items-end" style="background-image: url('{% static 'images/image_2.jpg' %}');">
                 <div class="meta-date text-center p-2">
                   <span class="day">1</span>
                   <span class="mos">Feb.</span>
@@ -122,12 +129,12 @@
                 </div>
               </a>
               <div class="text p-4">
-                <h3 class="heading"><a href="blog-single.html">Ruby vs. Python: What’s the Difference?</a></h3>
+                <h3 class="heading"><a href="{% url 'blog_single' %}">Ruby vs. Python: What’s the Difference?</a></h3>
                 <p>I’ve used both Ruby and Python in my work — and while they’re similar in syntaxes they’re also different in some critical ways such as logic.</p>
                 <div class="d-flex align-items-center mt-4">
                   <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
                   <p class="ml-auto mb-0">
-                    <a href="#" class="mr-2">Nitesh</a>
+                    <a href="#" class="mr-2">Trixy</a>
                     <a href="#" class="meta-chat"><span class="icon-chat"></span> 6</a>
                   </p>
                 </div>
@@ -136,7 +143,7 @@
           </div>
           <div class="col-md-6 col-lg-4 ftco-animate">
             <div class="blog-entry">
-              <a href="blog-single.html" class="block-20 d-flex align-items-end" style="background-image: url('images/image_3.png');">
+              <a href="{% static 'blog_single' %}" class="block-20 d-flex align-items-end" style="background-image: url('{% static 'images/image_3.png' %}');">
 								<div class="meta-date text-center p-2">
                   <span class="day">28</span>
                   <span class="mos">Jan.</span>
@@ -159,7 +166,7 @@
           
           <div class="col-md-6 col-lg-4 ftco-animate">
             <div class="blog-entry">
-              <a href="blog-single.html" class="block-20 d-flex align-items-end" style="background-image: url('images/image_1.jpg');">
+              <a href="{% static 'blog_single' %}" class="block-20 d-flex align-items-end" style="background-image: url('{% static 'images/image_1.png' %}');">
 								<div class="meta-date text-center p-2">
                   <span class="day">29</span>
                   <span class="mos">Jan.</span>
@@ -172,7 +179,7 @@
                 <div class="d-flex align-items-center mt-4">
 	                <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
 	                <p class="ml-auto mb-0">
-	                	<a href="#" class="mr-2">Praveen</a>
+	                	<a href="#" class="mr-2">Alex</a>
 	                	<a href="#" class="meta-chat"><span class="icon-chat"></span> 13</a>
 	                </p>
                 </div>
@@ -182,7 +189,7 @@
 
           <div class="col-md-6 col-lg-4 ftco-animate">
             <div class="blog-entry">
-              <a href="blog-single.html" class="block-20 d-flex align-items-end" style="background-image: url('images/image_4.png');">
+              <a href="{% static 'blog_single' %}" class="block-20 d-flex align-items-end" style="background-image: url('{% static 'images/image_4.png' %}');">
 								<div class="meta-date text-center p-2">
                   <span class="day">27</span>
                   <span class="mos">Jan.</span>
@@ -204,7 +211,7 @@
           </div>
           <div class="col-md-6 col-lg-4 ftco-animate">
             <div class="blog-entry">
-              <a href="blog-single.html" class="block-20 d-flex align-items-end" style="background-image: url('images/image_5.png');">
+              <a href="{% static 'blog_single' %}" class="block-20 d-flex align-items-end" style="background-image: url('{% static 'images/image_5.png' %}');">
 								<div class="meta-date text-center p-2">
                   <span class="day">18</span>
                   <span class="mos">Jan.</span>
@@ -226,7 +233,7 @@
           </div>
           <div class="col-md-6 col-lg-4 ftco-animate">
             <div class="blog-entry">
-              <a href="blog-single.html" class="block-20 d-flex align-items-end" style="background-image: url('images/image_6.png');">
+              <a href="{% static 'blog_single' %}" class="block-20 d-flex align-items-end" style="background-image: url('{% static 'images/image_6.png' %}');">
 								<div class="meta-date text-center p-2">
                   <span class="day">12</span>
                   <span class="mos">Jan.</span>
@@ -274,9 +281,9 @@
               <h2 class="ftco-heading-2">Have a Question?</h2>
               <div class="block-23 mb-3">
                 <ul>
-                  <li><span class="icon icon-map-marker"></span><span class="text"> Kanpur</span></li>
+                  <li><span class="icon icon-map-marker"></span><span class="text"> Prayagraj</span></li>
                   <li><a href="#"><span class="icon icon-phone"></span><span class="text">+91 1234567890</span></a></li>
-                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">kunalkatiyar50@gmail.com</span></a></li>
+                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">support@youdemy.co</span></a></li>
                 </ul>
               </div>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
@@ -290,12 +297,12 @@
             <div class="ftco-footer-widget mb-5 ml-md-4">
               <h2 class="ftco-heading-2">Links</h2>
               <ul class="list-unstyled">
-                
-                <li><a href="index.html"><span class="ion-ios-arrow-round-forward mr-2"></span>Home</a></li>
-                <li><a href="courses.html"><span class="ion-ios-arrow-round-forward mr-2"></span>Courses</a></li>
+                <li><a href="{% url 'home' %}"><span class="ion-ios-arrow-round-forward mr-2"></span>Home</a></li>
+                <li><a href="{% url 'courses' %}"><span class="ion-ios-arrow-round-forward mr-2"></span>Courses</a></li>
                 <li><a href="#"><span class="ion-ios-arrow-round-forward mr-2"></span>Problems</a></li>
-                <li><a href="project.html"><span class="ion-ios-arrow-round-forward mr-2"></span>Projects</a></li>
-                <li><a href="contact.html"><span class="ion-ios-arrow-round-forward mr-2"></span>Contact</a></li>
+                <li><a href="{% url 'projects' %}"><span class="ion-ios-arrow-round-forward mr-2"></span>Projects</a></li>
+                <li><a href="{% url 'contact' %}"><span class="ion-ios-arrow-round-forward mr-2"></span>Contact</a></li>
+                
               </ul>
             </div>
           </div>
@@ -303,23 +310,23 @@
             <div class="ftco-footer-widget mb-5">
               <h2 class="ftco-heading-2">Recent Blog</h2>
               <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
+                <a class="blog-img mr-4" style="background-image: url('{% static 'images/image_1.jpg' %}');"></a>
                 <div class="text">
                   <h3 class="heading"><a href="#">Coding for kids: Reasons kids should get started, and how they can find success</a></h3>
                   <div class="meta">
                     <div><a href="#"><span class="icon-calendar"></span> Jan. 29, 2020</a></div>
-                    <div><a href="#"><span class="icon-person"></span> Praveen</a></div>
+                    <div><a href="#"><span class="icon-person"></span> Alex</a></div>
                     <div><a href="#"><span class="icon-chat"></span> 13</a></div>
                   </div>
                 </div>
               </div>
               <div class="block-21 mb-5 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_2.jpg);"></a>
+                <a class="blog-img mr-4" style="background-image: url('{% static 'images/image_2.jpg' %}');"></a>
                 <div class="text">
                   <h3 class="heading"><a href="#">Ruby vs. Python: What’s the Difference?</a></h3>
                   <div class="meta">
                     <div><a href="#"><span class="icon-calendar"></span> Feb. 1, 2020</a></div>
-                    <div><a href="#"><span class="icon-person"></span> Nitesh</a></div>
+                    <div><a href="#"><span class="icon-person"></span> Trixy</a></div>
                     <div><a href="#"><span class="icon-chat"></span> 6</a></div>
                   </div>
                 </div>
@@ -351,21 +358,21 @@
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/scrollax.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="js/google-map.js"></script>
-  <script src="js/main.js"></script>
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+	<script src="{% static 'js/popper.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+	<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+	<script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+	<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+	<script src="{% static 'js/aos.js' %}"></script>
+	<script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+	<script src="{% static 'js/scrollax.min.js' %}"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script src="{% static 'js/google-map.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
     
   </body>
 </html>

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,20 +8,21 @@
     
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
     
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-
-    <link rel="stylesheet" href="css/aos.css">
-
-    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
     
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
   </head>
   <body>
     <nav>
@@ -28,7 +30,7 @@
       <div class="container py-3">
         <div class="row no-gutters d-flex align-items-center align-items-stretch">
           <div class="col-md-4 d-flex align-items-center py-4">
-            <a class="navbar-brand" href="index.html">CRAZYCODER<span>.COM</span></a>
+            <a class="navbar-brand" href="{% url 'home' %}">Youdemy<span>.COM</span></a>
           </div>
           <div class="col-lg-8 d-block">
             <div class="row d-flex">
@@ -36,7 +38,7 @@
                 <div class="icon d-flex justify-content-center align-items-center"><span class="ion-ios-paper-plane"></span></div>
                 <div class="text">
                   <span>Email</span>
-                  <span>kunalkatiyar50@gmail.com</span>
+                  <span>support@youdemy.co</span>
                 </div>
               </div>
               <div class="col-md d-flex topper align-items-center align-items-stretch py-md-4">
@@ -50,7 +52,7 @@
                 <div class="icon d-flex justify-content-center align-items-center"><span class="ion-logo-facebook"></span></div>
                 <div class="text">
                   <span>Facebook</span>
-                  <span>www.facebook.com/crazycoder</span>
+                  <span>www.facebook.com/Youdemy</span>
                 </div>
               </div>
             </div>
@@ -86,27 +88,31 @@
           </div>
         </form>
         <div class="collapse navbar-collapse" id="ftco-nav">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="courses.html" class="nav-link">Courses</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Problems</a></li>
-            <li class="nav-item"><a href="project.html" class="nav-link">Projects</a></li>
-            <li class="nav-item active"><a href="blog.html" class="nav-link">Blog</a></li>
-            
-            <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-          </ul>
-        </div>
+	        <ul class="navbar-nav mr-auto">
+          <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="{% url 'courses' %}" class="nav-link">Courses</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">Problems</a></li>
+          <li class="nav-item"><a href="{% url 'projects' %}" class="nav-link">Projects</a></li>
+          <li class="nav-item active"><a href="{% url 'blog' %}" class="nav-link">Blog</a></li>
+	            <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
+	            
+			  {% if user.is_authenticated %}
+	          	<li class="nav-item"><a href="" class="nav-link">{{fname}}</a></li>
+				<li class="nav-item"><a href="/signout" class="nav-link">Sign Out</a></li>
+			  {% endif %}
+	        </ul>
+	      </div>
       </div>
     </nav>
     <!-- END nav -->
-    
-    <section class="hero-wrap hero-wrap-2" style="background-image: url('images/blog.jpg');">
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('{% static 'images/blog.jpg' %}');">
+
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
             <h1 class="mb-2 bread">Blog</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="index.html">Blog <i class="ion-ios-arrow-forward"></i></a></span> <span>Blog 1 <i class="ion-ios-arrow-forward"></i></span></p>
+            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'home' %}">Blog <i class="ion-ios-arrow-forward"></i></a></span> <span>Blog 1 <i class="ion-ios-arrow-forward"></i></span></p>
           </div>
         </div>
       </div>
@@ -118,8 +124,8 @@
           <div class="col-lg-8 ftco-animate">
             <h2 class="mb-3">#1.Ruby vs. Python: What’s the Difference?</h2>
             <p>I’ve used both Ruby and Python in my work — and while they’re similar, they’re also different in some critical ways. It’s a popular question, but an important one, so let me example the difference between Ruby and Python.</p>
-            <p>
-              <img src="images/image_2.jpg" alt="" class="img-fluid">
+            <p><img src="{% static 'images/image_2.jpg' %}" alt="" class="img-fluid">
+
             </p>
             <p>To set the stage, I first learned web development through Python (and the Python framework called Django). After spending four years building Django apps, I got a job doing Ruby on Rails and expected the transition to be straightforward. That’s when it became clear to me that the two languages and frameworks are very different and it’s not so easy to jump from one to the other.</p>
             <p>This is where many of the differences lay. The two languages are visually similar but are worlds apart in their approaches to solving problems.</p>
@@ -139,7 +145,7 @@
                 <img src="images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4">
               </div>
               <div class="desc">
-                <h3>Nitesh Singh</h3>
+                <h3>Trixy Singh</h3>
                 <p>A programmer , coder and developer since 8 years. Worked on several projects that can be viewed on github.</p>
               </div>
             </div>
@@ -149,8 +155,8 @@
               <h3 class="mb-5 h4 font-weight-bold">6 Comments</h3>
               <ul class="comment-list">
                 <li class="comment">
-                  <div class="vcard bio">
-                    <img src="images/person_1.jpg" alt="Image placeholder">
+                  <div class="vcard bio"><img src="{% static 'images/person_1.jpg' %}" alt="Image placeholder">
+
                   </div>
                   <div class="comment-body">
                     <h3>Rohan</h3>
@@ -162,22 +168,22 @@
 
                 <li class="comment">
                   <div class="vcard bio">
-                    <img src="images/person_2.jpg" alt="Image placeholder">
+                    <img src="{% static 'images/person_2.jpg' %}" alt="Image placeholder">
                   </div>
                   <div class="comment-body">
-                    <h3>Ravi Kumar</h3>
+                    <h3>Brienne</h3>
                     <div class="meta mb-2">Feb. 15, 2020 at 5:05am</div>
-                    <p>Post more articles like this Nitesh Sir , quiet a fan of your articles.</p>
+                    <p>Post more articles like this Trixy Sir , quiet a fan of your articles.</p>
                     <p><a href="#" class="reply">Reply</a></p>
                   </div>
 
                   <ul class="children">
                     <li class="comment">
                       <div class="vcard bio">
-                        <img src="images/person_1.jpg" alt="Image placeholder">
+                        <img src="{% static 'images/person_1.jpg' %}" alt="Image placeholder">
                       </div>
                       <div class="comment-body">
-                        <h3>Shiva Patel</h3>
+                        <h3>Alex</h3>
                         <div class="meta mb-2">Feb. 1, 2020 at 12:21pm</div>
                         <p>What an article man!</p>
                         <p><a href="#" class="reply">Reply</a></p>
@@ -187,7 +193,7 @@
                       <ul class="children">
                         <li class="comment">
                           <div class="vcard bio">
-                            <img src="images/person_2.jpg" alt="Image placeholder">
+                            <img src="{% static 'images/person_2.jpg' %}" alt="Image placeholder">
                           </div>
                           <div class="comment-body">
                             <h3>Harsh</h3>
@@ -199,7 +205,7 @@
                             <ul class="children">
                               <li class="comment">
                                 <div class="vcard bio">
-                                  <img src="images/person_1.jpg" alt="Image placeholder">
+                                  <img src="{% static 'images/person_1.jpg' %}" alt="Image placeholder">
                                 </div>
                                 <div class="comment-body">
                                   <h3>Saurabh</h3>
@@ -217,7 +223,7 @@
 
                 <li class="comment">
                   <div class="vcard bio">
-                    <img src="images/person_2.jpg" alt="Image placeholder">
+                    <img src="{% static 'images/person_2.jpg' %}" alt="Image placeholder">
                   </div>
                   <div class="comment-body">
                     <h3>Shiva</h3>
@@ -281,29 +287,30 @@
             <div class="sidebar-box ftco-animate">
               <h3>Popular Articles</h3>
               <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
+                <a class="blog-img mr-4" style="background-image: url('{% static 'images/image_1.jpg' %}');"></a>
                 <div class="text">
                   <h3 class="heading"><a href="#">Coding for kids: Reasons kids should get started</a></h3>
                   <div class="meta">
                     <div><a href="#"><span class="icon-calendar"></span> Jan. 29, 2020</a></div>
-                    <div><a href="#"><span class="icon-person"></span> Praveen Saraswat</a></div>
+                    <div><a href="#"><span class="icon-person"></span> Alex Saraswat</a></div>
                     <div><a href="#"><span class="icon-chat"></span> 13</a></div>
                   </div>
                 </div>
               </div>
               <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_4.png);"></a>
+                <a class="blog-img mr-4" style="background-image: url('{% static 'images/image_4.png' %}');"></a>
+
                 <div class="text">
                   <h3 class="heading"><a href="#">Developers love Rust programming language: Here's why</a></h3>
                   <div class="meta">
                     <div><a href="#"><span class="icon-calendar"></span> Jan. 27, 2020</a></div>
-                    <div><a href="#"><span class="icon-person"></span> Shivam Pandey</a></div>
+                    <div><a href="#"><span class="icon-person"></span> Steve</a></div>
                     <div><a href="#"><span class="icon-chat"></span> 14</a></div>
                   </div>
                 </div>
               </div>
               <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_3.png);"></a>
+                <a class="blog-img mr-4" style="background-image: url('{% static 'images/image_3.png' %}');"></a>
                 <div class="text">
                   <h3 class="heading"><a href="#">6 Reasons Why Python Is Suddenly Super Popular</a></h3>
                   <div class="meta">
@@ -357,9 +364,9 @@
               <h2 class="ftco-heading-2">Have a Question?</h2>
               <div class="block-23 mb-3">
                 <ul>
-                  <li><span class="icon icon-map-marker"></span><span class="text"> Kanpur</span></li>
+                  <li><span class="icon icon-map-marker"></span><span class="text"> Prayagraj</span></li>
                   <li><a href="#"><span class="icon icon-phone"></span><span class="text">+91 1234567890</span></a></li>
-                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">kunalkatiyar50@gmail.com</span></a></li>
+                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">support@youdemy.co</span></a></li>
                 </ul>
               </div>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
@@ -372,12 +379,13 @@
           <div class="col-md-6 col-lg-2">
             <div class="ftco-footer-widget mb-5 ml-md-4">
               <h2 class="ftco-heading-2">Links</h2>
-              <ul class="list-unstyled">
-                <li><a href="index.html"><span class="ion-ios-arrow-round-forward mr-2"></span>Home</a></li>
-                <li><a href="courses.html"><span class="ion-ios-arrow-round-forward mr-2"></span>Courses</a></li>
+              <ul class="list-unstyled">				
+                <li><a href="{% url 'home' %}"><span class="ion-ios-arrow-round-forward mr-2"></span>Home</a></li>
+                <li><a href="{% url 'courses' %}"><span class="ion-ios-arrow-round-forward mr-2"></span>Courses</a></li>
                 <li><a href="#"><span class="ion-ios-arrow-round-forward mr-2"></span>Problems</a></li>
-                <li><a href="project.html"><span class="ion-ios-arrow-round-forward mr-2"></span>Projects</a></li>
-                <li><a href="contact.html"><span class="ion-ios-arrow-round-forward mr-2"></span>Contact</a></li>
+                <li><a href="{% url 'projects' %}"><span class="ion-ios-arrow-round-forward mr-2"></span>Projects</a></li>
+                <li><a href="{% url 'contact' %}"><span class="ion-ios-arrow-round-forward mr-2"></span>Contact</a></li>
+                
               </ul>
             </div>
           </div>
@@ -385,23 +393,23 @@
             <div class="ftco-footer-widget mb-5">
               <h2 class="ftco-heading-2">Recent Blog</h2>
               <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
+                <a class="blog-img mr-4" style="background-image: url('{% static 'images/image_1.jpg' %}');"></a>
                 <div class="text">
                   <h3 class="heading"><a href="#">Coding for kids: Reasons kids should get started, and how they can find success</a></h3>
                   <div class="meta">
                     <div><a href="#"><span class="icon-calendar"></span> Jan. 29, 2020</a></div>
-                    <div><a href="#"><span class="icon-person"></span> Praveen</a></div>
+                    <div><a href="#"><span class="icon-person"></span> Alex</a></div>
                     <div><a href="#"><span class="icon-chat"></span> 13</a></div>
                   </div>
                 </div>
               </div>
               <div class="block-21 mb-5 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_2.jpg);"></a>
+                <a class="blog-img mr-4" style="background-image: url('{% static 'images/image_2.jpg' %}');"></a>
                 <div class="text">
                   <h3 class="heading"><a href="#">Ruby vs. Python: What’s the Difference?</a></h3>
                   <div class="meta">
                     <div><a href="#"><span class="icon-calendar"></span> Feb. 1, 2020</a></div>
-                    <div><a href="#"><span class="icon-person"></span> Nitesh</a></div>
+                    <div><a href="#"><span class="icon-person"></span> Trixy</a></div>
                     <div><a href="#"><span class="icon-chat"></span> 6</a></div>
                   </div>
                 </div>
@@ -434,22 +442,21 @@
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
-
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/scrollax.min.js"></script>
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+  <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+  <script src="{% static 'js/aos.js' %}"></script>
+  <script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+  <script src="{% static 'js/scrollax.min.js' %}"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="js/google-map.js"></script>
-  <script src="js/main.js"></script>
+  <script src="{% static 'js/google-map.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>  
     
   </body>
 </html>
