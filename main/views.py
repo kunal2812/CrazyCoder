@@ -24,6 +24,10 @@ def course3(request):
     user_first_name = request.session.get('user_first_name', 'Guest')
     return render(request, "main/course3.html", {"fname": user_first_name})
 
+def chapter1(request):
+    user_first_name = request.session.get('user_first_name', 'Guest')
+    return render(request, "main/chapter1.html", {"fname": user_first_name})
+
 def projects(request):
     user_first_name = request.session.get('user_first_name', 'Guest')
     return render(request, "main/project.html", {"fname": user_first_name})
