@@ -135,7 +135,9 @@
             </li>
 
             {% if user.is_authenticated %}
-            <li class="nav-item"><a href="" class="nav-link">{{fname}}</a></li>
+            <li class="nav-item">
+              <a href="/profile" class="nav-link">{{user.first_name}}</a>
+            </li>
             <li class="nav-item">
               <a href="/signout" class="nav-link">Sign Out</a>
             </li>
@@ -181,10 +183,12 @@
         </div>
       </div>
     </section>
+    {% if user.is_authenticated %}
 
+    {% else  %}
     <section class="ftco-section ftco-no-pt ftco-no-pb ftco-consult">
       <div class="container">
-        <div class="row d-flex no-gutters align-items-stretch consult-wrap">
+        <div class="row d-flex no-gutters align-items-stretch consult-wrap">   
           <div class="col-md-5 wrap-about align-items-stretch d-flex">
             <div
               class="ftco-animate bg-primary align-self-stretch px-4 py-5 w-100"
@@ -283,7 +287,7 @@
                 </form>
               </div>
             </div>
-          </div>
+          </div>       
           <div
             class="col-md-7 wrap-about ftco-animate align-items-stretch d-flex"
           >
@@ -341,6 +345,7 @@
         </div>
       </div>
     </section>
+    {% endif %}
 
     <section
       class="ftco-intro ftco-no-pb img"
