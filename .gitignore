@@ -2,3 +2,4 @@ env
 main/__pycache__
 youdemy/__pycache__
 db.sqlite3
+db.sql3
