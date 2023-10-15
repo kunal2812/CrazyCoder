@@ -12,6 +12,7 @@ urlpatterns = [
     path('course2', views.course2, name="course2"),
     path('course3', views.course3, name="course3"),
     path('chapter1', views.chapter1, name="chapter1"),
-    path('account', views.account, name="account"),
+    path('signup/', views.signup, name='signup'),
+    path('signin/', views.signin, name='signin'),
     path('signout', views.signout, name="signout"),
 ]
