@@ -37,10 +37,10 @@ class UserManager(BaseUserManager):
 
 class User(AbstractUser):
     """User model."""
-    #ROLE=(('Student','STUDENT'),('Mentor','MENTOR'))
+    ROLE=(('Student','STUDENT'),('Mentor','MENTOR'))
     username = None
     email = models.EmailField(_('email address'), unique=True)
-    #role=models.CharField(choices=ROLE,max_length=10)
+    role=models.CharField(choices=ROLE,max_length=10)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 

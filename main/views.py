@@ -56,10 +56,10 @@ def signup(request):
         email = request.POST['email']
         password1= request.POST['pass1']
         password2= request.POST['pass2']
-        role = request.POST.get('role', 'student') 
+        role = request.POST['role'] 
         if password1 == password2:
             # Create a new user
-            user = User.objects.create_user( email=email,first_name=fname,last_name=lname,password=password1)
+            user = User.objects.create_user( email=email,first_name=fname,last_name=lname,password=password1,role=role)
             user.save()
             messages.success(request, "User registered successfully")
             return redirect('signin')
@@ -70,7 +70,6 @@ def signin(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['pass1']
-        # user = authenticate(request, username=username, password=password)
         user = authenticate(request,email=email, password=password)
 
         if user is not None:
