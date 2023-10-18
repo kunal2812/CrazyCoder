@@ -129,6 +129,12 @@
   			<div class="row tabulation mt-4 ftco-animate">
   				<div class="col-md-4">
 						<ul class="nav nav-pills nav-fill d-md-flex d-block flex-column">
+						{% for title in titles %}
+						  <li class="nav-item text-left">
+						    <a class="nav-link active py-4" data-toggle="tab" href=#{{ title.title_name }}> {{ title.title_name }}</a>
+						  </li>
+						{% endfor %}
+						
 						  <li class="nav-item text-left">
 						    <a class="nav-link active py-4" data-toggle="tab" href="#services-1"> Instructions & Procedures</a>
 						  </li>
@@ -152,7 +158,14 @@
 					<div class="col-md-8">
 						<div class="tab-content">
 						  <div class="tab-pane container p-0 active" id="services-1">
-						  	
+							{% for title in titles %}
+							<div class="tab-pane container p-0 fade" id={{ title.title_name }}>
+								<div class="img" style="background-image: url('{% static title.title_pictire %}');"></div>
+	
+								<h3>{{ title.title_name }}</h3>
+								<p>{{ title.description }}</p>
+							</div>
+							{% endfor %}
 						  	<h3><a href="#">Instructions & Procedures</a></h3>
 						  	<p>Program is a set of instructions.</p>
 						  	<p>Computer first reads and understand the entire program it then executes the instructions in specified order</p>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Course</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Add Chapter
+            $('#add-chapter').click(function() {
+                var chapterForm = $('#chapter-template').clone();
+                chapterForm.find('input').val('');
+                chapterForm.find('.title-form').remove();
+                $('.chapter-container').append(chapterForm);
+            });
+
+            // Add Title
+            $(document).on('click', '.add-title', function() {
+                var titleForm = $('#title-template').clone();
+                titleForm.find('input').val('');
+                $(this).closest('.chapter-form').find('.title-container').append(titleForm);
+            });
+
+            // Delete Chapter
+            $(document).on('click', '.delete-chapter', function() {
+                $(this).closest('.chapter-form').remove();
+            });
+
+            // Delete Title
+            $(document).on('click', '.delete-title', function() {
+                $(this).closest('.title-form').remove();
+            });
+        });
+    </script>
+</head>
+<body>
+    <h2>Add Course</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Course Details -->
+        <!-- ... (code for course details) -->
+
+        <!-- Chapters -->
+        <h3>Chapters:</h3>
+        <div class="chapter-container">
+            <div class="chapter-form" id="chapter-template">
+                <label for="id_chapter_title">Chapter Title:</label>
+                <input type="text" id="id_chapter_title" name="chapter_title" value="">
+                <button type="button" class="delete-chapter">Delete Chapter</button>
+                <br>
+
+                <label for="id_chapter_description">Chapter Description:</label>
+                <textarea id="id_chapter_description" name="chapter_description"></textarea>
+                <br>
+
+                <label for="id_chapter_image">Chapter Image:</label>
+                <input type="file" id="id_chapter_image" name="chapter_image">
+                <br>
+
+                <!-- Titles for Each Chapter -->
+                <h3>Titles for Each Chapter:</h3>
+                <div class="title-container">
+                    <div class="title-form" id="title-template">
+                        <label for="id_title_title">Title:</label>
+                        <input type="text" id="id_title_title" name="title_title" value="">
+                        <button type="button" class="delete-title">Delete Title</button>
+                        <br>
+
+                        <label for="id_title_description">Title Description:</label>
+                        <textarea id="id_title_description" name="title_description"></textarea>
+                        <br>
+
+                        <label for="id_title_image">Title Image:</label>
+                        <input type="file" id="id_title_image" name="title_image">
+                        <br>
+                    </div>
+                </div>
+                <button type="button" class="add-title">Add Title</button>
+            </div>
+        </div>
+        <button type="button" id="add-chapter">Add Chapter</button>
+        <input type="submit" value="Add Course">
+    </form>
+</body>
+</html>

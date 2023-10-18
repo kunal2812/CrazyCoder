@@ -46,4 +46,34 @@ class User(AbstractUser):
 
     objects = UserManager()
 
+class Courses(models.Model):
+    course_name=models.CharField(max_length=100,blank=False)
+    mentor= models.ForeignKey(User,on_delete=models.CASCADE)
+    description=models.TextField()
+    course_pictire=models.ImageField(default='static/images/Courses/course1.png', upload_to='images/Courses/')
+    course_language=models.CharField(max_length=50)
+    editing_status=models.BooleanField(default=True,blank=False);
+
+    def __str__(self):
+        return self.course_name
+
+class Chapters(models.Model):
+    chapter_name=models.CharField(max_length=100,blank=False)
+    course= models.ForeignKey(Courses,on_delete=models.CASCADE)
+    description=models.TextField()
+    chapter_pictire=models.ImageField(default='static/images/Chapters/chapter1.png', upload_to='images/Chapters/')
+    order = models.FloatField()
+    
+
+    def __str__(self):
+        return self.chapter_name
+class Titles(models.Model):
+    title_name=models.CharField(max_length=100,blank=False)
+    chapter= models.ForeignKey(Chapters,on_delete=models.CASCADE)
+    description=models.TextField()
+    title_pictire=models.ImageField(default='images/Titles/title1.png', upload_to='images/Titles')
+    order = models.FloatField()
+
+    def __str__(self):
+        return self.title_name
 

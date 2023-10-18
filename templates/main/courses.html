@@ -145,69 +145,25 @@
           </div>
         </div>
         <div class="row">
+        {% for course in all_courses %}
+        
         	<div class="col-md-4">
         		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-1.png' %}');"></div>
+        			<div class="img rounded mb-4" style="background-image: url('{% static course.course_pictire %}');"></div>
         			<div class="text w-100 text-center">
-        				<span class="cat">C Language</span>
-        				<h3><a href="{% url 'course1' %}">Basics Of C</a></h3>
-        				<p>C is a general-purpose, procedural computer programming language supporting structured programming, and recursion, while a static type system prevents unintended operations.</p>
+        				<span class="cat">{{ course.course_language }}</span>
+                
+        				<h3><a href="{% url 'view_course' course_id=course.id %}">{{ course.course_name }}</a></h3>
+        				<p>{{ course.description }}</p>
         			</div>
         		</div>
         	</div>
-        	<div class="col-md-4">
-        		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-2.jpg' %}');"></div>
-        			<div class="text w-100 text-center">
-        				<span class="cat">Python</span>
-        				<h3><a href="{% url 'course2' %}">Python and Packages</a></h3>
-        				<p>Python is an interpreted, high-level, general-purpose programming language.Its language constructs an object-oriented approach aim to help programmers write clear, logical code.</p>
-        			</div>
-        		</div>
-        	</div>
-        	<div class="col-md-4">
-        		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-3.jpg' %}');"></div>
-        			<div class="text w-100 text-center">
-        				<span class="cat">Java</span>
-        				<h3><a href="{% url 'course3' %}">Object-Oriented Programming</a></h3>
-        				<p>Java is a general-purpose programming language that is class-based, object-oriented, and designed to have as few implementation dependencies as possible.</p>
-        			</div>
-        		</div>
-        	</div>
-        	<div class="col-md-4">
-        		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-4.jpg' %}');"></div>
-        			<div class="text w-100 text-center">
-        				<span class="cat">C++</span>
-        				<h3><a href="#">C with classes</a></h3>
-        				<p>C++ is a general-purpose programming language which has object-oriented, generic, and functional features in addition to facilities for low-level memory manipulation.</p>
-        			</div>
-        		</div>
-        	</div>
-        	<div class="col-md-4">
-        		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-5.jpg' %}');"></div>
-        			<div class="text w-100 text-center">
-        				<span class="cat">Ruby</span>
-        				<h3><a href="#">Ruby on Rails</a></h3>
-        				<p>Ruby is an interpreted, high-level, general-purpose programming language.
-Ruby is dynamically typed and uses garbage collection.</p>
-        			</div>
-        		</div>
-        	</div>
-        	<div class="col-md-4">
-        		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-6.jpg' %}');"></div>
-        			<div class="text w-100 text-center">
-        				<span class="cat">JavaScript</span>
-        				<h3><a href="#">Logics with JavaScript</a></h3>
-        				<p>JavaScript is a high-level, just-in-time compiled, multi-paradigm programming language. JavaScript has curly-bracket syntax, dynamic typing and first-class functions.</p>
-        			</div>
-        		</div>
-        	</div>
-        </div>
-			</div>
+          {% if forloop.counter|divisibleby:3 %}
+            </div>
+            <div class="row">
+          {% endif %}
+        {% endfor %}
+        	
 		</section>
         <footer class="ftco-footer ftco-bg-dark ftco-section">
       <div class="container">
