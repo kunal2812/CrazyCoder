@@ -36,47 +36,29 @@
     <h2>Add Course</h2>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-
-        <!-- Course Details -->
-        <!-- ... (code for course details) -->
-
+        
+        <!-- Course Form -->
+        {{ formset.management_form }}
+        {{ formset.as_p }}
+        
         <!-- Chapters -->
         <h3>Chapters:</h3>
         <div class="chapter-container">
-            <div class="chapter-form" id="chapter-template">
-                <label for="id_chapter_title">Chapter Title:</label>
-                <input type="text" id="id_chapter_title" name="chapter_title" value="">
-                <button type="button" class="delete-chapter">Delete Chapter</button>
-                <br>
-
-                <label for="id_chapter_description">Chapter Description:</label>
-                <textarea id="id_chapter_description" name="chapter_description"></textarea>
-                <br>
-
-                <label for="id_chapter_image">Chapter Image:</label>
-                <input type="file" id="id_chapter_image" name="chapter_image">
-                <br>
-
-                <!-- Titles for Each Chapter -->
-                <h3>Titles for Each Chapter:</h3>
-                <div class="title-container">
-                    <div class="title-form" id="title-template">
-                        <label for="id_title_title">Title:</label>
-                        <input type="text" id="id_title_title" name="title_title" value="">
-                        <button type="button" class="delete-title">Delete Title</button>
-                        <br>
-
-                        <label for="id_title_description">Title Description:</label>
-                        <textarea id="id_title_description" name="title_description"></textarea>
-                        <br>
-
-                        <label for="id_title_image">Title Image:</label>
-                        <input type="file" id="id_title_image" name="title_image">
-                        <br>
+            {% for form in formset %}
+                <div class="chapter-form" id="chapter-template">
+                    {{ form.as_p }}
+                    <!-- Titles for Each Chapter -->
+                    <h3>Titles for Each Chapter:</h3>
+                    <div class="title-container">
+                        {% for title_form in form.titles %}
+                            <div class="title-form" id="title-template">
+                                {{ title_form.as_p }}
+                            </div>
+                        {% endfor %}
                     </div>
+                    <button type="button" class="add-title">Add Title</button>
                 </div>
-                <button type="button" class="add-title">Add Title</button>
-            </div>
+            {% endfor %}
         </div>
         <button type="button" id="add-chapter">Add Chapter</button>
         <input type="submit" value="Add Course">

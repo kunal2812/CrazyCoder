@@ -5,8 +5,10 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
 from main.decorators import only_mentors
-from main.forms import CourseForm, ChapterForm, TitleForm
+from main.forms import CourseForm, ChapterForm, TitleForm,CourseModelForm,ChapterFormset,TitleModelFormset
 from main.models import User,Courses,Chapters,Titles
+from django.forms.models import modelformset_factory
+from django.forms import inlineformset_factory
 from django import forms
 #from .forms import CourseForm, ChapterForm, TitleForm
 # Create your views here.
@@ -55,56 +57,90 @@ def view_chapters(request,chapter_id,course_id):
 # def add_course(request):
 #     from django.shortcuts import render, redirect
 
+
 @only_mentors
-def add_course(request):
-    
+def edit_courses(request): #view all the courses
+    user_first_name = request.session.get('user_first_name', 'Guest')
+    mentor=User.objects.get(pk=request.user.id)
+    all_courses = Courses.objects.filter(editing_status=True,mentor=mentor)
+    return render(request, "main/mentor_courses.html", {"fname": user_first_name,'all_courses':all_courses})
+
+@only_mentors
+def view_course_editing(request,course_id):
     if request.method == 'POST':
-        
-        course_form = CourseForm(request.POST, request.FILES)
-        chapter_formset = forms.formset_factory(ChapterForm)(request.POST, request.FILES, prefix='chapters')
-        title_formset = forms.formset_factory(TitleForm)(request.POST, request.FILES, prefix='titles')
-        #print(course_form)
-        if course_form.is_valid() and chapter_formset.is_valid() and title_formset.is_valid():
-            # Create a new course
-            course = Courses(
-                course_name=course_form.cleaned_data['course_title'],
-                description=course_form.cleaned_data['course_description'],
-                course_picture=course_form.cleaned_data['course_image']
-                # Add other fields for course model as needed
-            )
-            print(course)
+        pass
+    course= Courses.objects.get(pk=course_id)
+    print(request.user.id)
+    print(course.mentor.id)
+    if (request.user.id!=course.mentor.id):
+        messages.error(request, "You do not have access to view this page!")
+        return redirect('/')
+    chapters = Chapters.objects.filter(course=course)
+    return render(request, "main/edit_course.html", {"course":course,"chapters":chapters})
+
+@only_mentors        
+def mentor_view_chapter(request,chapter_id,course_id):
+    
+    user_first_name = request.session.get('user_first_name', 'Guest')
+    course= Courses.objects.get(pk=course_id)
+    chapter = Chapters.objects.get(pk=chapter_id)
+    titles=Titles.objects.filter(chapter=chapter).order_by('order')
+    return render(request, "main/mentor_view_chapter.html", {"fname": user_first_name,"course":course,"chapter":chapter,"titles":titles})
+
+@only_mentors
+def create_course_with_chapters(request):
+    template_name = 'main/create_course_with_chapters.html'
+    if request.method == 'GET':
+        bookform = CourseModelForm(request.GET or None)
+        formset = ChapterFormset(queryset=Chapters.objects.none())
+    elif request.method == 'POST':
+        bookform = CourseModelForm(request.POST)
+        formset = ChapterFormset(request.POST)
+        if bookform.is_valid() and formset.is_valid():
+            # first save this book, as its reference will be used in `Author`
+            
+            course = bookform.save(commit=False);
+            #mentor=User.objects.get(pk=request.user.id)
+            mentor=get_object_or_404(User, pk=request.user.id)
+            print(mentor)
+            course.mentor=mentor
             course.save()
-
-            for chapter_data, title_data in zip(chapter_formset, title_formset):
-                # Create chapters and titles
-                chapter = Chapters(
-                    chapter_name=chapter_data['chapter_title'],
-                    description=chapter_data['chapter_description'],
-                    chapter_picture=chapter_data['chapter_image'],
-                    course=course
-                    # Add other fields for chapter model as needed
-                )
+            order=1
+            for form in formset:
+                # so that `book` instance can be attached.
+                chapter = form.save(commit=False)
+                chapter.course = course
+                chapter.order=order
+                order+=1
                 chapter.save()
+            return redirect('edit_courses')
+    print(bookform)
+    return render(request, template_name, {
+        'bookform': bookform,
+        'formset': formset,
+    })
 
-                title = Titles(
-                    title_name=title_data['title_title'],
-                    description=title_data['title_description'],
-                    title_picture=title_data['title_image'],
-                    chapter=chapter
-                    # Add other fields for title model as needed
-                )
-                title.save()
+def create_title_model_form(request,chapter_id):
+    template_name = 'main/create_titles.html'
+    heading_message = 'Create Titles'
+    chapter=get_object_or_404(User, pk=chapter_id)
+    if request.method == 'GET':
+        # we don't want to display the already saved model instances
+        formset = TitleModelFormset(queryset=Titles.objects.none())
+    elif request.method == 'POST':
+        formset = TitleModelFormset(request.POST)
+        if formset.is_valid():
+            for form in formset:
+                # only save if name is present
+                if form.cleaned_data.get('name'):
+                    title=form.save(commit=False)
+                    title.chapter=chapter
+                    title.save()
 
-            return redirect('/courses')  # Redirect to a success page
-    else:
-        course_form = CourseForm()
-        chapter_formset = forms.formset_factory(ChapterForm)(prefix='chapters', initial=[{}])
-        title_formset = forms.formset_factory(TitleForm)(prefix='titles', initial=[{}])
-
-    return render(request, 'main/add_course.html', {
-        'course_form': course_form,
-        'chapter_formset': chapter_formset,
-        'title_formset': title_formset
+            return redirect('edit_courses')
+    return render(request, template_name, {
+        'formset': formset,
+        'heading': heading_message,
     })
 
 def projects(request):
