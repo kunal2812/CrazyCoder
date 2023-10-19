@@ -111,8 +111,11 @@
           <div class="col-md-6 text-center heading-section ftco-animate">
           	<span class="subheading">Youdemy.Com</span>
             <h2 class="mb-4">Your Courses in Editing</h2>
+            <center><h4><a href="{% url 'create_course' %}">Add Course</a></h4></center>
           </div>
+          
         </div>
+        
         <div class="row">
         {% for course in all_courses %}
         
@@ -124,6 +127,7 @@
                 
         				<h3><a href="{% url 'view_course_editing' course_id=course.id %}">{{ course.course_name }}</a></h3>
         				<p>{{ course.description }}</p>
+                <a href="{% url 'publish_course' course_id=course.id %}">Publish Course</a>
         			</div>
         		</div>
         	</div>
@@ -134,7 +138,7 @@
         {% endfor %}
         	
 		</section>
-    <a href="{% url 'create_course' %}" class="btn-link">Add Course</a>
+    
 
         <footer class="ftco-footer ftco-bg-dark ftco-section">
       <div class="container">

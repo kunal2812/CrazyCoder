@@ -145,7 +145,7 @@
                 <div class="img align-self-stretch" style="background-image: url('{% static chapter.chapter_pictire %}');"></div>
               </div>
               <div class="text pt-3 px-3 pb-4 text-center">
-                <a href="{% url 'view_chapters' chapter_id=chapter.id course_id=course.id% }"><h3>{{ chapter.chapter_name }}</h3></a>
+                <a href="{% url 'view_chapters' chapter_id=chapter.id course_id=course.id %}"><h3>{{ chapter.chapter_name }}</h3></a>
                 <div class="faded">
                   <p>{{ chapter.description }}</p>
                   

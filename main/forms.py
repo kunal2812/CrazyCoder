@@ -38,11 +38,15 @@ ChapterFormset = modelformset_factory(
 )
 TitleModelFormset = modelformset_factory(
     Titles,
-    fields=('title_name', ),
+    fields=('title_name','description','title_pictire'),
     extra=1,
     widgets={'title_name': forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Enter Title Name here'
-        })
+        }),
+        'description': forms.Textarea(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter Title Description here'
+        }),
     }
 )

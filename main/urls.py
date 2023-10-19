@@ -20,6 +20,7 @@ urlpatterns = [
     path('signin/', views.signin, name='signin'),
     path('signout', views.signout, name="signout"),
     path('createcourse/',views.create_course_with_chapters,name='create_course'),
-    path('add_titles/<int:course_id>/',views.create_title_model_form,name='create_title_model_form'),
-    path('editcourse/<int:course_id>/<int:chapter_id/',views.mentor_view_chapter,name='view_chapters_edit')
+    path('add_titles/<int:chapter_id>/',views.create_title_model_form,name='create_title_model_form'),
+    path('editcourse/<int:course_id>/<int:chapter_id>/',views.mentor_view_chapter,name='view_chapters_edit'),
+    path('publish_course/<int:course_id>/', views.publish_course, name='publish_course')
 ]

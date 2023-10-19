@@ -123,7 +123,7 @@ def create_course_with_chapters(request):
 def create_title_model_form(request,chapter_id):
     template_name = 'main/create_titles.html'
     heading_message = 'Create Titles'
-    chapter=get_object_or_404(User, pk=chapter_id)
+    chapter=get_object_or_404(Chapters, pk=chapter_id)
     if request.method == 'GET':
         # we don't want to display the already saved model instances
         formset = TitleModelFormset(queryset=Titles.objects.none())
@@ -143,6 +143,26 @@ def create_title_model_form(request,chapter_id):
         'heading': heading_message,
     })
 
+
+def publish_course(request, course_id):
+    # Get the course object
+    course = get_object_or_404(Courses, pk=course_id)
+
+    # Check if the user is authorized to publish the course
+    if request.user == course.mentor:
+        # Set the editing_status to False and save the course
+        course.editing_status = False
+        course.save()
+        
+        # Display a success message (optional)
+        messages.success(request, 'Course published successfully.')
+
+        return redirect('edit_courses')  # Redirect to course detail view
+    else:
+        # Display an error message for unauthorized access (optional)
+        messages.error(request, 'You do not have permission to publish this course.')
+        return redirect('edit_courses')  # Redirect to course detail view with an error message
+    
 def projects(request):
     user_first_name = request.session.get('user_first_name', 'Guest')
     return render(request, "main/project.html", {"fname": user_first_name})

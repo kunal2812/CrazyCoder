@@ -122,7 +122,7 @@
                 <div class="img align-self-stretch" style="background-image: url('{% static chapter.chapter_pictire %}');"></div>
               </div>
               <div class="text pt-3 px-3 pb-4 text-center">
-                
+                <a href="{% url 'view_chapters_edit' course_id=course.id chapter_id=chapter.id %}"><h3>{{ chapter.chapter_name }}</h3></a>
                 <div class="faded">
                   <p>{{ chapter.description }}</p>
                   <a href="{% url 'create_title_model_form' chapter_id=chapter.id %}" class="btn-link">Add Titles</a>
@@ -131,6 +131,7 @@
             </div>
           </div>
           {% endfor %}
+          
           
         </div>
       </div>
