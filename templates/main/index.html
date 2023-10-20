@@ -142,6 +142,11 @@
               <a href="/signout" class="nav-link">Sign Out</a>
             </li>
             {% endif %}
+            {% if user.role == 'Mentor' %}
+            <li class="nav-item">
+              <a href="{% url 'edit_courses' %} " class="nav-link">Edit your Courses</a>
+            </li>
+            {% endif %}
           </ul>
         </div>
       </div>

@@ -12,28 +12,44 @@ class TitleForm(forms.Form):
 class CourseModelForm(forms.ModelForm):
     class Meta:
         model = Courses
-        fields = ('course_name', )
+        fields = ('course_name', 'description', 'course_pictire', 'course_language')
         labels = {
-            'course_name': 'Course Name'
+            'course_name': 'Course Name',
+            'description': 'Description',
+            'course_pictire': 'Course Picture',
+            'course_language': 'Course Language',
         }
         widgets = {
             'course_name': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Enter Course Name here'
-                }
-            )
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Course Description here'
+            }),
+            'course_pictire': forms.FileInput(attrs={
+                'class': 'form-control-file',
+            }),
+            'course_language': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Course Language here'
+            }),
         }
 ChapterFormset = modelformset_factory(
     Chapters,
-    fields=('chapter_name', ),
+    fields=('chapter_name','description','chapter_pictire' ),
     extra=1,
     widgets={
         'chapter_name': forms.TextInput(
             attrs={
                 'class': 'form-control',
                 'placeholder': 'Enter Chapter Name here'
-            }
-        )
+            }),
+        'description': forms.Textarea(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter Chapter Description here'
+            }),
     }
 )
 TitleModelFormset = modelformset_factory(
