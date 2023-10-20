@@ -110,7 +110,7 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-            <h1 class="mb-2 bread">Basics of C</h1>
+            <h1 class="mb-2 bread">{{ course.course_name }}</h1>
             <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span> Courses <i class="ion-ios-arrow-forward"></i></span><span> Basics of C <i class="ion-ios-arrow-forward"></i></span><span> Introduction <i class="ion-ios-arrow-forward"></i></span></p>
           </div>
         </div>
@@ -121,81 +121,32 @@
     	<div class="container">
     		<div class="row justify-content-center mb-5">
           <div class="col-md-8 text-center heading-section ftco-animate">
-          	<span class="subheading">Basics of C</span>
-            <h2 class="mb-4">Introduction</h2>
-            <p>Computers are tools that help people get their work done. Computer is a machine which operates when a program is given to it.</p>
+          	<span class="subheading">{{ course.course_name }}</span>
+            <h2 class="mb-4">{{ chapter.chapter_name }}</h2>
+            <p>{{ chapter.description }}</p>
           </div>
         </div>
-  			<div class="row tabulation mt-4 ftco-animate">
-  				<div class="col-md-4">
-						<ul class="nav nav-pills nav-fill d-md-flex d-block flex-column">
-						{% for title in titles %}
-						  <li class="nav-item text-left">
-						    <a class="nav-link active py-4" data-toggle="tab" href=#{{ title.title_name }}> {{ title.title_name }}</a>
-						  </li>
-						{% endfor %}
-						
-						  <li class="nav-item text-left">
-						    <a class="nav-link active py-4" data-toggle="tab" href="#services-1"> Instructions & Procedures</a>
-						  </li>
-						  <li class="nav-item text-left">
-						    <a class="nav-link py-4" data-toggle="tab" href="#services-2"> Programming Language</a>
-						  </li>
-						  <li class="nav-item text-left">
-						    <a class="nav-link py-4" data-toggle="tab" href="#services-3"> Anatomy of Program</a>
-						  </li>
-						  <li class="nav-item text-left">
-						    <a class="nav-link py-4" data-toggle="tab" href="#services-4"> Machine Language</a>
-						  </li>
-						  <li class="nav-item text-left">
-						    <a class="nav-link py-4" data-toggle="tab" href="#services-5"> HLL</a>
-						  </li>
-						  <li class="nav-item text-left">
-						    <a class="nav-link py-4" data-toggle="tab" href="#services-6"> Programmer's jargon</a>
-						  </li>
-						</ul>
-					</div>
-					<div class="col-md-8">
-						<div class="tab-content">
-						  <div class="tab-pane container p-0 active" id="services-1">
-							{% for title in titles %}
-							<div class="tab-pane container p-0 fade" id={{ title.title_name }}>
-								<div class="img" style="background-image: url('{% static title.title_pictire %}');"></div>
-	
-								<h3>{{ title.title_name }}</h3>
-								<p>{{ title.description }}</p>
-							</div>
-							{% endfor %}
-						  	<h3><a href="#">Instructions & Procedures</a></h3>
-						  	<p>Program is a set of instructions.</p>
-						  	<p>Computer first reads and understand the entire program it then executes the instructions in specified order</p>
-						  	<p>CPU has a large number of registers which temporarily store data and programs and retrieves instruction from the memory.</p><p>A written procedure must be fully read and understood.</p><p>Then all steps must be executed in specified order</p>
-						  </div>
-						  <div class="tab-pane container p-0 fade" id="services-2">
-						  	<div class="img" style="background-image: url('{% static 'images/c1.jpg' %}');"></div>
-
-						  	<h3><a href="#">Programming Language</a></h3>
-						  	<p>The instructions you give in your programs must be in a language that the computer understands</p><p>Spoken language are too ambiguous for computers.</p>
-						  </div>
-						  <div class="tab-pane container p-0 fade" id="services-3">
-						  	<a href="#"><h3>Anatomy of Program</a></h3>
-						  	<p>Perhaps the most difficult part of programming is breaking the problem into detailed steps the computer can follow.</p><p>If all the programs needed were already written, you would not see the large listings of "Programmers Wanted" ads in jopb sites.</p>
-						  </div>
-						  <div class="tab-pane container p-0 fade" id="services-4">
-						  	<h3><a href="#">Machine Language</a></h3>
-						  	<p>A computer programming language consisting of binary or hexadecimal instructions which a computer can respond to directly.</p><p>There are three main kinds of programming language: Machine language. Assembly language. High-level language.</p>
-						  </div>
-						  <div class="tab-pane container p-0 fade" id="services-5">
-						  	<h3><a href="#">High Level Language</a></h3>
-						  	<p>A high-level language (HLL) is a programming language such as C, FORTRAN, or Pascal that enables a programmer to write programs that are more or less independent of a particular type of computer. Such languages are considered high-level because they are closer to human languages and further from machine languages.</p>
-						  </div>
-						  <div class="tab-pane container p-0 fade" id="services-6">
-						  	<h3><a href="#">Programmer's Jargon</a></h3>
-						  	<p>Source code: The stuff you type into computer</p><p>Compile: Taking source code and making a program that the computer can understand.</p><p>Language: The core part of C central to writing C code.</p>
-						  </div>
-						</div>
-					</div>
-				</div>
+		<div class="row tabulation mt-4 ftco-animate">
+			<div class="col-md-4">
+			  <ul class="nav nav-pills nav-fill d-md-flex d-block flex-column">
+				{% for title in titles %}
+				  <li class="nav-item text-left">
+					<a class="nav-link py-4" data-toggle="tab" href="#title-{{ title.id }}">{{ title.title_name }}</a>
+				  </li>
+				{% endfor %}
+			  </ul>
+			</div>
+			<div class="col-md-8">
+			  <div class="tab-content">
+				{% for title in titles %}
+				  <div class="tab-pane container p-0 fade" id="title-{{ title.id }}">
+					<h3><a href="#">{{ title.title_name }}</a></h3>
+					<p>{{ title.description }}</p>
+				  </div>
+				{% endfor %}
+			  </div>
+			</div>
+		  </div>
     	</div>
     </section>
     <section class="ftco-section testimony-section">

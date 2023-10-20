@@ -89,18 +89,37 @@
         </form>
         <div class="collapse navbar-collapse" id="ftco-nav">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
-            <li class="nav-item active"><a href="{% url 'courses' %}" class="nav-link">Courses</a></li>
+            <li class="nav-item active">
+              <a href="{% url 'home' %}" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'courses' %}" class="nav-link">Courses</a>
+            </li>
             <li class="nav-item"><a href="#" class="nav-link">Problems</a></li>
-            <li class="nav-item"><a href="{% url 'projects' %}" class="nav-link">Projects</a></li>
-            <li class="nav-item"><a href="{% url 'blog' %}" class="nav-link">Blog</a></li>
-                  <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
-                  
+            <li class="nav-item">
+              <a href="{% url 'projects' %}" class="nav-link">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'blog' %}" class="nav-link">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'contact' %}" class="nav-link">Contact</a>
+            </li>
+
             {% if user.is_authenticated %}
-                  <li class="nav-item"><a href="" class="nav-link">{{fname}}</a></li>
-            <li class="nav-item"><a href="/signout" class="nav-link">Sign Out</a></li>
+            <li class="nav-item">
+              <a href="/profile" class="nav-link">{{user.first_name}}</a>
+            </li>
+            <li class="nav-item">
+              <a href="/signout" class="nav-link">Sign Out</a>
+            </li>
             {% endif %}
-              </ul>
+            {% if user.role == 'Mentor' %}
+            <li class="nav-item">
+              <a href="{% url 'edit_courses' %} " class="nav-link">Edit your Courses</a>
+            </li>
+            {% endif %}
+          </ul>
         </div>
       </div>
     </nav>
@@ -125,7 +144,14 @@
                 <a href="{% url 'view_chapters_edit' course_id=course.id chapter_id=chapter.id %}"><h3>{{ chapter.chapter_name }}</h3></a>
                 <div class="faded">
                   <p>{{ chapter.description }}</p>
-                  <a href="{% url 'create_title_model_form' chapter_id=chapter.id %}" class="btn-link">Add Titles</a>
+
+                  <a href="{% url 'create_title_model_form' chapter_id=chapter.id %}">Add Titles</a>
+                  <div>
+                    <a href="{% url 'chapter_edit' pk=chapter.id %}">Edit Chapter Details</a>
+                  </div>
+                  <div>
+                    <a href="{% url 'chapter_delete' chapter_id=chapter.id %}">Delete Chapter</a>
+                  </div>
                 </div>
               </div>
             </div>

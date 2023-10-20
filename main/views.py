@@ -9,6 +9,9 @@ from main.forms import CourseForm, ChapterForm, TitleForm,CourseModelForm,Chapte
 from main.models import User,Courses,Chapters,Titles
 from django.forms.models import modelformset_factory
 from django.forms import inlineformset_factory
+from django.views.generic.edit import UpdateView, DeleteView
+from django.urls import reverse_lazy
+from django.views import View
 from django import forms
 #from .forms import CourseForm, ChapterForm, TitleForm
 # Create your views here.
@@ -130,11 +133,13 @@ def create_title_model_form(request,chapter_id):
     elif request.method == 'POST':
         formset = TitleModelFormset(request.POST)
         if formset.is_valid():
-            for form in formset:
-                # only save if name is present
-                if form.cleaned_data.get('name'):
+            order=1
+            for form in formset:                
+                if form.cleaned_data.get('title_name'):
                     title=form.save(commit=False)
                     title.chapter=chapter
+                    title.order=order
+                    order+=1
                     title.save()
 
             return redirect('edit_courses')
@@ -162,7 +167,51 @@ def publish_course(request, course_id):
         # Display an error message for unauthorized access (optional)
         messages.error(request, 'You do not have permission to publish this course.')
         return redirect('edit_courses')  # Redirect to course detail view with an error message
-    
+
+class CourseUpdateView(UpdateView):
+    model = Courses
+    template_name = 'main/course_form.html'  # Create an edit form template
+    fields = ['course_name', 'mentor', 'description', 'course_pictire', 'course_language', 'editing_status']
+    success_url = reverse_lazy('edit_courses')  # Redirect to a success page or URL after editing
+
+# Edit Chapter View
+class ChapterUpdateView(UpdateView):
+    model = Chapters
+    template_name = 'main/course_form.html'  # Create an edit form template
+    fields = ['chapter_name', 'course', 'description', 'chapter_pictire', 'order']
+    success_url = reverse_lazy('edit_courses')  # Redirect to a success page or URL after editing
+
+# Edit Title View
+class TitleUpdateView(UpdateView):
+    model = Titles
+    template_name = 'main/course_form.html'  # Create an edit form template
+    fields = ['title_name', 'chapter', 'description', 'title_picture', 'order']
+    success_url = reverse_lazy('edit_courses')  # Redirect to a success page or URL after editing
+
+
+def CourseDelete(request,course_id):
+        course = get_object_or_404(Courses, pk=course_id)
+        course.delete()
+        return redirect('edit_courses')
+def ChapterDelete(request,chapter_id):
+        chapter = get_object_or_404(Chapters, pk=chapter_id)
+        chapter.delete()
+        return redirect('edit_courses')
+def TitleDelete(request,title_id):
+        title = get_object_or_404(Titles, pk=title_id)
+        title.delete()
+        return redirect('edit_courses')
+
+class ChapterDeleteView(DeleteView):
+    model = Chapters
+    template_name = 'chapter_confirm_delete.html'  # Create a template for confirmation
+    success_url = reverse_lazy('chapters_list')  # Redirect to a success page or URL after deletion
+
+# Delete Title View
+class TitleDeleteView(DeleteView):
+    model = Titles
+    template_name = 'title_confirm_delete.html'  # Create a template for confirmation
+    success_url = reverse_lazy('titles_list')  # Redirect to a success page or URL after deletion
 def projects(request):
     user_first_name = request.session.get('user_first_name', 'Guest')
     return render(request, "main/project.html", {"fname": user_first_name})
