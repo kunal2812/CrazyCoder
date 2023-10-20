@@ -202,16 +202,6 @@ def TitleDelete(request,title_id):
         title.delete()
         return redirect('edit_courses')
 
-class ChapterDeleteView(DeleteView):
-    model = Chapters
-    template_name = 'chapter_confirm_delete.html'  # Create a template for confirmation
-    success_url = reverse_lazy('chapters_list')  # Redirect to a success page or URL after deletion
-
-# Delete Title View
-class TitleDeleteView(DeleteView):
-    model = Titles
-    template_name = 'title_confirm_delete.html'  # Create a template for confirmation
-    success_url = reverse_lazy('titles_list')  # Redirect to a success page or URL after deletion
 def projects(request):
     user_first_name = request.session.get('user_first_name', 'Guest')
     return render(request, "main/project.html", {"fname": user_first_name})
