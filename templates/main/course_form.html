@@ -102,59 +102,11 @@
       </button>
     </div>
     {% endfor %}
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco-navbar-light" id="ftco-navbar">
-      <div class="container d-flex align-items-center">
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="oi oi-menu"></span> Menu
-        </button>
-        <form action="#" class="searchform order-lg-last">
-          <div class="form-group d-flex">
-            <input type="text" class="form-control pl-3" placeholder="Search" />
-            <button type="submit" placeholder="" class="form-control search">
-              <span class="ion-ios-search"></span>
-            </button>
-          </div>
-        </form>
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a href="{% url 'home' %}" class="nav-link">Home</a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'courses' %}" class="nav-link">Courses</a>
-              </li>
-              <li class="nav-item"><a href="#" class="nav-link">Problems</a></li>
-              <li class="nav-item">
-                <a href="{% url 'projects' %}" class="nav-link">Projects</a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'blog' %}" class="nav-link">Blog</a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'contact' %}" class="nav-link">Contact</a>
-              </li>
-  
-              {% if user.is_authenticated %}
-              <li class="nav-item">
-                <a href="/profile" class="nav-link">{{user.first_name}}</a>
-              </li>
-              <li class="nav-item">
-                <a href="/signout" class="nav-link">Sign Out</a>
-              </li>
-              {% endif %}
-              {% if user.role == 'Mentor' %}
-              <li class="nav-item">
-                <a href="{% url 'edit_courses' %} " class="nav-link">Edit your Courses</a>
-              </li>
-              {% endif %}
-            </ul>
-          </div>
-      </div>
-    </nav>
+    {% include "./navbar.html" %}
     <section class="ftco-section">
         <div class="container">
             <h2>Edit Course</h2>
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
 

@@ -23,6 +23,7 @@ class CourseModelForm(forms.ModelForm):
             'course_pictire': forms.FileInput(attrs={
                 'class': 'form-control-file',
                 'required':False,
+                'label': 'Title Thumbnail'
             }),
             'course_language': forms.TextInput(attrs={
                 'class': 'form-control',
@@ -43,6 +44,10 @@ ChapterFormset = modelformset_factory(
             'class': 'form-control',
             'placeholder': 'Enter Chapter Description here'
             }),
+        'chapter_pictire': forms.FileInput(attrs={
+            'class': 'form-control-file',
+            'label': 'Title Thumbnail'  # Add this line to set the label
+        }),
     }
 )
 TitleModelFormset = modelformset_factory(
@@ -57,7 +62,12 @@ TitleModelFormset = modelformset_factory(
             'class': 'form-control',
             'placeholder': 'Enter Title Description here'
         }),
+        'title_pictire': forms.FileInput(attrs={
+            'class': 'form-control-file',
+            'label': 'Title Thumbnail'  # Add this line to set the label
+        }),
     }
+    
 )
 QuestionModelFormset = modelformset_factory(
     Questions,

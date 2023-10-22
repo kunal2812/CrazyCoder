@@ -74,8 +74,6 @@ def view_course_editing(request,course_id):
     if request.method == 'POST':
         pass
     course= Courses.objects.get(pk=course_id)
-    print(request.user.id)
-    print(course.mentor.id)
     if (request.user.id!=course.mentor.id):
         messages.error(request, "You do not have access to view this page!")
         return redirect('/')
@@ -99,9 +97,8 @@ def create_course_with_chapters(request):
         bookform = CourseModelForm(request.GET or None)
         formset = ChapterFormset(queryset=Chapters.objects.none())
     elif request.method == 'POST':
-        print(request.POST)
-        bookform = CourseModelForm(request.POST)
-        formset = ChapterFormset(request.POST)
+        bookform = CourseModelForm(request.POST,request.FILES)
+        formset = ChapterFormset(request.POST,request.FILES)
         if bookform.is_valid() and formset.is_valid():
             # first save this book, as its reference will be used in `Author`
             course = bookform.save(commit=False);
@@ -119,7 +116,6 @@ def create_course_with_chapters(request):
                 order+=1
                 chapter.save()
             return redirect('edit_courses')
-    print(bookform)
     return render(request, template_name, {
         'bookform': bookform,
         'formset': formset,
@@ -133,7 +129,7 @@ def create_title_model_form(request,chapter_id):
         # we don't want to display the already saved model instances
         formset = TitleModelFormset(queryset=Titles.objects.none())
     elif request.method == 'POST':
-        formset = TitleModelFormset(request.POST)
+        formset = TitleModelFormset(request.POST,request.FILES)
         if formset.is_valid():
             order=1
             for form in formset:                
@@ -157,7 +153,7 @@ def create_question(request,chapter_id):
         # we don't want to display the already saved model instances
         formset = QuestionModelFormset(queryset=Questions.objects.none())
     elif request.method == 'POST':
-        formset = QuestionModelFormset(request.POST)
+        formset = QuestionModelFormset(request.POST,request.FILES)
         if formset.is_valid():
             order=1
             for form in formset:                
