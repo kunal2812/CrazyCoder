@@ -181,59 +181,17 @@
     <section class="ftco-section">
 			<div class="container">
 				<div class="row">
+					
+					{% for question in questions %}
 					<div class="col-lg-4 d-flex">
 						<div class="services-2 border rounded text-center ftco-animate">
 							<div class="icon mt-2 d-flex justify-content-center align-items-center"></div>
 							<div class="text media-body">
-								<h3>What is the differnce between declaration and definition of variable/function?</h3>
+								<h3>{{ question.question }}</h3>
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4 d-flex">
-						<div class="services-2 border rounded text-center ftco-animate">
-							<div class="icon mt-2 d-flex justify-content-center align-items-center"></div>
-							<div class="text media-body">
-								<h3>What are the different storage class specifiers in C?</h3>
-								
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4 d-flex">
-						<div class="services-2 border rounded text-center ftco-animate">
-							<div class="icon mt-2 d-flex justify-content-center align-items-center"></div>
-							<div class="text media-body">
-								<h3>What is a scope of variable?</h3>
-								
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4 d-flex">
-						<div class="services-2 border rounded text-center ftco-animate">
-							<div class="icon mt-2 d-flex justify-content-center align-items-center"></div>
-							<div class="text media-body">
-								<h3>What is the difference between HLL and LLL?</h3>
-								
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4 d-flex">
-						<div class="services-2 border rounded text-center ftco-animate">
-							<div class="icon mt-2 d-flex justify-content-center align-items-center"></span></div>
-							<div class="text media-body">
-								<h3>What are local static variable?</h3>
-								
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4 d-flex">
-						<div class="services-2 border rounded text-center ftco-animate">
-							<div class="icon mt-2 d-flex justify-content-center align-items-center"></div>
-							<div class="text media-body">
-								<h3>What are the static function?</h3>
-								
-							</div>
-						</div>
-					</div>
+					{% endfor %}
 				</div>
 			</div>
 		</section>

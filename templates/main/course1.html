@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Basics of C</title>
+    <title>{{ course.course_name }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -89,18 +89,37 @@
         </form>
         <div class="collapse navbar-collapse" id="ftco-nav">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
-            <li class="nav-item active"><a href="{% url 'courses' %}" class="nav-link">Courses</a></li>
+            <li class="nav-item active">
+              <a href="{% url 'home' %}" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'courses' %}" class="nav-link">Courses</a>
+            </li>
             <li class="nav-item"><a href="#" class="nav-link">Problems</a></li>
-            <li class="nav-item"><a href="{% url 'projects' %}" class="nav-link">Projects</a></li>
-            <li class="nav-item"><a href="{% url 'blog' %}" class="nav-link">Blog</a></li>
-                  <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
-                  
+            <li class="nav-item">
+              <a href="{% url 'projects' %}" class="nav-link">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'blog' %}" class="nav-link">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'contact' %}" class="nav-link">Contact</a>
+            </li>
+
             {% if user.is_authenticated %}
-                  <li class="nav-item"><a href="" class="nav-link">{{fname}}</a></li>
-            <li class="nav-item"><a href="/signout" class="nav-link">Sign Out</a></li>
+            <li class="nav-item">
+              <a href="/profile" class="nav-link">{{user.first_name}}</a>
+            </li>
+            <li class="nav-item">
+              <a href="/signout" class="nav-link">Sign Out</a>
+            </li>
             {% endif %}
-              </ul>
+            {% if user.role == 'Mentor' %}
+            <li class="nav-item">
+              <a href="{% url 'edit_courses' %} " class="nav-link">Edit your Courses</a>
+            </li>
+            {% endif %}
+          </ul>
         </div>
       </div>
     </nav>
@@ -113,8 +132,8 @@
           <div class="row no-gutters slider-text align-items-center justify-content-end" data-scrollax-parent="true">
           <div class="col-md-7 ftco-animate mb-md-5">
             <span class="subheading">Youdemy</span>
-            <h1 class="mb-4">Basics of C</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'home' %}">Courses <i class="ion-ios-arrow-forward"></i></a></span> <span>Basics of C <i class="ion-ios-arrow-forward"></i></span></p>
+            <h1 class="mb-4">{{ course.course_name }}</h1>
+            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'home' %}">Courses <i class="ion-ios-arrow-forward"></i></a></span> <span>{{ course.course_name }} <i class="ion-ios-arrow-forward"></i></span></p>
           </div>
         </div>
         </div>
@@ -128,7 +147,7 @@
           <div class="col-md-7 ftco-animate mb-md-5">
             <span class="subheading">Youdemy</span>
             <h1 class="mb-4">CHAPTERS</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'home' %}">Courses <i class="ion-ios-arrow-forward"></i></a></span> <span>Basics of C <i class="ion-ios-arrow-forward"></i></span></p>
+            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'home' %}">Courses <i class="ion-ios-arrow-forward"></i></a></span> <span>{{ course.course_name }}<i class="ion-ios-arrow-forward"></i></span></p>
           </div>
         </div>
         </div>
@@ -148,6 +167,13 @@
                 <a href="{% url 'view_chapters' chapter_id=chapter.id course_id=course.id %}"><h3>{{ chapter.chapter_name }}</h3></a>
                 <div class="faded">
                   <p>{{ chapter.description }}</p>
+                  <a href="{% url 'create_title_model_form' chapter_id=chapter.id %}">Add Titles</a>
+                  <div>
+                    <a href="{% url 'chapter_edit' pk=chapter.id %}">Edit Chapter Details</a>
+                  </div>
+                  <div>
+                    <a href="{% url 'chapter_delete' chapter_id=chapter.id %}">Delete Chapter</a>
+                  </div>
                   
                 </div>
               </div>

@@ -140,7 +140,7 @@
         
         	<div class="col-md-4">
         		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static course.course_pictire %}');"></div>
+              <img src="{{ course.course_pictire.url }}" alt="Course Image">
         			<div class="text w-100 text-center">
         				<span class="cat">{{ course.course_language }}</span>
                 

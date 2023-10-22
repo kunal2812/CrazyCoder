@@ -1,14 +1,6 @@
 from django import forms
 from django.forms import modelformset_factory
-from main.models import Courses, Chapters, Titles
-class CourseForm(forms.Form):
-    course_title = forms.CharField(label='Course Title', max_length=255)
-
-class ChapterForm(forms.Form):
-    title = forms.CharField(label='Chapter Title', max_length=255)
-
-class TitleForm(forms.Form):
-    title = forms.CharField(label='Title', max_length=255)
+from main.models import Courses, Chapters, Titles, Questions
 class CourseModelForm(forms.ModelForm):
     class Meta:
         model = Courses
@@ -30,6 +22,7 @@ class CourseModelForm(forms.ModelForm):
             }),
             'course_pictire': forms.FileInput(attrs={
                 'class': 'form-control-file',
+                'required':False,
             }),
             'course_language': forms.TextInput(attrs={
                 'class': 'form-control',
@@ -63,6 +56,20 @@ TitleModelFormset = modelformset_factory(
         'description': forms.Textarea(attrs={
             'class': 'form-control',
             'placeholder': 'Enter Title Description here'
+        }),
+    }
+)
+QuestionModelFormset = modelformset_factory(
+    Questions,
+    fields=('question','answer'),
+    extra=1,
+    widgets={'question': forms.Textarea(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter Question here'
+        }),
+        'answer': forms.Textarea(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter Answer here'
         }),
     }
 )

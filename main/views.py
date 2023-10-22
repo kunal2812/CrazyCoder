@@ -5,8 +5,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
 from main.decorators import only_mentors
-from main.forms import CourseForm, ChapterForm, TitleForm,CourseModelForm,ChapterFormset,TitleModelFormset
-from main.models import User,Courses,Chapters,Titles
+from main.forms import CourseModelForm,ChapterFormset,TitleModelFormset,QuestionModelFormset
+from main.models import User,Courses,Chapters,Titles, Questions
 from django.forms.models import modelformset_factory
 from django.forms import inlineformset_factory
 from django.views.generic.edit import UpdateView, DeleteView
@@ -39,7 +39,8 @@ def view_chapters(request,chapter_id,course_id):
         return redirect('/courses')
     chapter = Chapters.objects.get(pk=chapter_id)
     titles=Titles.objects.filter(chapter=chapter).order_by('order')
-    return render(request, "main/chapter1.html", {"fname": user_first_name,"course":course,"chapter":chapter,"titles":titles})
+    questions=Questions.objects.filter(chapter=chapter)
+    return render(request, "main/chapter1.html", {"fname": user_first_name,"course":course,"chapter":chapter,"titles":titles,"questions":questions})
 
 
 # def view_titles(request, course_id, chapter_id):
@@ -88,7 +89,8 @@ def mentor_view_chapter(request,chapter_id,course_id):
     course= Courses.objects.get(pk=course_id)
     chapter = Chapters.objects.get(pk=chapter_id)
     titles=Titles.objects.filter(chapter=chapter).order_by('order')
-    return render(request, "main/mentor_view_chapter.html", {"fname": user_first_name,"course":course,"chapter":chapter,"titles":titles})
+    questions=Questions.objects.filter(chapter=chapter)
+    return render(request, "main/mentor_view_chapter.html", {"fname": user_first_name,"course":course,"chapter":chapter,"titles":titles,"questions":questions})
 
 @only_mentors
 def create_course_with_chapters(request):
@@ -97,15 +99,15 @@ def create_course_with_chapters(request):
         bookform = CourseModelForm(request.GET or None)
         formset = ChapterFormset(queryset=Chapters.objects.none())
     elif request.method == 'POST':
+        print(request.POST)
         bookform = CourseModelForm(request.POST)
         formset = ChapterFormset(request.POST)
         if bookform.is_valid() and formset.is_valid():
             # first save this book, as its reference will be used in `Author`
-            
             course = bookform.save(commit=False);
             #mentor=User.objects.get(pk=request.user.id)
             mentor=get_object_or_404(User, pk=request.user.id)
-            print(mentor)
+            
             course.mentor=mentor
             course.save()
             order=1
@@ -147,7 +149,28 @@ def create_title_model_form(request,chapter_id):
         'formset': formset,
         'heading': heading_message,
     })
+def create_question(request,chapter_id):
+    template_name = 'main/create_questions.html'
+    heading_message = 'Create Questions'
+    chapter=get_object_or_404(Chapters, pk=chapter_id)
+    if request.method == 'GET':
+        # we don't want to display the already saved model instances
+        formset = QuestionModelFormset(queryset=Questions.objects.none())
+    elif request.method == 'POST':
+        formset = QuestionModelFormset(request.POST)
+        if formset.is_valid():
+            order=1
+            for form in formset:                
+                if form.cleaned_data.get('question'):
+                    qa=form.save(commit=False)
+                    qa.chapter=chapter
+                    qa.save()
 
+            return redirect('edit_courses')
+    return render(request, template_name, {
+        'formset': formset,
+        'heading': heading_message,
+    })
 
 def publish_course(request, course_id):
     # Get the course object

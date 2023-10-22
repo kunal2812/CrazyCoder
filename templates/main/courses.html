@@ -87,21 +87,40 @@
             <button type="submit" placeholder="" class="form-control search"><span class="ion-ios-search"></span></button>
           </div>
         </form>
-          <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
-              <li class="nav-item active"><a href="{% url 'courses' %}" class="nav-link">Courses</a></li>
-              <li class="nav-item"><a href="#" class="nav-link">Problems</a></li>
-              <li class="nav-item"><a href="{% url 'projects' %}" class="nav-link">Projects</a></li>
-              <li class="nav-item"><a href="{% url 'blog' %}" class="nav-link">Blog</a></li>
-                    <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
-                    
-              {% if user.is_authenticated %}
-                    <li class="nav-item"><a href="" class="nav-link">{{fname}}</a></li>
-              <li class="nav-item"><a href="/signout" class="nav-link">Sign Out</a></li>
-              {% endif %}
-            </ul>
-          </div>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a href="{% url 'home' %}" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'courses' %}" class="nav-link">Courses</a>
+            </li>
+            <li class="nav-item"><a href="#" class="nav-link">Problems</a></li>
+            <li class="nav-item">
+              <a href="{% url 'projects' %}" class="nav-link">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'blog' %}" class="nav-link">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'contact' %}" class="nav-link">Contact</a>
+            </li>
+
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a href="/profile" class="nav-link">{{user.first_name}}</a>
+            </li>
+            <li class="nav-item">
+              <a href="/signout" class="nav-link">Sign Out</a>
+            </li>
+            {% endif %}
+            {% if user.role == 'Mentor' %}
+            <li class="nav-item">
+              <a href="{% url 'edit_courses' %} " class="nav-link">Edit your Courses</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
         </div>
       </nav>
     
@@ -155,6 +174,14 @@
                 
         				<h3><a href="{% url 'view_course' course_id=course.id %}">{{ course.course_name }}</a></h3>
         				<p>{{ course.description }}</p>
+                {% if user.role == 'Mentor' %}
+                <div>
+                  <a href="{% url 'course_edit' pk=course.id %}">Edit Course Details</a>
+                </div>
+                <div>
+                  <a href="{% url 'course_delete' course_id=course.id %}">Delete Course</a>
+                </div>
+                {% endif %} 
         			</div>
         		</div>
         	</div>
