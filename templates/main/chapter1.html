@@ -142,6 +142,9 @@
 				  <div class="tab-pane container p-0 fade" id="title-{{ title.id }}">
 					<h3><a href="#">{{ title.title_name }}</a></h3>
 					<p>{{ title.description }}</p>
+          {% if user.role == 'Mentor' %}
+            <p> <a href="{% url 'title_edit' pk=title.id %}">Edit Title Details</a> </p>
+          {% endif %}
 				  </div>
 				{% endfor %}
 			  </div>

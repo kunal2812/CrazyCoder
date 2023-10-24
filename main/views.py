@@ -230,7 +230,7 @@ class ChapterUpdateView(UpdateView):
 class TitleUpdateView(UpdateView):
     model = Titles
     template_name = 'main/course_form.html'  # Create an edit form template
-    fields = ['title_name', 'chapter', 'description', 'title_picture', 'order']
+    fields = ['title_name', 'chapter', 'description', 'order']
     success_url = reverse_lazy('edit_courses')  # Redirect to a success page or URL after editing
 
 

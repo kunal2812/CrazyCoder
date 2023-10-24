@@ -121,17 +121,20 @@
                 <a href="{% url 'view_chapters' chapter_id=chapter.id course_id=course.id %}"><h3>{{ chapter.chapter_name }}</h3></a>
                 <div class="faded">
                   <p>{{ chapter.description }}</p>
-                  <a href="{% url 'create_title_model_form' chapter_id=chapter.id %}">Add Titles</a>
-                  <div>
-                    <a href="{% url 'create_question' chapter_id=chapter.id %}">Add Question</a>
-                  </div>
-                  <div>
-                    <a href="{% url 'chapter_edit' pk=chapter.id %}">Edit Chapter Details</a>
-                  </div>
-                  <div>
-                    <a href="{% url 'chapter_delete' chapter_id=chapter.id %}">Delete Chapter</a>
-                  </div>
-                  
+                  {% if user.role == 'Mentor' %}
+                    
+                    
+                    <a href="{% url 'create_title_model_form' chapter_id=chapter.id %}">Add Titles</a>
+                    <div>
+                      <a href="{% url 'create_question' chapter_id=chapter.id %}">Add Question</a>
+                    </div>
+                    <div>
+                      <a href="{% url 'chapter_edit' pk=chapter.id %}">Edit Chapter Details</a>
+                    </div>
+                    <div>
+                      <a href="{% url 'chapter_delete' chapter_id=chapter.id %}">Delete Chapter</a>
+                    </div>
+                  {% endif %}
                 </div>
               </div>
             </div>
