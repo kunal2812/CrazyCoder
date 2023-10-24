@@ -1,0 +1,221 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Course</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/self.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script type="text/javascript">
+function updateElementIndex(el, prefix, ndx) {
+    var id_regex = new RegExp('(' + prefix + '-\\d+)');
+    var replacement = prefix + '-' + ndx;
+    if ($(el).attr("for")) $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
+    if (el.id) el.id = el.id.replace(id_regex, replacement);
+    if (el.name) el.name = el.name.replace(id_regex, replacement);
+}
+function cloneMore(selector, prefix) {
+    var newElement = $(selector).clone(true);
+    var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
+    newElement.find(':input:not([type=button]):not([type=submit]):not([type=reset])').each(function() {
+        var name = $(this).attr('name')
+        if(name) {
+            name = name.replace('-' + (total-1) + '-', '-' + total + '-');
+            var id = 'id_' + name;
+            $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+        }
+    });
+    newElement.find('label').each(function() {
+        var forValue = $(this).attr('for');
+        if (forValue) {
+          forValue = forValue.replace('-' + (total-1) + '-', '-' + total + '-');
+          $(this).attr({'for': forValue});
+        }
+    });
+    total++;
+    $('#id_' + prefix + '-TOTAL_FORMS').val(total);
+    $(selector).after(newElement);
+    var conditionRow = $('.form-row:not(:last)');
+    conditionRow.find('.btn.add-form-row')
+    .removeClass('btn-success').addClass('btn-danger')
+    .removeClass('add-form-row').addClass('remove-form-row')
+    .html('-');
+    return false;
+}
+function deleteForm(prefix, btn) {
+    var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
+    if (total > 1){
+        btn.closest('.form-row').remove();
+        var forms = $('.form-row');
+        $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
+        for (var i=0, formCount=forms.length; i<formCount; i++) {
+            $(forms.get(i)).find(':input').each(function() {
+                updateElementIndex(this, prefix, i);
+            });
+        }
+    }
+    return false;
+}
+$(document).on('click', '.add-form-row', function(e){
+    e.preventDefault();
+    cloneMore('.form-row:last', 'form');
+    return false;
+});
+$(document).on('click', '.remove-form-row', function(e){
+    e.preventDefault();
+    deleteForm('form', $(this));
+    return false;
+});
+
+</script>
+
+</head>
+<body>
+    <div class="bg-top navbar-light d-flex flex-column-reverse">
+        <div class="container py-3">
+            <div class="row no-gutters d-flex align-items-center align-items-stretch">
+                <div class="col-md-4 d-flex align-items-center py-4">
+                    <a class="navbar-brand" href="{% url 'home' %}">Youdemy<span>.COM</span></a>
+                </div>
+                <div class="col-lg-8 d-block">
+                    <div class="row d-flex">
+                        <div class="col-md d-flex topper align-items-center align-items-stretch py-md-4">
+                            <div class="icon d-flex justify-content-center align-items-center"><span class="ion-ios-paper-plane"></span></div>
+                            <div class="text">
+                                <span>Email</span>
+                                <span>support@youdemy.co</span>
+                            </div>
+                        </div>
+                        <div class="col-md d-flex topper align-items-center align-items-stretch py-md-4">
+                            <div class="icon d-flex justify-content-center align-items-center"><span class="ion-ios-call"></span></div>
+                            <div class="text">
+                                <span>Call</span>
+                                <span>+91 1234567890</span>
+                            </div>
+                        </div>
+                        <div class="col-md d-flex topper align-items-center align-items-stretch py-md-4">
+                            <div class="icon d-flex justify-content-center align-items-center"><span class="ion-logo-facebook"></span></div>
+                            <div class="text">
+                                <span>Facebook</span>
+                                <span>www.facebook.com/Youdemy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="top-social-menu py-2 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <p class="social mb-0">
+                            <a href="#"><i class="ion-logo-facebook"></i><span class="sr-only">Facebook</span></a>
+                            <a href="#"><i class="ion-logo-twitter"></i><span class="sr-only">Twitter</span></a>
+                            <a href="#"><i class="ion-logo-googleplus"></i><span class="sr-only">Googleplus</span></a>
+                        </p>
+                    </div>
+                    <div class="col text-right">
+                        <a href="#" class="btn-link">Request A Call</a>
+                    </div>
+                </div>
+            </div>
+          </div>
+    </div>
+    
+    {% include "./navbar.html" %}
+    
+      <div class="row no-gutters justify-content-center mb-5">
+        <div class="col-md-6 text-center heading-section ftco-animate">
+          <span class="subheading">Youdemy.Com</span>
+          <h2 class="mb-4">Add Course</h2>
+        </div>
+      </div>
+    <h2></h2>
+    <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+    <div class="row spacer">
+        <div class="col-2">
+            
+        </div>
+        <div class="col-6">
+            <div class="input-group">
+                <h4>Enter course details</h4>
+                <div class="form-group col-12">
+                    {{ bookform.course_name }}
+                </div>
+                <div class="form-group col-12">
+                    {{ bookform.description }}
+                </div>
+                <div class="form-group col-12">
+                    <div class="form-group col-10">
+                        <label for="{{ bookform.course_pictire.id_for_label }}">Course Thumbnail</label>
+                        {{ bookform.course_pictire }}
+                    </div>
+                </div>
+                <div class="form-group col-12">
+                    {{ bookform.course_language }}
+                </div>
+            </div>
+        </div>
+        
+    
+    </div>
+    {{ formset.management_form }}
+    {% for form in formset %}
+    <div class="row form-row spacer">
+        <div class="col-2">
+            <label>{{ form.course_name.label }}</label>
+        </div>
+        <div class="col-6">
+            <div class="input-group">
+                <div class="form-group col-10">
+                    {{ form.chapter_name }}
+                </div>
+                <div class="form-group col-10">
+                    {{ form.description }}
+                </div>
+                <div class="form-group col-10">
+                    <div class="form-group col-10">
+                        <label for="{{ form.chapter_pictire.id_for_label }}">Chapter Thumbnail</label>
+                        {{ form.chapter_pictire }}
+                    </div>
+                </div>
+                <div class="input-group-append">
+                    <button class="btn btn-success add-form-row">  +  </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+
+    <div class="row spacer">
+        <div class="col-4 offset-2">
+            <button type="submit" class="btn btn-block btn-primary">Create</button>
+        </div>
+    </div>
+    </form>
+
+
+
+
+</body>
+</html>

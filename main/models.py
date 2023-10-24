@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+
 class UserManager(BaseUserManager):
     """Define a model manager for User model with no username field."""
 
@@ -46,4 +47,39 @@ class User(AbstractUser):
 
     objects = UserManager()
 
+class Courses(models.Model):
+    course_name=models.CharField(max_length=100,blank=False)
+    mentor= models.ForeignKey(User,on_delete=models.CASCADE)
+    description=models.TextField()
+    course_pictire=models.ImageField(null=True,upload_to='images/Courses/')
+    course_language=models.CharField(max_length=50)
+    editing_status=models.BooleanField(default=True,blank=False);
 
+    def __str__(self):
+        return self.course_name
+
+class Chapters(models.Model):
+    chapter_name=models.CharField(max_length=100,blank=False)
+    course= models.ForeignKey(Courses,on_delete=models.CASCADE)
+    description=models.TextField()
+    chapter_pictire=models.ImageField(null=True,upload_to='images/Chapters/')
+    order = models.FloatField()
+    
+
+    def __str__(self):
+        return self.chapter_name
+class Titles(models.Model):
+    title_name=models.CharField(max_length=100,blank=False)
+    chapter= models.ForeignKey(Chapters,on_delete=models.CASCADE)
+    description=models.TextField()
+    order = models.FloatField()
+
+    def __str__(self):
+        return self.title_name
+
+class Questions(models.Model):
+    chapter=models.ForeignKey(Chapters, on_delete=models.CASCADE)
+    question=models.TextField()
+    answer=models.TextField()
+    def __str__(self):
+        return self.question

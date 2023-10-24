@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Courses</title>
+    <title>Edit Courses</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -76,69 +76,40 @@
             </div>
           </div>
     </div>
-    {% include "./navbar.html" %}
-    
-    <section class="home-slider owl-carousel">
-      <div class="slider-item" style="background-image:url('{% static 'images/bg_1.jpg' %}');">
-
-        <div class="overlay"></div>
-        <div class="container">
-          <div class="row no-gutters slider-text align-items-center justify-content-end" data-scrollax-parent="true">
-          <div class="col-md-7 ftco-animate mb-md-5">
-            <span class="subheading">Youdemy</span>
-            <h1 class="mb-4">Achieve Your Goals With Youdemy</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'courses' %}">Courses <i class="ion-ios-arrow-forward"></i></p>
-          </div>
-        </div>
-        </div>
-      </div>
-
-      <div class="slider-item" style="background-image:url('{% static 'images/bg_2.jpg' %}');">
-
-        <div class="overlay"></div>
-        <div class="container">
-          <div class="row no-gutters slider-text align-items-center justify-content-end" data-scrollax-parent="true">
-          <div class="col-md-7 ftco-animate mb-md-5">
-            <span class="subheading">Youdemy</span>
-            <h1 class="mb-4">A Learning Platform For Beginners</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'home' %}">Courses <i class="ion-ios-arrow-forward"></i></p>
-          </div>
-        </div>
-        </div>
-      </div>
-    </section>
+    {% include "./navbar.html" %}    
 <section class="ftco-section">
 			<div class="container">
 				<div class="row no-gutters justify-content-center mb-5">
           <div class="col-md-6 text-center heading-section ftco-animate">
           	<span class="subheading">Youdemy.Com</span>
-            <h2 class="mb-4">Courses</h2>
-            <p>LEARN TO CODE , LEARN TO BE CREATIVE <br>Making possible for anyone to learn on their own. Learn the skills required in the real world.</p>
-            <p></p>
+            <h2 class="mb-4">Your Courses in Editing</h2>
+            <center><h4><a href="{% url 'create_course' %}">Add Course</a></h4></center>
           </div>
+          
         </div>
+        
         <div class="row">
         {% for course in all_courses %}
         
         	<div class="col-md-4">
         		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{{ course.course_pictire.url }}');"></div>
+              
+              <div class="img rounded mb-4" style="background-image: url('{{ course.course_pictire.url }}');"></div>
         			<div class="text w-100 text-center">
         				<span class="cat">{{ course.course_language }}</span>
                 
-        				<h3><a href="{% url 'view_course' course_id=course.id %}">{{ course.course_name }}</a></h3>
+        				<h3><a href="{% url 'view_course_editing' course_id=course.id %}">{{ course.course_name }}</a></h3>
         				<p>{{ course.description }}</p>
-                {% if user.role == 'Mentor' %}
+                <a href="{% url 'publish_course' course_id=course.id %}">Publish Course</a>
                 <div>
-                  <a href="{% url 'course_edit' pk=course.id %}">Edit Course Details</a>
-                </div>
-                <div>
-                  <a href="{% url 'course_delete' course_id=course.id %}">Delete Course</a>
-                </div>
-                <div>
-                  <a href="{% url 'create_chapter' course_id=course.id %}">Add Chapters</a>
-                </div>
-                {% endif %} 
+                <a href="{% url 'course_edit' pk=course.id %}">Edit Course Details</a>
+              </div>
+              <div>
+                <a href="{% url 'course_delete' course_id=course.id %}">Delete Course</a>
+              </div>
+              <div>
+                <a href="{% url 'create_chapter' course_id=course.id %}">Add Chapters</a>
+              </div>
         			</div>
         		</div>
         	</div>
@@ -149,6 +120,8 @@
         {% endfor %}
         	
 		</section>
+    
+
         <footer class="ftco-footer ftco-bg-dark ftco-section">
       <div class="container">
         <div class="row mb-5">

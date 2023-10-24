@@ -102,51 +102,8 @@
       </button>
     </div>
     {% endfor %}
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco-navbar-light" id="ftco-navbar">
-      <div class="container d-flex align-items-center">
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="oi oi-menu"></span> Menu
-        </button>
-        <form action="#" class="searchform order-lg-last">
-          <div class="form-group d-flex">
-            <input type="text" class="form-control pl-3" placeholder="Search" />
-            <button type="submit" placeholder="" class="form-control search">
-              <span class="ion-ios-search"></span>
-            </button>
-          </div>
-        </form>
-        <div class="collapse navbar-collapse" id="ftco-nav">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a href="{% url 'home' %}" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item">
-              <a href="{% url 'courses' %}" class="nav-link">Courses</a>
-            </li>
-            <li class="nav-item"><a href="#" class="nav-link">Problems</a></li>
-            <li class="nav-item">
-              <a href="{% url 'projects' %}" class="nav-link">Projects</a>
-            </li>
-            <li class="nav-item">
-              <a href="{% url 'blog' %}" class="nav-link">Blog</a>
-            </li>
-            <li class="nav-item">
-              <a href="{% url 'contact' %}" class="nav-link">Contact</a>
-            </li>
 
-            {% if user.is_authenticated %}
-            <li class="nav-item">
-              <a href="/profile" class="nav-link">{{user.first_name}}</a>
-            </li>
-            <li class="nav-item">
-              <a href="/signout" class="nav-link">Sign Out</a>
-            </li>
-            {% endif %}
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <!-- END nav -->
+    {% include "./navbar.html" %}
 
     <section class="home-slider owl-carousel">
       <div class="slider-item" style="background-image: url('{% static 'images/bg_1.jpg' %}')">
@@ -471,119 +428,27 @@
           </div>
         </div>
         <div class="row">
+
+
+          {% for course in courses %}
           <div class="col-md-4">
             <div class="project">
               <div
                 class="img rounded mb-4"
                 style="
-                  background-image: url('{% static 'images/project-1.png' %}');
+                  background-image: url('{{ course.course_pictire.url }}');
                 "
               ></div>
               <div class="text w-100 text-center">
-                <span class="cat">C Language</span>
-                <h3><a href="{% url 'course1' %}">Basics Of C</a></h3>
+                <span class="cat">{{ course.course_language }}</span>
+                <h3><a href="{% url 'view_course' course_id=course.id %}">{{ course.course_name }}</a></h3>
                 <p>
-                  C is a general-purpose, procedural computer programming
-                  language supporting structured programming, and recursion,
-                  while a static type system prevents unintended operations.
+                  {{ course.description }}
                 </p>
               </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="project">
-              <div
-                class="img rounded mb-4"
-                style="
-                  background-image: url('{% static 'images/project-2.jpg' %}');
-                "
-              ></div>
-              <div class="text w-100 text-center">
-                <span class="cat">Python</span>
-                <h3><a href="{% url 'course2' %}">Python and Packages</a></h3>
-                <p>
-                  Python is an interpreted, high-level, general-purpose
-                  programming language.Its language constructs an
-                  object-oriented approach aim to help programmers write clear,
-                  logical code.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-      <div class="project">
-  <div class="img rounded mb-4" style="background-image: url('{% static 'images/project-3.jpg' %}');" ></div>
-              <div class="text w-100 text-center">
-                <span class="cat">Java</span>
-                <h3>
-                  <a href="{% url 'course3' %}">Object-Oriented Programming</a>
-                </h3>
-                <p>
-                  Java is a general-purpose programming language that is
-                  class-based, object-oriented, and designed to have as few
-                  implementation dependencies as possible.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="project">
-              <div
-                class="img rounded mb-4"
-                style="
-                  background-image: url('{% static 'images/project-4.jpg' %}');
-                "
-              ></div>
-              <div class="text w-100 text-center">
-                <span class="cat">C++</span>
-                <h3><a href="#">C with classes</a></h3>
-                <p>
-                  C++ is a general-purpose programming language which has
-                  object-oriented, generic, and functional features in addition
-                  to facilities for low-level memory manipulation.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="project">
-              <div
-                class="img rounded mb-4"
-                style="
-                  background-image: url('{% static 'images/project-5.jpg' %}');
-                "
-              ></div>
-              <div class="text w-100 text-center">
-                <span class="cat">Ruby</span>
-                <h3><a href="#">Ruby on Rails</a></h3>
-                <p>
-                  Ruby is an interpreted, high-level, general-purpose
-                  programming language. Ruby is dynamically typed and uses
-                  garbage collection.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="project">
-              <div
-                class="img rounded mb-4"
-                style="
-                  background-image: url('{% static 'images/project-6.jpg' %}');
-                "
-              ></div>
-              <div class="text w-100 text-center">
-                <span class="cat">JavaScript</span>
-                <h3><a href="#">Logics with JavaScript</a></h3>
-                <p>
-                  JavaScript is a high-level, just-in-time compiled,
-                  multi-paradigm programming language. JavaScript has
-                  curly-bracket syntax, dynamic typing and first-class
-                  functions.
-                </p>
-              </div>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </div>
     </section>
