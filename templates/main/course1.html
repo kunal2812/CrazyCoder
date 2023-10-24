@@ -123,6 +123,9 @@
                   <p>{{ chapter.description }}</p>
                   <a href="{% url 'create_title_model_form' chapter_id=chapter.id %}">Add Titles</a>
                   <div>
+                    <a href="{% url 'create_question' chapter_id=chapter.id %}">Add Question</a>
+                  </div>
+                  <div>
                     <a href="{% url 'chapter_edit' pk=chapter.id %}">Edit Chapter Details</a>
                   </div>
                   <div>

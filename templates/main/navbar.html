@@ -50,17 +50,43 @@
   </div>
 </nav>
 <script>
-  // Get the current URL
-  var currentURL = window.location.pathname;
-
-  // Find the corresponding link and add the "active" class
-  var links = document.querySelectorAll(".nav-link");
-  links.forEach(function (link) {
-      if (link.getAttribute("href") === currentURL) {
+    var currentURL = window.location.pathname;
+    var links = document.querySelectorAll(".nav-link");
+  
+    // Remove the "active" class from all links
+    links.forEach(function (link) {
+      link.parentElement.classList.remove("active");
+   
+    
+    if (link.getAttribute("href") === currentURL ) {
           link.parentElement.classList.add("active");
       }
-      if (currentURL === "/editcourses/" && link.innerText === "Edit your Courses") {
-            link.parentElement.classList.add("active");
+    });
+    if (currentURL.startsWith("/editcourses/") || currentURL.startsWith("/editcourse/") || currentURL.startsWith("/add_titles/") || currentURL.startsWith("/add_question/")) {
+      var editCoursesLink = findLinkByText("Edit your Courses");
+      if (editCoursesLink) {
+        editCoursesLink.parentElement.classList.add("active");
       }
-  });
-</script>
+    } else if (currentURL.includes("/edit/")) {
+      var editCoursesLink = findLinkByText("Edit your Courses");
+      if (editCoursesLink) {
+        editCoursesLink.parentElement.classList.add("active");
+      }
+    } else if (currentURL.includes("/course/")) {
+      var coursesLink = findLinkByText("Courses");
+      if (coursesLink) {
+        coursesLink.parentElement.classList.add("active");
+      }
+    }
+  
+    function findLinkByText(text) {
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].innerText === text) {
+          return links[i];
+        }
+      }
+      return null;
+    }
+  </script>
+  
+  

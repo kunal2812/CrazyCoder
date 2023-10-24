@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
 from main.decorators import only_mentors
-from main.forms import CourseModelForm,ChapterFormset,TitleModelFormset,QuestionModelFormset
+from main.forms import CourseModelForm,ChapterFormset,TitleModelFormset,QuestionModelFormset,ChapterModelFormset
 from main.models import User,Courses,Chapters,Titles, Questions
 from django.forms.models import modelformset_factory
 from django.forms import inlineformset_factory
@@ -161,6 +161,31 @@ def create_question(request,chapter_id):
                 if form.cleaned_data.get('question'):
                     qa=form.save(commit=False)
                     qa.chapter=chapter
+                    qa.save()
+
+            return redirect('edit_courses')
+    return render(request, template_name, {
+        'formset': formset,
+        'heading': heading_message,
+    })
+
+def create_chapter(request,course_id):
+    template_name = 'main/create_chapters.html'
+    heading_message = 'Create Chapters'
+    course=get_object_or_404(Courses, pk=course_id)
+    if request.method == 'GET':
+        # we don't want to display the already saved model instances
+        formset = ChapterModelFormset(queryset=Chapters.objects.none())
+    elif request.method == 'POST':
+        formset = ChapterModelFormset(request.POST,request.FILES)
+        if formset.is_valid():
+            order=1
+            for form in formset:                
+                if form.cleaned_data.get('chapter_name'):
+                    qa=form.save(commit=False)
+                    qa.course=course
+                    qa.order=order
+                    order+=1
                     qa.save()
 
             return redirect('edit_courses')

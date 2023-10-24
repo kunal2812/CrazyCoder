@@ -69,6 +69,7 @@ TitleModelFormset = modelformset_factory(
     }
     
 )
+
 QuestionModelFormset = modelformset_factory(
     Questions,
     fields=('question','answer'),
@@ -82,4 +83,24 @@ QuestionModelFormset = modelformset_factory(
             'placeholder': 'Enter Answer here'
         }),
     }
+)
+
+ChapterModelFormset = modelformset_factory(
+    Chapters,
+    fields=('chapter_name','description','chapter_pictire'),
+    extra=1,
+    widgets={'chapter_name': forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter Chapter Name here'
+        }),
+        'description': forms.Textarea(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter Chapter Description here'
+        }),
+        'chapter_pictire': forms.FileInput(attrs={
+            'class': 'form-control-file',
+            'label': 'Chapter Thumbnail'  # Add this line to set the label
+        }),
+    }
+    
 )

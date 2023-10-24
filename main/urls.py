@@ -19,6 +19,7 @@ urlpatterns = [
     path('createcourse/',views.create_course_with_chapters,name='create_course'),
     path('add_titles/<int:chapter_id>/',views.create_title_model_form,name='create_title_model_form'),
     path('add_question/<int:chapter_id>/',views.create_question,name='create_question'),
+    path('add_chapter/<int:course_id>/',views.create_chapter,name='create_chapter'),
     path('editcourse/<int:course_id>/<int:chapter_id>/',views.mentor_view_chapter,name='view_chapters_edit'),
     path('publish_course/<int:course_id>/', views.publish_course, name='publish_course'),
      path('course/<int:pk>/edit/', CourseUpdateView.as_view(), name='course_edit'),
