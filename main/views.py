@@ -17,7 +17,8 @@ from django import forms
 # Create your views here.
 def home(request):
     user_first_name = request.session.get('user_first_name', 'Guest')
-    return render(request, "main/index.html", {"fname": user_first_name})
+    courses = Courses.objects.filter(editing_status=False)
+    return render(request, "main/index.html", {"fname": user_first_name,'courses':courses})
 
 def courses(request): #view all the courses
     user_first_name = request.session.get('user_first_name', 'Guest')
