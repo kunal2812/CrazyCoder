@@ -72,7 +72,6 @@ class Titles(models.Model):
     title_name=models.CharField(max_length=100,blank=False)
     chapter= models.ForeignKey(Chapters,on_delete=models.CASCADE)
     description=models.TextField()
-    title_pictire=models.ImageField(null=True,upload_to='images/Titles')
     order = models.FloatField()
 
     def __str__(self):
