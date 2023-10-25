@@ -86,7 +86,7 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
             <h1 class="mb-2 bread">Blog</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'home' %}">Blog <i class="ion-ios-arrow-forward"></i></a></span> <span>Blog 1 <i class="ion-ios-arrow-forward"></i></span></p>
+            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'home' %}">Blog <i class="ion-ios-arrow-forward"></i></a></span> <span>{{blog.title}} <i class="ion-ios-arrow-forward"></i></span></p>
           </div>
         </div>
       </div>
@@ -96,21 +96,16 @@
 			<div class="container">
 				<div class="row">
           <div class="col-lg-8 ftco-animate">
-            <h2 class="mb-3">#1.Ruby vs. Python: What’s the Difference?</h2>
-            <p>I’ve used both Ruby and Python in my work — and while they’re similar, they’re also different in some critical ways. It’s a popular question, but an important one, so let me example the difference between Ruby and Python.</p>
-            <p><img src="{% static 'images/image_2.jpg' %}" alt="" class="img-fluid">
-
-            </p>
-            <p>To set the stage, I first learned web development through Python (and the Python framework called Django). After spending four years building Django apps, I got a job doing Ruby on Rails and expected the transition to be straightforward. That’s when it became clear to me that the two languages and frameworks are very different and it’s not so easy to jump from one to the other.</p>
-            <p>This is where many of the differences lay. The two languages are visually similar but are worlds apart in their approaches to solving problems.</p>
-            <p>Ruby is designed to be infinitely flexible and empowering for programmers. It allows Ruby on Rails to do lots of little tricks to make an elegant web framework. This can feel even magical at times, but the flexibility can also cause some problems. For example, the same magic that makes Ruby work when you don’t expect it to can also make it very hard to track down bugs, resulting in hours of combing through code.</p>
-            <p>Python takes a more direct approach to programming. Its primary goal is to make everything visible to the programmer. This sacrifices some of the elegance that Ruby has but gives Python a big advantage when it comes to learning to code and debugging problems efficiently.</p>
+            <h2 class="mb-3">{{ blog.title }}</h2>
+            
+            <p><img src="{{ blog.blog_picture.url }}" alt="" class="img-fluid"></p>
+            <p>{{ blog.description }}</p>
+            
             <div class="tag-widget post-tag-container mb-5 mt-5">
               <div class="tagcloud">
-                <a href="#" class="tag-cloud-link">Web</a>
-                <a href="#" class="tag-cloud-link">AI</a>
-                <a href="#" class="tag-cloud-link">Tech</a>
-                <a href="#" class="tag-cloud-link">Programmking</a>
+                {% for tag in blog.tags.all %}
+                <a href="#" class="tag-cloud-link">{{ tag.name }}</a>
+                {% endfor %}
               </div>
             </div>
             
@@ -299,15 +294,11 @@
             <div class="sidebar-box ftco-animate">
               <h3>Tag Cloud</h3>
               <ul class="tagcloud m-0 p-0">
-                <a href="#" class="tag-cloud-link">Coding</a>
-                <a href="#" class="tag-cloud-link">AI & ML</a>
-                <a href="#" class="tag-cloud-link">Personal Assistant</a>
-                <a href="#" class="tag-cloud-link">College</a>
-                <a href="#" class="tag-cloud-link">Technology</a>
-                <a href="#" class="tag-cloud-link">Development</a>
-                <a href="#" class="tag-cloud-link">IT</a>
+                  {% for tag in blog.tags.all %}
+                      <a href="#" class="tag-cloud-link">{{ tag.name }}</a>
+                  {% endfor %}
               </ul>
-            </div>
+          </div>
 
             <div class="sidebar-box ftco-animate">
             	<h3>Archives</h3>

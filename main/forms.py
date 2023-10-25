@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import modelformset_factory
-from main.models import Courses, Chapters, Titles, Questions
+from main.models import Courses, Chapters, Titles, Questions, Blogs, Tag, Comment
 class CourseModelForm(forms.ModelForm):
     class Meta:
         model = Courses
@@ -100,3 +100,49 @@ ChapterModelFormset = modelformset_factory(
     }
     
 )
+
+class BlogModelForm(forms.ModelForm):
+    class Meta:
+        model = Blogs
+        fields = ('title', 'description', 'blog_picture')
+        labels = {
+            'title': 'Title',
+            'description': 'Description',
+            'blog_pictire': 'Blog Thumbnail',
+        }
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Title Name here'
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Blog Description here'
+            }),
+            'course_pictire': forms.FileInput(attrs={
+                'class': 'form-control-file',
+                'required':False,
+                'label': 'Blog Thumbnail'
+            }),
+        }
+TagFormset = modelformset_factory(
+    Tag,
+    fields=('name', ),
+    extra=1,
+    widgets={
+        'name': forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Tag'
+            }),
+    }
+)
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model=Comment
+        fields=('message')
+    #overidrinding defalut form setting and adding bootstrap
+    def __init__(self, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs)
+        self.fields['message'].widget.attrs={'placeholder': 'Write your comment','class':'form-control'}

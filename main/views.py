@@ -5,8 +5,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
 from main.decorators import only_mentors
-from main.forms import CourseModelForm,ChapterFormset,TitleModelFormset,QuestionModelFormset,ChapterModelFormset
-from main.models import User,Courses,Chapters,Titles, Questions
+from main.forms import CourseModelForm,ChapterFormset,TitleModelFormset,QuestionModelFormset,ChapterModelFormset, BlogModelForm, TagFormset, CommentForm
+from main.models import User, Courses, Chapters, Titles, Questions, Blogs, BlogLike, Tag, Comment
 from django.forms.models import modelformset_factory
 from django.forms import inlineformset_factory
 from django.views.generic.edit import UpdateView, DeleteView
@@ -24,6 +24,65 @@ def courses(request): #view all the courses
     user_first_name = request.session.get('user_first_name', 'Guest')
     all_courses = Courses.objects.filter(editing_status=False)
     return render(request, "main/courses.html", {"fname": user_first_name,'all_courses':all_courses})
+
+def all_blogs(request): #view all the blogs
+    all_blogs = Blogs.objects.all()
+    return render(request, "main/blog.html", {'all_blogs':all_blogs})
+
+def view_blog(request, blog_id):
+    blog = get_object_or_404(Blogs, id=blog_id)
+    comments = Comment.objects.filter(blog=blog, parent=None)
+
+    user_liked = BlogLike.objects.filter(user=request.user, blog=blog, like=True).exists()
+    user_disliked = BlogLike.objects.filter(user=request.user, blog=blog, like=False).exists()
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            message = form.cleaned_data['message']
+            parent_comment_id = form.cleaned_data['parent_comment_id']
+
+            if parent_comment_id:
+                parent_comment = Comment.objects.get(id=parent_comment_id)
+                comment = Comment.objects.create(
+                    message=message,
+                    blog=blog,
+                    parent=parent_comment
+                )
+            else:
+                comment = Comment.objects.create(
+
+                    message=message,
+                    blog=blog
+                )
+
+        if 'like' in request.POST:
+            if not user_liked:
+                BlogLike.objects.create(user=request.user, blog=blog, like=True)
+            else:
+                BlogLike.objects.filter(user=request.user, blog=blog, like=True).delete()
+                user_liked = False
+
+    
+        if 'dislike' in request.POST:
+            if not user_disliked:
+                BlogLike.objects.create(user=request.user, blog=blog, like=False)
+            else:
+                BlogLike.objects.filter(user=request.user, blog=blog, like=False).delete()
+                user_disliked = False
+
+    else:
+        form = CommentForm()
+    for tag in blog.tags.all():
+        print(tag)
+    return render(request, 'main/blog-single.html', {
+        'blog': blog,
+        'comments': comments,
+        'form': form,
+        'user_liked': user_liked,
+        'user_disliked': user_disliked,
+    })
+
 def view_course(request,course_id):
     course= Courses.objects.get(pk=course_id)
     if course.editing_status==True:
@@ -42,26 +101,6 @@ def view_chapters(request,chapter_id,course_id):
     titles=Titles.objects.filter(chapter=chapter).order_by('order')
     questions=Questions.objects.filter(chapter=chapter)
     return render(request, "main/chapter1.html", {"fname": user_first_name,"course":course,"chapter":chapter,"titles":titles,"questions":questions})
-
-
-# def view_titles(request, course_id, chapter_id):
-#     user_first_name = request.session.get('user_first_name', 'Guest')
-#     course = Courses.objects.get(pk=course_id)
-#     chapter = get_object_or_404(Chapters, pk=chapter_id, course=course)
-#     titles = Titles.objects.filter(chapter=chapter)
-#     return render(request, "main/chapter_titles.html", {"fname": user_first_name, 'course': course, 'chapter': chapter, 'titles': titles})
-
-# def title(request,course_id, chapter_id,title_id):#view 
-#     user_first_name = request.session.get('user_first_name', 'Guest')
-#     course = Courses.objects.get(pk=course_id)
-#     chapter = get_object_or_404(Chapters, pk=chapter_id, course=course)
-#     title = get_object_or_404(Titles, pk=title_id, chapter=chapter)
-#     return render(request, "main/course2.html", {"fname": user_first_name,"titles":title})
-
-# @only_mentors
-# def add_course(request):
-#     from django.shortcuts import render, redirect
-
 
 @only_mentors
 def edit_courses(request): #view all the courses
@@ -193,7 +232,38 @@ def create_chapter(request,course_id):
         'formset': formset,
         'heading': heading_message,
     })
-
+def create_blog(request):
+    template_name = 'main/create_blog.html'
+    if request.method == 'GET':
+        bookform = BlogModelForm(request.GET or None)
+        formset = TagFormset(queryset=Tag.objects.none())
+    elif request.method == 'POST':
+        bookform = BlogModelForm(request.POST,request.FILES)
+        formset = TagFormset(request.POST)
+        #print(formset)
+        if bookform.is_valid():
+            #print(formset)
+            course = bookform.save(commit=False)
+            author=get_object_or_404(User, pk=request.user.id)
+            course.author=author
+            course.save()
+            #tags=formset.save()
+            
+            #course.tags.add(*tags)
+            for form in formset:
+                if form.is_valid():
+                    tag_name=form.cleaned_data.get('name')
+                    print(tag_name)
+                    tag, created=Tag.objects.get_or_create(name=tag_name)
+                    course.tags.add(tag)
+                  #form.save()
+            #     course.tag.append(tag)
+            course.save()
+            return redirect('/')
+    return render(request, template_name, {
+        'bookform': bookform,
+        'formset': formset,
+    })
 def publish_course(request, course_id):
     # Get the course object
     course = get_object_or_404(Courses, pk=course_id)

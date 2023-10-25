@@ -83,3 +83,52 @@ class Questions(models.Model):
     answer=models.TextField()
     def __str__(self):
         return self.question
+    
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    def __str__(self):
+        return self.name    
+class Blogs(models.Model):
+    author=models.ForeignKey(User, on_delete=models.CASCADE)
+    title=models.CharField(max_length=100,blank=False)
+    description=models.TextField()
+    blog_picture=models.ImageField(null=True,upload_to='image/blog/')
+    tags=models.ManyToManyField(Tag,related_name='Blogs')
+    created_at=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+    
+class BlogLike(models.Model):
+    blog=models.ForeignKey(Blogs,on_delete=models.CASCADE)
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    like=models.BooleanField(default=None)
+
+    class Meta:
+        unique_together = ['blog','user']
+    def __str__(self):
+        return f'{self.user} {"liked" if self.like else "disliked"} {self.blog}'
+    def get_comments(self):
+        return self.comments.filter(parent=None)
+class Comment(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Blogs, on_delete=models.CASCADE)  # Add this field
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
+    message = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        ordering = ('timestamp',)
+    def __str__(self):
+        return f'Comment by {self.user.email} on {self.timestamp}'
+    def get_comments(self):
+        return Comment.objects.filter(parent=self).filter(active=True)
+class UserProfile(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    profile_picture=models.ImageField(null=True,default='',upload_to='image/profile')
+    bio=models.TextField()
+    fname=models.CharField(max_length=50)
+    lname=models.CharField(max_length=50)
+    
+    def __str__(self):
+        return f'{self.fname}'
+    
