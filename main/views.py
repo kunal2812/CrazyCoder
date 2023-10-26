@@ -2,11 +2,12 @@ from django.shortcuts import redirect, render,get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
 from main.decorators import only_mentors
 from main.forms import CourseModelForm,ChapterFormset,TitleModelFormset,QuestionModelFormset,ChapterModelFormset, BlogModelForm, TagFormset, CommentForm
-from main.models import User, Courses, Chapters, Titles, Questions, Blogs, BlogLike, Tag, Comment
+from main.models import User, Courses, Chapters, Titles, Questions, Blogs, BlogLike, Tag, Comment, UserProfile
 from django.forms.models import modelformset_factory
 from django.forms import inlineformset_factory
 from django.views.generic.edit import UpdateView, DeleteView
@@ -28,6 +29,54 @@ def courses(request): #view all the courses
 def all_blogs(request): #view all the blogs
     all_blogs = Blogs.objects.all()
     return render(request, "main/blog.html", {'all_blogs':all_blogs})
+def post_detail(request, blog_id):
+    blog=get_object_or_404(Blogs,pk=blog_id)
+    user_profile = get_object_or_404(UserProfile, user=blog.author)
+    # List of active comments for this post
+    comments = Comment.objects.filter(blog=blog,parent=None)
+    comments_all=Comment.objects.filter(blog=blog)
+    new_comment = None
+    comment_form = CommentForm() 
+
+    if request.method == 'POST':
+        # A comment was posted
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            # Create Comment object but don't save to database yet
+            new_comment = comment_form.save(commit=False)
+            # Assign the current post to the comment
+            new_comment.blog = blog
+            # Save the comment to the database
+            user=get_object_or_404(User, pk=request.user.id)
+            new_comment.user=user
+            new_comment.save()
+            # redirect to same page and focus on that comment
+            return redirect('all_blogs')
+    else:
+            comment_form = CommentForm()
+    
+    return render(request, 'main/blog-single.html',{'blog':blog,'comments': comments,'comment_form':comment_form,'comments_all':comments_all,'user_profile':user_profile})
+
+def reply_page(request):
+    if request.method == "POST":
+
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            blog_id = request.POST.get('blog_id')  # from hidden input
+            parent_id = request.POST.get('parent')  # from hidden input
+            blog_url = request.POST.get('blog_url')  # from hidden input
+            
+            reply = form.save(commit=False)
+            user=get_object_or_404(User, pk=request.user.id)
+            reply.user = user
+            reply.blog = Blogs(id=blog_id)
+            reply.parent = Comment(id=parent_id)
+            reply.save()
+
+            return redirect('all_blogs')
+
+    return redirect("/")
 
 def view_blog(request, blog_id):
     blog = get_object_or_404(Blogs, id=blog_id)
@@ -73,8 +122,6 @@ def view_blog(request, blog_id):
 
     else:
         form = CommentForm()
-    for tag in blog.tags.all():
-        print(tag)
     return render(request, 'main/blog-single.html', {
         'blog': blog,
         'comments': comments,
@@ -240,9 +287,8 @@ def create_blog(request):
     elif request.method == 'POST':
         bookform = BlogModelForm(request.POST,request.FILES)
         formset = TagFormset(request.POST)
-        #print(formset)
+
         if bookform.is_valid():
-            #print(formset)
             course = bookform.save(commit=False)
             author=get_object_or_404(User, pk=request.user.id)
             course.author=author
@@ -253,7 +299,7 @@ def create_blog(request):
             for form in formset:
                 if form.is_valid():
                     tag_name=form.cleaned_data.get('name')
-                    print(tag_name)
+                    
                     tag, created=Tag.objects.get_or_create(name=tag_name)
                     course.tags.add(tag)
                   #form.save()
@@ -363,8 +409,6 @@ def signin(request):
             login(request, user)
             messages.success(request, "Signed in successfully")
             request.session['user_first_name'] = user.username
-            # print(f"User's first name: {user.username}")
-            # print(f"User's role: {user.role}")
             return redirect('home') 
         else:
             messages.error(request, "Invalid Credentials")

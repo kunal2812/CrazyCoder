@@ -141,7 +141,7 @@ TagFormset = modelformset_factory(
 class CommentForm(forms.ModelForm):
     class Meta:
         model=Comment
-        fields=('message')
+        fields=('message',)
     #overidrinding defalut form setting and adding bootstrap
     def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)

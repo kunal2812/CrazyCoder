@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Blog#1</title>
+    <title>{{ blog.title }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -25,12 +25,11 @@
     
   </head>
   <body>
-    <nav>
 	 <div class="bg-top navbar-light d-flex flex-column-reverse">
       <div class="container py-3">
         <div class="row no-gutters d-flex align-items-center align-items-stretch">
           <div class="col-md-4 d-flex align-items-center py-4">
-            <a class="navbar-brand" href="{% url 'home' %}">Youdemy<span>.COM</span></a>
+            <a class="navbar-brand" href= "{% url 'home' %}">Youdemy<span>.COM</span></a>
           </div>
           <div class="col-lg-8 d-block">
             <div class="row d-flex">
@@ -76,7 +75,6 @@
         </div>
       </div>
     </div>
-    
     {% include "./navbar.html" %}
     <!-- END nav -->
     <section class="hero-wrap hero-wrap-2" style="background-image: url('{% static 'images/blog.jpg' %}');">
@@ -85,8 +83,8 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-            <h1 class="mb-2 bread">Blog</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'home' %}">Blog <i class="ion-ios-arrow-forward"></i></a></span> <span>{{blog.title}} <i class="ion-ios-arrow-forward"></i></span></p>
+            <h1 class="mb-2 bread" >Blog</h1>
+            <p class="breadcrumbs" ><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'home' %}">Blog <i class="ion-ios-arrow-forward"></i></a></span> <span>{{blog.title}} <i class="ion-ios-arrow-forward"></i></span></p>
           </div>
         </div>
       </div>
@@ -111,125 +109,41 @@
             
             <div class="about-author d-flex p-4 bg-light">
               <div class="bio mr-5">
-                <img src="images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4">
+                <img src="{{ user_profile.profile_picture.url }}" alt="avatar" class="rounded-circle img-fluid" style="width: 100px;height: 100px;">
               </div>
               <div class="desc">
-                <h3>Trixy Singh</h3>
-                <p>A programmer , coder and developer since 8 years. Worked on several projects that can be viewed on github.</p>
+                <h3>{{user_profile.fname}} {{user_profile.lname}}</h3>
+                <p>{{ user_profile.bio }}</p>
               </div>
             </div>
 
-
-            <div class="pt-5 mt-5">
-              <h3 class="mb-5 h4 font-weight-bold">6 Comments</h3>
-              <ul class="comment-list">
-                <li class="comment">
-                  <div class="vcard bio"><img src="{% static 'images/person_1.jpg' %}" alt="Image placeholder">
-
-                  </div>
-                  <div class="comment-body">
-                    <h3>Rohan</h3>
-                    <div class="meta mb-2">Feb. 3, 2020 at 2:21pm</div>
-                    <p>Quiet Helpful!</p>
-                    <p><a href="#" class="reply">Reply</a></p>
-                  </div>
-                </li>
-
-                <li class="comment">
-                  <div class="vcard bio">
-                    <img src="{% static 'images/person_2.jpg' %}" alt="Image placeholder">
-                  </div>
-                  <div class="comment-body">
-                    <h3>Brienne</h3>
-                    <div class="meta mb-2">Feb. 15, 2020 at 5:05am</div>
-                    <p>Post more articles like this Trixy Sir , quiet a fan of your articles.</p>
-                    <p><a href="#" class="reply">Reply</a></p>
-                  </div>
-
-                  <ul class="children">
-                    <li class="comment">
-                      <div class="vcard bio">
-                        <img src="{% static 'images/person_1.jpg' %}" alt="Image placeholder">
-                      </div>
-                      <div class="comment-body">
-                        <h3>Alex</h3>
-                        <div class="meta mb-2">Feb. 1, 2020 at 12:21pm</div>
-                        <p>What an article man!</p>
-                        <p><a href="#" class="reply">Reply</a></p>
-                      </div>
-
-
-                      <ul class="children">
-                        <li class="comment">
-                          <div class="vcard bio">
-                            <img src="{% static 'images/person_2.jpg' %}" alt="Image placeholder">
-                          </div>
-                          <div class="comment-body">
-                            <h3>Harsh</h3>
-                            <div class="meta mb-2">Jan. 31, 2020 at 6:21pm</div>
-                            <p>Helpful </p>
-                            <p><a href="#" class="reply">Reply</a></p>
-                          </div>
-
-                            <ul class="children">
-                              <li class="comment">
-                                <div class="vcard bio">
-                                  <img src="{% static 'images/person_1.jpg' %}" alt="Image placeholder">
-                                </div>
-                                <div class="comment-body">
-                                  <h3>Saurabh</h3>
-                                  <div class="meta mb-2">Feb. 11, 2020 at 2:21pm</div>
-                                  <p>Helpful</p>
-                                  <p><a href="#" class="reply">Reply</a></p>
-                                </div>
-                              </li>
-                            </ul>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-
-                <li class="comment">
-                  <div class="vcard bio">
-                    <img src="{% static 'images/person_2.jpg' %}" alt="Image placeholder">
-                  </div>
-                  <div class="comment-body">
-                    <h3>Shiva</h3>
-                    <div class="meta mb-2">Feb. 1, 2020 at 3:51am</div>
-                    <p>Write an article on Rust vs Python</p>
-                    <p><a href="#" class="reply">Reply</a></p>
-                  </div>
-                </li>
-              </ul>
+          <div class="pt-5 mt-5">
+            <div class="comment-form-wrap pt-5">
+              <h3 class="mb-5 h4 font-weight-bold">Leave a comment</h3>
+              <form method="post" action="" class="p-5 bg-light">
+                  {% csrf_token %}
+                  {{ comment_form.as_p }}
+                  <button type="submit" class="btn btn-primary">Comment</button>
+              </form>
+            </div>
+          
+              {% with comments_all.count as total_comments %}
+                  <h3 class="mt-5">
+                      {{ total_comments }} comment{{ total_comments|pluralize }}
+                  </h3>
+              {% endwith %}
+      
+              {% if not blog.comments.all %}
+                  No comments yet
+              {% else %}
+                  {% for comment in blog.get_comments %}
+                      {% include "main/comment.html" with comment=comment %}
+                  {% endfor %}
+              {% endif %}
+                  
               <!-- END comment-list -->
               
-              <div class="comment-form-wrap pt-5">
-                <h3 class="mb-5 h4 font-weight-bold">Leave a comment</h3>
-                <form action="#" class="p-5 bg-light">
-                  <div class="form-group">
-                    <label for="name">Name *</label>
-                    <input type="text" class="form-control" id="name">
-                  </div>
-                  <div class="form-group">
-                    <label for="email">Email *</label>
-                    <input type="email" class="form-control" id="email">
-                  </div>
-                  <div class="form-group">
-                    <label for="website">Website</label>
-                    <input type="url" class="form-control" id="website">
-                  </div>
-
-                  <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
-                  </div>
-
-                </form>
-              </div>
+              
             </div>
           </div> <!-- .col-md-8 -->
 
@@ -306,7 +220,6 @@
                  <li><a href="#">January 2020 <span>(6)</span></a></li>
               	<li><a href="#">December 2019 <span>(30)</span></a></li>
               	<li><a href="#">November 2019 <span>(20)</span></a></li>
-               
                 <li><a href="#">August 2018 <span>(8)</span></a></li>
               </ul>
             </div>
@@ -396,8 +309,7 @@
         <div class="row">
           <div class="col-md-12 text-center">
 
-            <p>
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved </p>
+            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved </p>
           </div>
         </div>
       </div>
@@ -422,6 +334,20 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="{% static 'js/google-map.js' %}"></script>
   <script src="{% static 'js/main.js' %}"></script>  
-    
+    <script>
+      function handleReply(response_id) {
+        const reply_form_container = document.querySelector(`#reply-form-container-${response_id}`)
+        if (reply_form_container) {
+            reply_form_container.style.display = 'block';
+        }
+    }
+
+    function handleCancel(response_id) {
+        const reply_form_container = document.querySelector(`#reply-form-container-${response_id}`)
+        if (reply_form_container) {
+            reply_form_container.style.display = 'none';
+        }
+}
+    </script>
   </body>
 </html>

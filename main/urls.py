@@ -5,13 +5,13 @@ from .views import CourseUpdateView, ChapterUpdateView, TitleUpdateView
 urlpatterns = [
     path('', views.home, name="home"),
     path('courses/', views.courses, name="courses"),
-    path('all_blogs/', views.all_blogs, name="all_blogs"),
+    path('blog/', views.all_blogs, name="all_blogs"),
     path('course/<int:course_id>/',views.view_course, name="view_course"),
     path('course/<int:course_id>/<int:chapter_id>/',views.view_chapters, name="view_chapters"),
     path('project', views.projects, name="projects"),
     path('contact', views.contact, name="contact"),
-    path('blog', views.blog, name="blog"),
-    path('blog_single/<int:blog_id>/', views.view_blog, name="blog_single"),
+    path('blogsf', views.blog, name="blog"),
+    # path('blog_single/<int:blog_id>/', views.view_blog, name="blog_single"),
     path('editcourses/',views.edit_courses,name='edit_courses'),
     path('editcourse/<int:course_id>/',views.view_course_editing,name='view_course_editing'),
     path('signup/', views.signup, name='signup'),
@@ -30,4 +30,6 @@ urlpatterns = [
     path('course/<int:course_id>/delete/', views.CourseDelete, name='course_delete'),
     path('chapter/<int:chapter_id>/delete/', views.ChapterDelete, name='chapter_delete'),
     path('title/<int:title_id>/delete/', views.TitleDelete, name='title_delete'),
+    path('blog_single/<int:blog_id>/',views.post_detail,name="post_detail"),
+    path('comment/reply/', views.reply_page, name="reply"), #this
 ]

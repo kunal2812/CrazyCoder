@@ -83,7 +83,7 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
             <h1 class="mb-2 bread">Blog</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'blog' %}">Blog <i class="ion-ios-arrow-forward"></i></p>
+            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'all_blogs' %}">Blog <i class="ion-ios-arrow-forward"></i></p>
           </div>
         </div>
       </div>
@@ -95,7 +95,7 @@
           {% for blog in all_blogs %}
           <div class="col-md-6 col-lg-4 ftco-animate">
             <div class="blog-entry">
-              <a href="{% url 'blog_single' blog_id=blog.id %}" class="block-20 d-flex align-items-end" style="background-image: url('{{ blog.blog_picture.url }}');">
+              <a href="{% url 'post_detail' blog_id=blog.id %}" class="block-20 d-flex align-items-end" style="background-image: url('{{ blog.blog_picture.url }}');">
                 <div class="meta-date text-center p-2">
                   <span class="day">{{ blog.created_at|date:"d" }}</span>
                   <span class="mos">{{ blog.created_at|date:"M" }}.</span>
@@ -103,10 +103,10 @@
                 </div>
               </a>
               <div class="text p-4">
-                <h3 class="heading"><a href="{% url 'blog_single' blog_id=blog.id %}">{{ blog.title }}</a></h3>
+                <h3 class="heading"><a href="{% url 'post_detail' blog_id=blog.id %}">{{ blog.title }}</a></h3>
                 <p>{{ blog.description }}</p>
                 <div class="d-flex align-items-center mt-4">
-                  <p class="mb-0"><a href="{% url 'blog_single' blog_id=blog.id %}" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
+                  <p class="mb-0"><a href="{% url 'post_detail' blog_id=blog.id %}" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
                   <p class="ml-auto mb-0">
                     <a href="#" class="mr-2">{{ blog.author.email }}</a>
                     <a href="#" class="meta-chat"><span class="icon-chat"></span> 6</a>
