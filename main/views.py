@@ -29,6 +29,7 @@ def courses(request): #view all the courses
 def all_blogs(request): #view all the blogs
     all_blogs = Blogs.objects.all()
     return render(request, "main/blog.html", {'all_blogs':all_blogs})
+
 def post_detail(request, blog_id):
     blog=get_object_or_404(Blogs,pk=blog_id)
     user_profile = get_object_or_404(UserProfile, user=blog.author)
@@ -37,7 +38,8 @@ def post_detail(request, blog_id):
     comments_all=Comment.objects.filter(blog=blog)
     new_comment = None
     comment_form = CommentForm() 
-
+    likes=BlogLike.objects.filter(blog=blog,like=True).count()
+    dislikes=BlogLike.objects.filter(blog=blog,like=False).count()
     if request.method == 'POST':
         # A comment was posted
         comment_form = CommentForm(data=request.POST)
@@ -51,11 +53,19 @@ def post_detail(request, blog_id):
             new_comment.user=user
             new_comment.save()
             # redirect to same page and focus on that comment
-            return redirect('all_blogs')
+            return redirect('post_detail', blog_id=blog.id)
     else:
             comment_form = CommentForm()
     
-    return render(request, 'main/blog-single.html',{'blog':blog,'comments': comments,'comment_form':comment_form,'comments_all':comments_all,'user_profile':user_profile})
+    return render(request, 'main/blog-single.html',{
+        'blog':blog,
+        'comments': comments,
+        'comment_form':comment_form,
+        'comments_all':comments_all,
+        'user_profile':user_profile,
+        'likes':likes,
+        'dislikes':dislikes,
+        })
 
 def reply_page(request):
     if request.method == "POST":
@@ -77,58 +87,6 @@ def reply_page(request):
             return redirect('all_blogs')
 
     return redirect("/")
-
-def view_blog(request, blog_id):
-    blog = get_object_or_404(Blogs, id=blog_id)
-    comments = Comment.objects.filter(blog=blog, parent=None)
-
-    user_liked = BlogLike.objects.filter(user=request.user, blog=blog, like=True).exists()
-    user_disliked = BlogLike.objects.filter(user=request.user, blog=blog, like=False).exists()
-
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            message = form.cleaned_data['message']
-            parent_comment_id = form.cleaned_data['parent_comment_id']
-
-            if parent_comment_id:
-                parent_comment = Comment.objects.get(id=parent_comment_id)
-                comment = Comment.objects.create(
-                    message=message,
-                    blog=blog,
-                    parent=parent_comment
-                )
-            else:
-                comment = Comment.objects.create(
-
-                    message=message,
-                    blog=blog
-                )
-
-        if 'like' in request.POST:
-            if not user_liked:
-                BlogLike.objects.create(user=request.user, blog=blog, like=True)
-            else:
-                BlogLike.objects.filter(user=request.user, blog=blog, like=True).delete()
-                user_liked = False
-
-    
-        if 'dislike' in request.POST:
-            if not user_disliked:
-                BlogLike.objects.create(user=request.user, blog=blog, like=False)
-            else:
-                BlogLike.objects.filter(user=request.user, blog=blog, like=False).delete()
-                user_disliked = False
-
-    else:
-        form = CommentForm()
-    return render(request, 'main/blog-single.html', {
-        'blog': blog,
-        'comments': comments,
-        'form': form,
-        'user_liked': user_liked,
-        'user_disliked': user_disliked,
-    })
 
 def view_course(request,course_id):
     course= Courses.objects.get(pk=course_id)
@@ -419,3 +377,27 @@ def signout(request):
     logout(request)
     messages.success(request, "Logged out successfully")
     return redirect('home')
+
+def like_dislike_blog(request, blog_id, action):
+    blog = get_object_or_404(Blogs, id=blog_id)
+    user = get_object_or_404(User,id=request.user.id)
+    print(user.email)
+    if user==None:
+        messages.error(request, "You need to sign in")
+        return redirect('post_detail', blog_id=blog.id)
+
+    if action == 'like':
+        like_status = True
+    elif action == 'dislike':
+        like_status = False
+    else:
+        return redirect('blog_detail', blog_id=blog_id)
+    like=BlogLike.objects.get(blog=blog,user=user)
+    if like is not None:
+        like.like=like_status
+        like.save()
+    else:
+        like, created = BlogLike.objects.get_or_create(blog=blog, user=user,like=like_status)
+        like.like = like_status
+        like.save()
+    return redirect('post_detail', blog_id=blog.id)

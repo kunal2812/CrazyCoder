@@ -99,6 +99,23 @@
             <p><img src="{{ blog.blog_picture.url }}" alt="" class="img-fluid"></p>
             <p>{{ blog.description }}</p>
             
+            <div id="like-div">
+              <span class="like-count">{{ likes }}</span>
+              <form action="{% url 'like_dislike_blog' blog.id 'like' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Like</button>
+              </form>
+          </div>
+          
+          <div id="dislike-div">
+              <span class="dislike-count">{{ dislikes }}</span>
+              <form action="{% url 'like_dislike_blog' blog.id 'dislike' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Dislike</button>
+            </form>
+              
+          </div>
+          
             <div class="tag-widget post-tag-container mb-5 mt-5">
               <div class="tagcloud">
                 {% for tag in blog.tags.all %}
@@ -117,6 +134,7 @@
               </div>
             </div>
 
+            
           <div class="pt-5 mt-5">
             <div class="comment-form-wrap pt-5">
               <h3 class="mb-5 h4 font-weight-bold">Leave a comment</h3>
@@ -348,6 +366,7 @@
             reply_form_container.style.display = 'none';
         }
 }
+    
     </script>
   </body>
 </html>

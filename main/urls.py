@@ -10,7 +10,6 @@ urlpatterns = [
     path('course/<int:course_id>/<int:chapter_id>/',views.view_chapters, name="view_chapters"),
     path('project', views.projects, name="projects"),
     path('contact', views.contact, name="contact"),
-    path('blogsf', views.blog, name="blog"),
     # path('blog_single/<int:blog_id>/', views.view_blog, name="blog_single"),
     path('editcourses/',views.edit_courses,name='edit_courses'),
     path('editcourse/<int:course_id>/',views.view_course_editing,name='view_course_editing'),
@@ -32,4 +31,5 @@ urlpatterns = [
     path('title/<int:title_id>/delete/', views.TitleDelete, name='title_delete'),
     path('blog_single/<int:blog_id>/',views.post_detail,name="post_detail"),
     path('comment/reply/', views.reply_page, name="reply"), #this
+    path('blog/<int:blog_id>/<str:action>/', views.like_dislike_blog, name='like_dislike_blog'),
 ]
