@@ -23,6 +23,11 @@
     <link rel="stylesheet" href="{% static 'css/self.css' %}">
     <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+      card{
+        overflow: hidden;
+      }
+    </style>
   </head>
   <body>
 <div class="bg-top navbar-light d-flex flex-column-reverse">
@@ -88,7 +93,8 @@
         </div>
       </div>
     </section>
-		
+    <br>
+		<center><h1><a href="{% url 'create_blog' %}">Add Blog</a></h1></center>
 		<section class="ftco-section">
 			<div class="container">
 				<div class="row">
@@ -104,12 +110,17 @@
               </a>
               <div class="text p-4">
                 <h3 class="heading"><a href="{% url 'post_detail' blog_id=blog.id %}">{{ blog.title }}</a></h3>
+                
+                {% if blog.description|length > 30 %}
+                <p>{{ blog.description|slice:":30" }}...</p>
+                {% else %}
                 <p>{{ blog.description }}</p>
+                {% endif %}
                 <div class="d-flex align-items-center mt-4">
                   <p class="mb-0"><a href="{% url 'post_detail' blog_id=blog.id %}" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
                   <p class="ml-auto mb-0">
-                    <a href="#" class="mr-2">{{ blog.author.email }}</a>
-                    <a href="#" class="meta-chat"><span class="icon-chat"></span> 6</a>
+                    <a href="#" class="mr-2">{{ blog.author.first_name }}</a>
+                    <a href="{% url 'post_detail' blog_id=blog.id %}" class="meta-chat"><span class="icon-chat"></span> {{blog.comments_all}}</a>
                   </p>
                 </div>
               </div>

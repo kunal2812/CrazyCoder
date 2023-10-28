@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from . import views
-from .views import CourseUpdateView, ChapterUpdateView, TitleUpdateView
+from .views import CourseUpdateView, ChapterUpdateView, TitleUpdateView,BlogUpdateView
 urlpatterns = [
     path('', views.home, name="home"),
     path('courses/', views.courses, name="courses"),
@@ -20,7 +20,7 @@ urlpatterns = [
     path('add_titles/<int:chapter_id>/',views.create_title_model_form,name='create_title_model_form'),
     path('add_question/<int:chapter_id>/',views.create_question,name='create_question'),
     path('add_chapter/<int:course_id>/',views.create_chapter,name='create_chapter'),
-    path('add_blog/',views.create_blog,name='create_blog'),
+    path('blog/add/',views.create_blog,name='create_blog'),
     path('editcourse/<int:course_id>/<int:chapter_id>/',views.mentor_view_chapter,name='view_chapters_edit'),
     path('publish_course/<int:course_id>/', views.publish_course, name='publish_course'),
      path('course/<int:pk>/edit/', CourseUpdateView.as_view(), name='course_edit'),
@@ -29,7 +29,10 @@ urlpatterns = [
     path('course/<int:course_id>/delete/', views.CourseDelete, name='course_delete'),
     path('chapter/<int:chapter_id>/delete/', views.ChapterDelete, name='chapter_delete'),
     path('title/<int:title_id>/delete/', views.TitleDelete, name='title_delete'),
-    path('blog_single/<int:blog_id>/',views.post_detail,name="post_detail"),
+    path('blog/<int:blog_id>/',views.post_detail,name="post_detail"),
     path('comment/reply/', views.reply_page, name="reply"), #this
+    path('blog/<int:pk>/editblog/', BlogUpdateView.as_view(), name='update_blog'),
+    path('blog/<int:blog_id>/delete/', views.BlogDelete, name='delete_blog'),
     path('blog/<int:blog_id>/<str:action>/', views.like_dislike_blog, name='like_dislike_blog'),
+
 ]

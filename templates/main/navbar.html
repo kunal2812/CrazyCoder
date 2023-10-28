@@ -79,6 +79,13 @@
       coursesLink.parentElement.classList.add("active");
     }
   }
+  else if (currentURL.includes("/blog/")) {
+    var coursesLink = findLinkByText("Blog");
+    if (coursesLink) {
+      coursesLink.parentElement.classList.add("active");
+    }
+  }
+
 
   function findLinkByText(text) {
     for (var i = 0; i < links.length; i++) {

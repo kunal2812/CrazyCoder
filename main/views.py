@@ -28,6 +28,9 @@ def courses(request): #view all the courses
 
 def all_blogs(request): #view all the blogs
     all_blogs = Blogs.objects.all()
+    for blog in all_blogs:
+        comments_all=Comment.objects.filter(blog=blog)
+        blog.comments_all=comments_all.count()
     return render(request, "main/blog.html", {'all_blogs':all_blogs})
 
 def post_detail(request, blog_id):
@@ -263,7 +266,7 @@ def create_blog(request):
                   #form.save()
             #     course.tag.append(tag)
             course.save()
-            return redirect('/')
+            return redirect('/blog/')
     return render(request, template_name, {
         'bookform': bookform,
         'formset': formset,
@@ -401,3 +404,14 @@ def like_dislike_blog(request, blog_id, action):
         like.like = like_status
         like.save()
     return redirect('post_detail', blog_id=blog.id)
+
+class BlogUpdateView(UpdateView):
+    model = Blogs
+    template_name = 'main/course_form.html'  # Create an edit form template
+    fields = ['title', 'description','tags']
+    success_url = reverse_lazy('all_blogs')  # Redirect to a success page or URL after editing
+
+def BlogDelete(request,blog_id):
+        blog = get_object_or_404(Blogs, pk=blog_id)
+        blog.delete()
+        return redirect('all_blogs')

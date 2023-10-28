@@ -22,8 +22,32 @@
     <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
     <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    
+    <style>
+      body{
+  margin: 40px;
+}
+
+button{
+  cursor: pointer;
+  outline: 0;
+  color: #AAA;
+
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.green{
+  color: green;
+}
+
+.red{
+  color: red;
+}
+    </style>
   </head>
+  <script src="https://use.fontawesome.com/fe459689b4.js"></script>
   <body>
 	 <div class="bg-top navbar-light d-flex flex-column-reverse">
       <div class="container py-3">
@@ -99,23 +123,33 @@
             <p><img src="{{ blog.blog_picture.url }}" alt="" class="img-fluid"></p>
             <p>{{ blog.description }}</p>
             
-            <div id="like-div">
-              <span class="like-count">{{ likes }}</span>
-              <form action="{% url 'like_dislike_blog' blog.id 'like' %}" method="post">
-                {% csrf_token %}
-                <button type="submit">Like</button>
-              </form>
+          <div id="like-div">
+            <form action="{% url 'like_dislike_blog' blog.id 'like' %}" method="post">
+              {% csrf_token %}
+              <div class="dislike-container">
+                <button type="submit" class="btn" id="green"><i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i></button>
+                <span class="dislike-count">{{ likes }}</span>
+              </div>
+            </form>
           </div>
           
           <div id="dislike-div">
-              <span class="dislike-count">{{ dislikes }}</span>
-              <form action="{% url 'like_dislike_blog' blog.id 'dislike' %}" method="post">
-                {% csrf_token %}
-                <button type="submit">Dislike</button>
+            <form action="{% url 'like_dislike_blog' blog.id 'dislike' %}" method="post">
+              {% csrf_token %}
+              <div class="dislike-container">
+                <button type="submit" class="btn" id="red">
+                  <i class="fa fa-thumbs-down fa-lg" aria-hidden="true"></i>
+                </button>
+                <span class="dislike-count">{{ dislikes }}</span>
+              </div>
             </form>
-              
           </div>
-          
+          {% if request.user.id == blog.author.id%}
+            <a href= "{% url 'update_blog' pk=blog.id %}">Edit your Blog</a>
+            <br>
+            <a href="{% url 'delete_blog' blog_id=blog.id %}">Delete your Blog</a>
+            
+          {% endif %}
             <div class="tag-widget post-tag-container mb-5 mt-5">
               <div class="tagcloud">
                 {% for tag in blog.tags.all %}
@@ -366,6 +400,26 @@
             reply_form_container.style.display = 'none';
         }
 }
+var btn1 = document.querySelector('#green');
+var btn2 = document.querySelector('#red');
+
+btn1.addEventListener('click', function() {
+  
+    if (btn2.classList.contains('red')) {
+      btn2.classList.remove('red');
+    } 
+  this.classList.toggle('green');
+  
+});
+
+btn2.addEventListener('click', function() {
+  
+    if (btn1.classList.contains('green')) {
+      btn1.classList.remove('green');
+    } 
+  this.classList.toggle('red');
+  
+});
     
     </script>
   </body>
