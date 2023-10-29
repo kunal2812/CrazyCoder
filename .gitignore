@@ -3,4 +3,5 @@ main/__pycache__
 youdemy/__pycache__
 db.sqlite3
 static/images/Courses
-media
+media/images
+media/image

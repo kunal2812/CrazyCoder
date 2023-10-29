@@ -125,11 +125,9 @@ class Comment(models.Model):
     
 class UserProfile(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='userprofiles')
-    profile_picture=models.ImageField(null=True,default='',upload_to='image/profile')
-    bio=models.TextField()
-    fname=models.CharField(max_length=50)
-    lname=models.CharField(max_length=50)
-    
+    profile_picture=models.ImageField(null=True,default='defaultpic.jpg',upload_to='image/profile')
+    bio=models.TextField(default='I am passionate about learning!')
+
     def __str__(self):
-        return f'{self.fname}'
+        return f'{self.user.first_name}'
     

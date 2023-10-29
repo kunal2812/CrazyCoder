@@ -354,6 +354,8 @@ def signup(request):
         if password1 == password2:
             # Create a new user
             user = User.objects.create_user( email=email,first_name=fname,last_name=lname,password=password1,role=role)
+            userp=UserProfile.objects.create(user=user)
+            userp.save()
             user.save()
             messages.success(request, "User registered successfully")
             return redirect('signin')
