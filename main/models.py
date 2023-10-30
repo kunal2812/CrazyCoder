@@ -95,7 +95,7 @@ class Blogs(models.Model):
     description=models.TextField()
     conclusion=models.TextField()
     blog_picture=models.ImageField(null=True,upload_to='image/blog/')
-    tags=models.ManyToManyField(Tag,related_name='Blogs')
+    tags=models.ManyToManyField(Tag,related_name='Blogs',blank=True)
     created_at=models.DateTimeField(default=timezone.now)
     def get_comments(self):
         return self.comments.filter(parent=None)

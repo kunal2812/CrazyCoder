@@ -260,9 +260,11 @@ def create_blog(request):
             for form in formset:
                 if form.is_valid():
                     tag_name=form.cleaned_data.get('name')
-                    
-                    tag, created=Tag.objects.get_or_create(name=tag_name)
-                    course.tags.add(tag)
+                    try:
+                        tag, created=Tag.objects.get_or_create(name=tag_name)
+                        course.tags.add(tag)
+                    except:
+                        pass
                   #form.save()
             #     course.tag.append(tag)
             course.save()
