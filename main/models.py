@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
+from django.utils import timezone
 
 class UserManager(BaseUserManager):
     """Define a model manager for User model with no username field."""
@@ -83,3 +83,58 @@ class Questions(models.Model):
     answer=models.TextField()
     def __str__(self):
         return self.question
+    
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    def __str__(self):
+        return self.name    
+class Blogs(models.Model):
+    author=models.ForeignKey(User, on_delete=models.CASCADE)
+    title=models.CharField(max_length=100,blank=False)
+    intro=models.TextField()
+    description=models.TextField()
+    conclusion=models.TextField()
+    blog_picture=models.ImageField(null=True,upload_to='image/blog/')
+    tags=models.ManyToManyField(Tag,related_name='Blogs',blank=True)
+    created_at=models.DateTimeField(default=timezone.now)
+    def get_comments(self):
+        return self.comments.filter(parent=None)
+    def save(self, *args, **kwargs):
+        # Set the 'created_at' field to the current local time
+        if not self.created_at:
+            self.created_at = timezone.now()
+        super(Blogs, self).save(*args, **kwargs)
+    def __str__(self):
+        return self.title
+    
+class BlogLike(models.Model):
+    blog=models.ForeignKey(Blogs,on_delete=models.CASCADE)
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    like=models.BooleanField(default=None)
+
+    class Meta:
+        unique_together = ['blog','user']
+    def __str__(self):
+        return f'{self.user} {"liked" if self.like else "disliked"} {self.blog}'
+    
+class Comment(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Blogs, on_delete=models.CASCADE,related_name="comments")  # Add this field
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
+    message = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        ordering = ('timestamp',)
+    def get_comments(self):
+        return Comment.objects.filter(parent=self)
+    def __str__(self):
+        return f'Comment by {self.user.email} on {self.timestamp}'
+    
+class UserProfile(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='userprofiles')
+    profile_picture=models.ImageField(null=True,default='defaultpic.jpg',upload_to='image/profile')
+    bio=models.TextField(default='I am passionate about learning!')
+
+    def __str__(self):
+        return f'{self.user.first_name}'
+    

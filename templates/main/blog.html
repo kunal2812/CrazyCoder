@@ -23,6 +23,48 @@
     <link rel="stylesheet" href="{% static 'css/self.css' %}">
     <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+      card{
+        overflow: hidden;
+      }
+      
+      .blog-entry {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+
+
+      .heading {
+        height: 60px; 
+        
+      }
+
+      .content {
+        height: 100px; 
+        display: -webkit-box;
+        -webkit-line-clamp: 4; 
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .read-more {
+        margin-top: 8px; 
+      }
+
+      .btn-primary {
+        padding: 5px 20px;
+      }
+
+      .author-meta {
+        margin-top: 8px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+    </style>
   </head>
   <body>
 <div class="bg-top navbar-light d-flex flex-column-reverse">
@@ -83,167 +125,48 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
             <h1 class="mb-2 bread">Blog</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'blog' %}">Blog <i class="ion-ios-arrow-forward"></i></p>
+            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'all_blogs' %}">Blog <i class="ion-ios-arrow-forward"></i></p>
           </div>
         </div>
       </div>
     </section>
-		
+    <br>
+    {% if user.is_authenticated %}
+		<center><h1><a href="{% url 'create_blog' %}">Add Blog</a></h1></center>
+    {% endif %}
 		<section class="ftco-section">
 			<div class="container">
 				<div class="row">
+          {% for blog in all_blogs %}
           <div class="col-md-6 col-lg-4 ftco-animate">
             <div class="blog-entry">
-              <a href="{% url 'blog_single' %}" class="block-20 d-flex align-items-end" style="background-image: url('{% static 'images/image_2.jpg' %}');">
+              <a href="{% url 'post_detail' blog_id=blog.id %}" class="block-20 d-flex align-items-end" style="background-image: url('{{ blog.blog_picture.url }}');">
                 <div class="meta-date text-center p-2">
-                  <span class="day">1</span>
-                  <span class="mos">Feb.</span>
-                  <span class="yr">2020</span>
+                  <span class="day">{{ blog.created_at|date:"d" }}</span>
+                  <span class="mos">{{ blog.created_at|date:"M" }}.</span>
+                  <span class="yr">{{ blog.created_at|date:"Y" }}</span>
                 </div>
               </a>
               <div class="text p-4">
-                <h3 class="heading"><a href="{% url 'blog_single' %}">Ruby vs. Python: What’s the Difference?</a></h3>
-                <p>I’ve used both Ruby and Python in my work — and while they’re similar in syntaxes they’re also different in some critical ways such as logic.</p>
-                <div class="d-flex align-items-center mt-4">
-                  <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
-                  <p class="ml-auto mb-0">
-                    <a href="#" class="mr-2">Trixy</a>
-                    <a href="#" class="meta-chat"><span class="icon-chat"></span> 6</a>
+                {% if blog.title|length > 47 %}
+                <h3 class="heading"><a href="{% url 'post_detail' blog_id=blog.id %}">{{ blog.title|slice:":47" }}...</a></h3>
+                {% else %}
+                <h3 class="heading"><a href="{% url 'post_detail' blog_id=blog.id %}">{{ blog.title }}</a></h3>
+                {% endif %}
+                
+                <p class="content">{{ blog.intro }}</p>
+                <div class="read-more author-meta">
+                  <a href="{% url 'post_detail' blog_id=blog.id %}" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a>
+                  <p class="ml-auto mb-0"></p>
+                    <a href="#" class="mr-2">{{ blog.author.first_name }}</a>
+                    <a href="{% url 'post_detail' blog_id=blog.id %}" class="meta-chat"><span class="icon-chat"></span> {{ blog.comments_all }}</a>
                   </p>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-lg-4 ftco-animate">
-            <div class="blog-entry">
-              <a href="{% static 'blog_single' %}" class="block-20 d-flex align-items-end" style="background-image: url('{% static 'images/image_3.png' %}');">
-								<div class="meta-date text-center p-2">
-                  <span class="day">28</span>
-                  <span class="mos">Jan.</span>
-                  <span class="yr">2020</span>
-                </div>
-              </a>
-              <div class="text p-4">
-                <h3 class="heading"><a href="#">6 Reasons Why Python Is Suddenly Super Popular</a></h3>
-                <p>Python is a general-purpose language — sometimes referred to as utilitarian — which is designed to be simple to read and write.</p>
-                <div class="d-flex align-items-center mt-4">
-	                <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
-	                <p class="ml-auto mb-0">
-	                	<a href="#" class="mr-2"> Admin</a>
-	                	<a href="#" class="meta-chat"><span class="icon-chat"></span> 36</a>
-	                </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          {% endfor %}
           
-          <div class="col-md-6 col-lg-4 ftco-animate">
-            <div class="blog-entry">
-              <a href="{% static 'blog_single' %}" class="block-20 d-flex align-items-end" style="background-image: url('{% static 'images/image_1.png' %}');">
-								<div class="meta-date text-center p-2">
-                  <span class="day">29</span>
-                  <span class="mos">Jan.</span>
-                  <span class="yr">2020</span>
-                </div>
-              </a>
-              <div class="text p-4">
-                <h3 class="heading"><a href="#">Coding for kids: Reasons kids should get started</a></h3>
-                <p>Coding for kids seems like impossible endeavor, right? It’s a lot like quite Coding for kids seems like an impossible endeavor, right?</p>
-                <div class="d-flex align-items-center mt-4">
-	                <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
-	                <p class="ml-auto mb-0">
-	                	<a href="#" class="mr-2">Alex</a>
-	                	<a href="#" class="meta-chat"><span class="icon-chat"></span> 13</a>
-	                </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4 ftco-animate">
-            <div class="blog-entry">
-              <a href="{% static 'blog_single' %}" class="block-20 d-flex align-items-end" style="background-image: url('{% static 'images/image_4.png' %}');">
-								<div class="meta-date text-center p-2">
-                  <span class="day">27</span>
-                  <span class="mos">Jan.</span>
-                  <span class="yr">2020</span>
-                </div>
-              </a>
-              <div class="text p-4">
-                <h3 class="heading"><a href="#">Developers love Rust programming language: Here's why</a></h3>
-                <p>The programming language created by Mozilla has hit a sweet spot in the world of systems programming.</p>
-                <div class="d-flex align-items-center mt-4">
-	                <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
-	                <p class="ml-auto mb-0">
-	                	<a href="#" class="mr-2">Shivam</a>
-	                	<a href="#" class="meta-chat"><span class="icon-chat"></span> 14</a>
-	                </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 ftco-animate">
-            <div class="blog-entry">
-              <a href="{% static 'blog_single' %}" class="block-20 d-flex align-items-end" style="background-image: url('{% static 'images/image_5.png' %}');">
-								<div class="meta-date text-center p-2">
-                  <span class="day">18</span>
-                  <span class="mos">Jan.</span>
-                  <span class="yr">2020</span>
-                </div>
-              </a>
-              <div class="text p-4">
-                <h3 class="heading"><a href="#">Is Pygame fast enough for modern game development?</a></h3>
-                <p> As someone who is developing a Pygame game for their computer science final, with over 4000 lines.</p>
-                <div class="d-flex align-items-center mt-4">
-	                <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
-	                <p class="ml-auto mb-0">
-	                	<a href="#" class="mr-2">Shashwat</a>
-	                	<a href="#" class="meta-chat"><span class="icon-chat"></span> 8</a>
-	                </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 ftco-animate">
-            <div class="blog-entry">
-              <a href="{% static 'blog_single' %}" class="block-20 d-flex align-items-end" style="background-image: url('{% static 'images/image_6.png' %}');">
-								<div class="meta-date text-center p-2">
-                  <span class="day">12</span>
-                  <span class="mos">Jan.</span>
-                  <span class="yr">2020</span>
-                </div>
-              </a>
-
-              <div class="text p-4">
-                <h3 class="heading"><a href="#">A Guide For Planning a Career as Ruby on Rails Developer</a></h3>
-                <p>Ruby on Rails is a developer-friendly web application framework that helps to accomplish more with less code.</p>
-                <div class="d-flex align-items-center mt-4">
-                  <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
-                  <p class="ml-auto mb-0">
-                    <a href="#" class="mr-2">Naveen</a>
-                    <a href="#" class="meta-chat"><span class="icon-chat"></span> 18</a>
-	                </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row mt-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-			</div>
 		</section>
 		
     <footer class="ftco-footer ftco-bg-dark ftco-section">
