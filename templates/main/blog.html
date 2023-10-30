@@ -94,7 +94,9 @@
       </div>
     </section>
     <br>
+    {% if user.is_authenticated %}
 		<center><h1><a href="{% url 'create_blog' %}">Add Blog</a></h1></center>
+    {% endif %}
 		<section class="ftco-section">
 			<div class="container">
 				<div class="row">
@@ -109,12 +111,15 @@
                 </div>
               </a>
               <div class="text p-4">
-                <h3 class="heading"><a href="{% url 'post_detail' blog_id=blog.id %}">{{ blog.title }}</a></h3>
-                
-                {% if blog.description|length > 30 %}
-                <p>{{ blog.description|slice:":30" }}...</p>
+                {% if blog.title|length > 25 %}
+                <h3 class="heading"><a href="{% url 'post_detail' blog_id=blog.id %}">{{ blog.title|slice:":22" }}...</a></h3>
                 {% else %}
-                <p>{{ blog.description }}</p>
+                <h3 class="heading"><a href="{% url 'post_detail' blog_id=blog.id %}">{{ blog.title }}</a></h3>
+                {% endif %}
+                {% if blog.intro|length > 30 %}
+                <p>{{ blog.intro|slice:":30" }}...</p>
+                {% else %}
+                <p>{{ blog.intro }}</p>
                 {% endif %}
                 <div class="d-flex align-items-center mt-4">
                   <p class="mb-0"><a href="{% url 'post_detail' blog_id=blog.id %}" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
@@ -129,21 +134,7 @@
           {% endfor %}
           
         </div>
-        <div class="row mt-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        
 			</div>
 		</section>
 		

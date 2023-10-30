@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
+from django.utils import timezone
 
 class UserManager(BaseUserManager):
     """Define a model manager for User model with no username field."""
@@ -91,12 +91,19 @@ class Tag(models.Model):
 class Blogs(models.Model):
     author=models.ForeignKey(User, on_delete=models.CASCADE)
     title=models.CharField(max_length=100,blank=False)
+    intro=models.TextField()
     description=models.TextField()
+    conclusion=models.TextField()
     blog_picture=models.ImageField(null=True,upload_to='image/blog/')
     tags=models.ManyToManyField(Tag,related_name='Blogs')
-    created_at=models.DateTimeField(auto_now_add=True)
+    created_at=models.DateTimeField(default=timezone.now)
     def get_comments(self):
         return self.comments.filter(parent=None)
+    def save(self, *args, **kwargs):
+        # Set the 'created_at' field to the current local time
+        if not self.created_at:
+            self.created_at = timezone.now()
+        super(Blogs, self).save(*args, **kwargs)
     def __str__(self):
         return self.title
     

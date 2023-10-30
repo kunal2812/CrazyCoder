@@ -108,7 +108,7 @@ button{
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
             <h1 class="mb-2 bread" >Blog</h1>
-            <p class="breadcrumbs" ><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'home' %}">Blog <i class="ion-ios-arrow-forward"></i></a></span> <span>{{blog.title}} <i class="ion-ios-arrow-forward"></i></span></p>
+            <p class="breadcrumbs" ><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'all_blogs' %}">Blog <i class="ion-ios-arrow-forward"></i></a></span> <span>{{blog.title}} <i class="ion-ios-arrow-forward"></i></span></p>
           </div>
         </div>
       </div>
@@ -119,10 +119,10 @@ button{
 				<div class="row">
           <div class="col-lg-8 ftco-animate">
             <h2 class="mb-3">{{ blog.title }}</h2>
-            
+            <p>{{ blog.intro }}</p>
             <p><img src="{{ blog.blog_picture.url }}" alt="" class="img-fluid"></p>
             <p>{{ blog.description }}</p>
-            
+            <p>{{ blog.conclusion }}</p>
           <div id="like-div">
             <form action="{% url 'like_dislike_blog' blog.id 'like' %}" method="post">
               {% csrf_token %}

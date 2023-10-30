@@ -87,9 +87,9 @@ def reply_page(request):
             reply.parent = Comment(id=parent_id)
             reply.save()
 
-            return redirect('all_blogs')
+            return redirect('post_detail', blog_id=blog_id)
 
-    return redirect("/")
+    return redirect('post_detail', blog_id=blog.id)
 
 def view_course(request,course_id):
     course= Courses.objects.get(pk=course_id)
@@ -397,12 +397,13 @@ def like_dislike_blog(request, blog_id, action):
         like_status = False
     else:
         return redirect('blog_detail', blog_id=blog_id)
-    like=BlogLike.objects.get(blog=blog,user=user)
-    if like is not None:
-        like.like=like_status
+    
+    try:
+        like = BlogLike.objects.get(blog=blog, user=user)
+        like.like = like_status
         like.save()
-    else:
-        like, created = BlogLike.objects.get_or_create(blog=blog, user=user,like=like_status)
+    except BlogLike.DoesNotExist:
+        like, created = BlogLike.objects.get_or_create(blog=blog, user=user, like=like_status)
         like.like = like_status
         like.save()
     return redirect('post_detail', blog_id=blog.id)
@@ -410,7 +411,7 @@ def like_dislike_blog(request, blog_id, action):
 class BlogUpdateView(UpdateView):
     model = Blogs
     template_name = 'main/course_form.html'  # Create an edit form template
-    fields = ['title', 'description','tags']
+    fields = ['title', 'intro','description','conclusion','tags']
     success_url = reverse_lazy('all_blogs')  # Redirect to a success page or URL after editing
 
 def BlogDelete(request,blog_id):

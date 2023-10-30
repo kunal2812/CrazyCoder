@@ -104,10 +104,12 @@ ChapterModelFormset = modelformset_factory(
 class BlogModelForm(forms.ModelForm):
     class Meta:
         model = Blogs
-        fields = ('title', 'description', 'blog_picture')
+        fields = ('title', 'intro','description','conclusion', 'blog_picture')
         labels = {
             'title': 'Title',
+            'intro':'Introduction',
             'description': 'Description',
+            'conclusion': 'Conclusion',
             'blog_pictire': 'Blog Thumbnail',
         }
         widgets = {
@@ -115,11 +117,19 @@ class BlogModelForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Enter Title Name here'
             }),
+            'intro': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter BLog Introduction here'
+            }),
             'description': forms.Textarea(attrs={
                 'class': 'form-control',
                 'placeholder': 'Enter Blog Description here'
             }),
-            'course_pictire': forms.FileInput(attrs={
+            'conclusion': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Blog Conclusion here'
+            }),
+            'blog_picture': forms.FileInput(attrs={
                 'class': 'form-control-file',
                 'required':False,
                 'label': 'Blog Thumbnail'
