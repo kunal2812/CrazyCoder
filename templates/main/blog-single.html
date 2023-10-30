@@ -127,6 +127,7 @@
           <p><img src="{{ blog.blog_picture.url }}" alt="" class="img-fluid"></p>
           <p>{{ blog.description }}</p>
           <p>{{ blog.conclusion }}</p>
+          {% if user.is_authenticated %}
           <div id="like-div">
             <form action="{% url 'like_dislike_blog' blog.id 'like' %}" method="post">
               {% csrf_token %}
@@ -137,7 +138,6 @@
               </div>
             </form>
           </div>
-
           <div id="dislike-div">
             <form action="{% url 'like_dislike_blog' blog.id 'dislike' %}" method="post">
               {% csrf_token %}
@@ -149,6 +149,11 @@
               </div>
             </form>
           </div>
+          {% else %}
+          <h6><br>If you want to like or dislike this post,<a href="{% url 'home' %}"> Sign in </a></h6>
+          {% endif %}
+
+          
           {% if request.user.id == blog.author.id%}
           <a href="{% url 'update_blog' pk=blog.id %}">Edit your Blog</a>
           <br>
@@ -174,7 +179,7 @@
             </div>
           </div>
 
-
+          {% if user.is_authenticated %}
           <div class="pt-5 mt-5">
             <div class="comment-form-wrap pt-5">
               <h3 class="mb-5 h4 font-weight-bold">Leave a comment</h3>
@@ -203,6 +208,10 @@
 
 
           </div>
+          {% else %}
+          <br>
+          <h4> To leave a comment<a href="{% url 'home' %}"> Sign in </a> </h4>
+          {% endif %}
         </div> <!-- .col-md-8 -->
 
         <div class="col-lg-4 sidebar ftco-animate">

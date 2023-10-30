@@ -119,7 +119,7 @@ class BlogModelForm(forms.ModelForm):
             }),
             'intro': forms.Textarea(attrs={
                 'class': 'form-control',
-                'placeholder': 'Enter BLog Introduction here'
+                'placeholder': 'Enter Blog Introduction here'
             }),
             'description': forms.Textarea(attrs={
                 'class': 'form-control',
