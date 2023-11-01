@@ -85,6 +85,12 @@
       coursesLink.parentElement.classList.add("active");
     }
   }
+  else if (currentURL.includes("/projects/")) {
+    var coursesLink = findLinkByText("Projects");
+    if (coursesLink) {
+      coursesLink.parentElement.classList.add("active");
+    }
+  }
 
 
   function findLinkByText(text) {

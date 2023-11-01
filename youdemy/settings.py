@@ -130,3 +130,6 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 TIME_ZONE = 'Asia/Kolkata'
+
+ALLOWED_VIDEO_EXTENSIONS = ['.mp4', '.avi', '.mov']
+ALLOWED_VIDEO_CONTENT_TYPES = ['video/mp4', 'video/avi', 'video/quicktime']

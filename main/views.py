@@ -6,14 +6,15 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
 from main.decorators import only_mentors
-from main.forms import CourseModelForm,ChapterFormset,TitleModelFormset,QuestionModelFormset,ChapterModelFormset, BlogModelForm, TagFormset, CommentForm
-from main.models import User, Courses, Chapters, Titles, Questions, Blogs, BlogLike, Tag, Comment, UserProfile
+from main.forms import CourseModelForm,ChapterFormset,TitleModelFormset,QuestionModelFormset,ChapterModelFormset, BlogModelForm, TagFormset, CommentForm, ProjectModelForm, ProjectStepFormset
+from main.models import User, Courses, Chapters, Titles, Questions, Blogs, BlogLike, Tag, Comment, UserProfile, Project, Project_steps
 from django.forms.models import modelformset_factory
 from django.forms import inlineformset_factory
 from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.views import View
 from django import forms
+from django.conf import settings
 #from .forms import CourseForm, ChapterForm, TitleForm
 # Create your views here.
 def home(request):
@@ -327,8 +328,9 @@ def TitleDelete(request,title_id):
         return redirect('edit_courses')
 
 def projects(request):
-    user_first_name = request.session.get('user_first_name', 'Guest')
-    return render(request, "main/project.html", {"fname": user_first_name})
+    projects=Project.objects.all()
+    
+    return render(request, "main/project.html", {"projects": projects})
 
 def blog(request):
     user_first_name = request.session.get('user_first_name', 'Guest')
@@ -420,3 +422,73 @@ def BlogDelete(request,blog_id):
         blog = get_object_or_404(Blogs, pk=blog_id)
         blog.delete()
         return redirect('all_blogs')
+
+@only_mentors
+def create_project_with_steps(request):
+    template_name = 'main/create_project_with_steps.html'
+    if request.method == 'GET':
+        bookform = ProjectModelForm(request.GET or None)
+        formset = ProjectStepFormset(queryset=Project_steps.objects.none())
+    elif request.method == 'POST':
+        bookform = ProjectModelForm(request.POST,request.FILES)
+        formset = ProjectStepFormset(request.POST,request.FILES)
+        if bookform.is_valid() and formset.is_valid():
+            # first save this book, as its reference will be used in `Author`
+            project = bookform.save(commit=False);
+            #mentor=User.objects.get(pk=request.user.id)
+            mentor=get_object_or_404(User, pk=request.user.id)
+            
+            project.mentor=mentor
+            if 'video' in request.FILES:
+                video = request.FILES['video']
+                file_extension = video.name.lower()
+                if not any(file_extension.endswith(ext) for ext in settings.ALLOWED_VIDEO_EXTENSIONS):
+                    messages.error(request, "Submit Valid Video!")
+                    return redirect('create_project')
+                content_type = video.content_type
+                if content_type not in settings.ALLOWED_VIDEO_CONTENT_TYPES:
+                    messages.error(request, "Submit Valid ideo!")
+                    return redirect('create_project')
+                project.video = video
+            project.save()
+            
+            for form in formset:
+                # so that `book` instance can be attached.
+                project_step = form.save(commit=False)
+                project_step.project = project                
+                project_step.save()
+            return redirect('projects')
+    return render(request, template_name, {
+        'bookform': bookform,
+        'formset': formset,
+    })
+#themes=prism&languages=markup+css+clike+javascript+c+cpp+css-extras+django+git+go+java+kotlin+markup-templating+plsql+python+sql&plugins=line-highlight+line-numbers+custom-class+inline-color+command-line */
+def project_detail(request, project_id):
+    project=get_object_or_404(Project,pk=project_id)
+    project_steps=Project_steps.objects.filter(project=project).order_by('order')
+    user_profile = get_object_or_404(UserProfile, user=project.mentor)
+    if project.code_language.upper()=='CSS':
+        language='css'
+    elif project.code_language.upper()=='PYTHON':
+        language='python'
+    elif project.code_language.upper()=='JAVASCRIPT':
+        language='javascript'
+    elif project.code_language.upper()=='JAVA':
+        language='java'
+    elif project.code_language.upper()=='KOTLIN':
+        language='kotlin'
+    elif project.code_language.upper()=='C++' or project.code_language.UPPER=='CPP':
+        langauge='cpp'
+    else:
+        language=''
+    return render(request, 'main/project_single.html',{
+        'project':project,
+        'project_steps': project_steps,
+        'language':language,
+        'user_profile':user_profile,
+        })
+# <pre class="line-numbers">
+#    <code class="language-css">
+#       p { color: red }
+#    </code>
+# </pre>

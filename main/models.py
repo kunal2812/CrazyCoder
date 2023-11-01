@@ -138,3 +138,31 @@ class UserProfile(models.Model):
     def __str__(self):
         return f'{self.user.first_name}'
     
+class Project(models.Model):
+    CODE_LANGUAGE_CHOICES = [
+        ('Css','CSS'),
+        ('html','HTML'),
+        ('javascript','Javascript'),
+        ('python','Python'),
+        ('kotlin','Kotlin'),
+        ('java','Java'),
+    ]
+    mentor=models.ForeignKey(User,on_delete=models.CASCADE)
+    title=models.CharField(max_length=60)
+    picture=models.ImageField(default='project.png',upload_to='image/project')
+    video = models.FileField(upload_to='image/videos/', null=True, blank=True, help_text="Upload a video file (or)")
+    video_url = models.URLField(null=True, blank=True, help_text="Enter a video URL (or)")
+    intro=models.TextField()
+    conclusion=models.TextField()
+    code=models.TextField(null=True)
+    code_language=models.CharField(max_length=20,null=True,choices=CODE_LANGUAGE_CHOICES)
+    def __str__(self):
+        return f'{self.title}'
+
+class Project_steps(models.Model):
+    project=models.ForeignKey(Project,on_delete=models.CASCADE,related_name='project_steps')
+    order=models.IntegerField()
+    text=models.TextField()
+    picture=models.ImageField(null=True,blank=True,upload_to='image/project/')
+    def __str__(self):
+        return f'{self.order } {self.project.title}'
