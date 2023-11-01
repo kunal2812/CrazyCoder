@@ -3,12 +3,12 @@
 <html lang="en">
 
 <head>
-  <title>{{ blog.title }}</title>
+  <title>{{ project.title }}</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
-  <link href="{% static 'css/prism.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/prism.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/animate.css' %}">
 
@@ -108,25 +108,23 @@
     <div class="container">
       <div class="row no-gutters slider-text align-items-center justify-content-center">
         <div class="col-md-9 ftco-animate text-center">
-          <h1 class="mb-2 bread">Blog</h1>
+          <h1 class="mb-2 bread">Project</h1>
           <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i
-                  class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'all_blogs' %}">Blog
-                <i class="ion-ios-arrow-forward"></i></a></span> <span>{{blog.title}} <i
+                  class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'projects' %}">Project
+                <i class="ion-ios-arrow-forward"></i></a></span> <span>{{project.title}} <i
                 class="ion-ios-arrow-forward"></i></span></p>
         </div>
       </div>
     </div>
   </section>
-
   <section class="ftco-section">
     <div class="container">
       <div class="row">
-        <div class="ftco-animate">
+        <div class="col-lg-8 ftco-animate">
           <h2 class="mb-3">{{ project.title }}</h2>
           <p>{{ project.intro }}</p>
-          <center><p><img src="{{ project.picture.url }}" alt="" class="img-fluid"></p></center>
+          <p><img src="{{ project.picture.url }}" alt="" class="img-fluid"></p>
           {% for step in project_steps %}
-            
             <p><strong>{{step.order}}</strong>   {{step.text}}</p>
             {% if step.picture %}
             <p><img src="{{ step.picture.url }}" alt="" class="img-fluid"></p>
@@ -134,23 +132,19 @@
           {% endfor %}
           <br>
           <strong>Code </strong>
-          
-    
-
-          
-         
-         
          <pre class="line-numbers">
-            
 <code class="language-{{language}}">
 {{ project.code }}   
 </code>
-            
          </pre>
          <br>
           <p>{{ project.conclusion }}</p>
-          <br>
-          
+          {% if video_url %}
+          <center><video width="500" height="400" controls>
+              <source src="{{ video_url }}" type="video/mp4">
+              Your browser does not support the video tag.
+          </video></center><br>
+          {% endif %}
           <div class="about-author d-flex p-4 bg-light">
             <div class="bio mr-5">
               <img src="{{ user_profile.profile_picture.url }}" alt="avatar" class="rounded-circle img-fluid"
@@ -162,6 +156,84 @@
             </div>
           </div>
         </div> <!-- .col-md-8 -->
+
+        <div class="col-lg-4 sidebar ftco-animate">
+          <div class="sidebar-box">
+            <form action="#" class="search-form">
+              <div class="form-group">
+                <span class="icon icon-search"></span>
+                <input type="text" class="form-control" placeholder="Type a keyword and hit enter">
+              </div>
+            </form>
+          </div>
+          <div class="sidebar-box ftco-animate">
+            <h3>Category</h3>
+            <ul class="categories">
+              <li><a href="#">Python <span>(6)</span></a></li>
+              <li><a href="#">Ruby <span>(8)</span></a></li>
+              <li><a href="#">Rust <span>(2)</span></a></li>
+              <li><a href="#">Web-Dev <span>(2)</span></a></li>
+              <li><a href="#">C/C++ <span>(2)</span></a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-box ftco-animate">
+            <h3>Popular Articles</h3>
+            <div class="block-21 mb-4 d-flex">
+              <a class="blog-img mr-4" style="background-image: url('{% static 'images/image_1.jpg' %}');"></a>
+              <div class="text">
+                <h3 class="heading"><a href="#">Coding for kids: Reasons kids should get started</a></h3>
+                <div class="meta">
+                  <div><a href="#"><span class="icon-calendar"></span> Jan. 29, 2020</a></div>
+                  <div><a href="#"><span class="icon-person"></span> Alex Saraswat</a></div>
+                  <div><a href="#"><span class="icon-chat"></span> 13</a></div>
+                </div>
+              </div>
+            </div>
+            <div class="block-21 mb-4 d-flex">
+              <a class="blog-img mr-4" style="background-image: url('{% static 'images/image_4.png' %}');"></a>
+
+              <div class="text">
+                <h3 class="heading"><a href="#">Developers love Rust programming language: Here's why</a></h3>
+                <div class="meta">
+                  <div><a href="#"><span class="icon-calendar"></span> Jan. 27, 2020</a></div>
+                  <div><a href="#"><span class="icon-person"></span> Steve</a></div>
+                  <div><a href="#"><span class="icon-chat"></span> 14</a></div>
+                </div>
+              </div>
+            </div>
+            <div class="block-21 mb-4 d-flex">
+              <a class="blog-img mr-4" style="background-image: url('{% static 'images/image_3.png' %}');"></a>
+              <div class="text">
+                <h3 class="heading"><a href="#">6 Reasons Why Python Is Suddenly Super Popular</a></h3>
+                <div class="meta">
+                  <div><a href="#"><span class="icon-calendar"></span> Jan. 28, 2020</a></div>
+                  <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                  <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="sidebar-box ftco-animate">
+            <h3>Archives</h3>
+            <ul class="categories">
+              <li><a href="#">January 2020 <span>(6)</span></a></li>
+              <li><a href="#">December 2019 <span>(30)</span></a></li>
+              <li><a href="#">November 2019 <span>(20)</span></a></li>
+              <li><a href="#">August 2018 <span>(8)</span></a></li>
+            </ul>
+          </div>
+
+
+          <div class="sidebar-box ftco-animate">
+            <h3>Django & Rails</h3>
+            <p>Django and Rails are both frameworks that help you to build web applications. They have similar
+              performance because both Ruby and Python are scripting languages. Each framework provides you all the
+              concepts from traditional MVC frameworks like models, views, controllers, and database migrations.</p>
+          </div>
+        </div><!-- END COL -->
       </div>
     </div>
   </section>
@@ -258,7 +330,7 @@
       <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
         stroke="#F96D00" />
     </svg></div>
-  <script src="{%static 'js/prism.js' %}"></script>
+  <script src="{% static 'js/prism.js' %}"></script>
   <script src="{% static 'js/jquery.min.js' %}"></script>
   <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
   <script src="{% static 'js/popper.min.js' %}"></script>
@@ -309,7 +381,7 @@
       this.classList.toggle('red');
 
     });
-    
+
   </script>
 </body>
 

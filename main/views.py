@@ -449,6 +449,7 @@ def create_project_with_steps(request):
                 if content_type not in settings.ALLOWED_VIDEO_CONTENT_TYPES:
                     messages.error(request, "Submit Valid ideo!")
                     return redirect('create_project')
+                
                 project.video = video
             project.save()
             
@@ -461,6 +462,7 @@ def create_project_with_steps(request):
     return render(request, template_name, {
         'bookform': bookform,
         'formset': formset,
+        
     })
 #themes=prism&languages=markup+css+clike+javascript+c+cpp+css-extras+django+git+go+java+kotlin+markup-templating+plsql+python+sql&plugins=line-highlight+line-numbers+custom-class+inline-color+command-line */
 def project_detail(request, project_id):
@@ -481,11 +483,18 @@ def project_detail(request, project_id):
         langauge='cpp'
     else:
         language=''
+    if project.video:
+        video_url = project.video.url
+    elif project.video_url:
+        video_url = project.video_url
+    else:
+        video_url = None
     return render(request, 'main/project_single.html',{
         'project':project,
         'project_steps': project_steps,
         'language':language,
         'user_profile':user_profile,
+        'video_url': video_url,
         })
 # <pre class="line-numbers">
 #    <code class="language-css">
