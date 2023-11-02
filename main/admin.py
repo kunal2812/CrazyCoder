@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.utils.translation import gettext_lazy as _
 
-from .models import User, Courses, Chapters, Titles, Tag, Blogs, Comment, UserProfile, BlogLike
+from .models import User, Courses, Chapters, Titles, Tag, Blogs, Comment, UserProfile, BlogLike, Project, Project_steps
 admin.site.register(Courses)
 admin.site.register(Chapters)
 admin.site.register(Titles)
@@ -11,6 +11,8 @@ admin.site.register(Tag)
 admin.site.register(Blogs)
 admin.site.register(UserProfile)
 admin.site.register(BlogLike)
+admin.site.register(Project)
+admin.site.register(Project_steps)
 @admin.register(User)
 class UserAdmin(DjangoUserAdmin):
 

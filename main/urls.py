@@ -8,7 +8,7 @@ urlpatterns = [
     path('blog/', views.all_blogs, name="all_blogs"),
     path('course/<int:course_id>/',views.view_course, name="view_course"),
     path('course/<int:course_id>/<int:chapter_id>/',views.view_chapters, name="view_chapters"),
-    path('project', views.projects, name="projects"),
+    path('projects/', views.projects, name="projects"),
     path('contact', views.contact, name="contact"),
     # path('blog_single/<int:blog_id>/', views.view_blog, name="blog_single"),
     path('editcourses/',views.edit_courses,name='edit_courses'),
@@ -34,5 +34,6 @@ urlpatterns = [
     path('blog/<int:pk>/editblog/', BlogUpdateView.as_view(), name='update_blog'),
     path('blog/<int:blog_id>/delete/', views.BlogDelete, name='delete_blog'),
     path('blog/<int:blog_id>/<str:action>/', views.like_dislike_blog, name='like_dislike_blog'),
-
+    path('projects/create/',views.create_project_with_steps,name='create_project'),
+    path('projects/<int:project_id>/',views.project_detail,name='project_detail'),
 ]

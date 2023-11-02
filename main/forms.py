@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import modelformset_factory
-from main.models import Courses, Chapters, Titles, Questions, Blogs, Tag, Comment
+from main.models import Courses, Chapters, Titles, Questions, Blogs, Tag, Comment, Project, Project_steps
 class CourseModelForm(forms.ModelForm):
     class Meta:
         model = Courses
@@ -156,3 +156,84 @@ class CommentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
         self.fields['message'].widget.attrs={'placeholder': 'Write your comment','class':'form-control'}
+
+
+class ProjectModelForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ('title', 'video', 'video_url', 'intro','body','picture','conclusion','code','code_language')
+        labels = {
+            'title': 'Project Name',
+            'video': 'Video file',
+            'video_url': 'Video URL',
+            'intro': 'Introduction',
+            'body':'Body',
+            'picture': 'Picture',
+            'conclusion': 'Conclusion',
+            'code': 'Code',
+            'code_language': 'Code Language',
+        }
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Project Name here'
+            }),
+            'video_url': forms.URLInput(attrs={
+                'class': 'form-control',
+                'required':False,
+                'placeholder': 'Enter Video URL here (or)'
+            }),
+            'video': forms.FileInput(attrs={
+                'class': 'form-control-file',
+                'required':False,
+                'label': 'Upload Video (or)'
+            }),
+            'intro': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Project Introduction here'
+            }),
+            'body': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Project Body here'
+            }),
+            'picture': forms.FileInput(attrs={
+                'class': 'form-control-file',
+                'label': 'Project Thumbnail'
+            }),
+            'conclusion': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Project Conclusion here'
+            }),
+            'code': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Code here'
+            }),
+            'code_language': forms.Select(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Code Language here'
+            }),
+        }
+ProjectStepFormset = modelformset_factory(
+    Project_steps,
+    fields=('order','text','picture' ),
+    extra=1,
+    widgets={
+        'order': forms.NumberInput(attrs={
+            'class': 'custom-width',
+            'min': '1',
+            'max': '100',
+            'placeholder':'Enter order number here'
+            }),
+        
+        'text': forms.Textarea(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter your text here'
+            }),
+        'picture': forms.FileInput(attrs={
+            'class': 'form-control-file',
+            'required':False, 
+            'label': 'Step Thumbnail',
+             
+        }),
+    }
+)

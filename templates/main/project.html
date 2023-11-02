@@ -5,7 +5,7 @@
     <title>Projects</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+    <link href="{% static 'css/prism.css' %}" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
@@ -23,6 +23,26 @@
     <link rel="stylesheet" href="{% static 'css/self.css' %}">
     <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+      
+      .heading {
+        height: 30px; 
+        display: -webkit-box;
+        -webkit-line-clamp: 1; 
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .content {
+        height: 100px; 
+        display: -webkit-box;
+        -webkit-line-clamp: 4; 
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    </style>
   </head>
   <body>
 	  
@@ -97,118 +117,27 @@
           	<span class="subheading">Ideas For Projects</span>
             <h2 class="mb-4">Coding Challenges</h2>
             <p>Join over 7 thousand developers in solving code challenges on Youdemy. Study from Youdemy and then check your grasp by completing projects and challenges.</p>
-            <p></p>
+            
           </div>
         </div>
+        {% if user.role == 'Mentor' %}
+        
+        <center><h1><a href="{% url 'create_project' %}">Add Project</a></h1></center>
+        <br>
+        {% endif %}
         <div class="row">
+          {% for project in projects %}
         	<div class="col-md-4">
         		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-7.png' %}');"></div>
+        			<div class="img rounded mb-4" style="background-image: url('{{ project.picture.url }}');"></div>
         			<div class="text w-100 text-center">
-        				<span class="cat">C, Python, Java</span>
-        				<h3><a href="#">Tic-Tac-Toe</a></h3>
-        				<p>The game is automatically played by the program and hence, no user input is needed.
-numpy and random Python libraries are used to build this game.</p>
+        				<span class="cat">{{ project.code_language }}</span>
+        				<h3 class="heading"><a href="{% url 'project_detail' project_id=project.id %}">{{ project.title }}</a></h3>
+        				<p class="content">{{ project.intro }}</p>
         			</div>
         		</div>
         	</div>
-        	<div class="col-md-4">
-        		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-8.png' %}');"></div>
-        			<div class="text w-100 text-center">
-        				<span class="cat">JavaScript, Ruby</span>
-        				<h3><a href="#">Calculator WebApp</a></h3>
-        				<p>In our JavaScript calculator, we’ll be using Internal CSS. First, we need to figure out how many buttons we are going to need. For now, we stick to the minimum viable functionalities.</p>
-        			</div>
-        		</div>
-        	</div>
-        	<div class="col-md-4">
-        		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-9.png' %}');"></div>
-        			<div class="text w-100 text-center">
-        				<span class="cat">Python</span>
-        				<h3><a href="#">Chatbot</a></h3>
-        				<p>The model deals on a real time basis with the students clearing the rings of doubts in minds of students over the whole admission procedure.</p>
-        			</div>
-        		</div>
-        	</div>
-        	<div class="col-md-4">
-        		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-10.jpg' %}');"></div>
-        			<div class="text w-100 text-center">
-        				<span class="cat">Python</span>
-        				<h3><a href="#">Website with Django</a></h3>
-        				<p>A Django website consists of a single project that is split into separate apps. The idea is that each app handles a self-contained function that the site needs to perform.</p>
-        			</div>
-        		</div>
-        	</div>
-        	<div class="col-md-4">
-        		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-11.jpg' %}');"></div>
-        			<div class="text w-100 text-center">
-        				<span class="cat">AI ML</span>
-        				<h3><a href="#">Personal Assistant</a></h3>
-        				<p>As we know Python is a suitable language for script writers and developers. Let’s write a script for Personal Voice Assistant using Python.</p>
-        			</div>
-        		</div>
-        	</div>
-        	<div class="col-md-4">
-        		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-12.jpg' %}');"></div>
-        			<div class="text w-100 text-center">
-        				<span class="cat">Python</span>
-        				<h3><a href="#">Instagram Bot</a></h3>
-        				<p>Let’s build an Instagram bot to gain more followers! — I know, I know. That doesn’t sound very ethical, does it? But it’s all justified for educational purposes.Coding is a super power</p>
-        			</div>
-        		</div>
-        	</div>
-
-        	<div class="col-md-4">
-        		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-13.jpg' %}');"></div>
-        			<div class="text w-100 text-center">
-        				<span class="cat">Java, Python</span>
-        				<h3><a href="#">WebScraping</a></h3>
-        				<p>Web scraping, is data scraping used for extracting data from websites. Web scraping software may access the World Wide Web directly using the Hypertext Transfer Protocol.</p>
-        			</div>
-        		</div>
-        	</div>
-        	<div class="col-md-4">
-        		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-14.jpg' %}');"></div>
-        			<div class="text w-100 text-center">
-        				<span class="cat">C, Python</span>
-        				<h3><a href="#">Snake Game</a></h3>
-        				<p>Snake is the common name for a video game concept where the player maneuvers a line which grows in length, with the line itself being a primary obstacle.You eat and grow.</p>
-        			</div>
-        		</div>
-        	</div>
-        	<div class="col-md-4">
-        		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-15.jpg' %}');"></div>
-        			<div class="text w-100 text-center">
-        				<span class="cat">Ruby</span>
-        				<h3><a href="#">9GAG copy cat</a></h3>
-        				<p>It’s always fun to try and replicate popular sites. In fact, it is actually a great way to learn because you have to reverse-engineer each feature.</p>
-        			</div>
-        		</div>
-        	</div>
-        </div>
-        <div class="row mt-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
+          {% endfor %}
 			</div>
 		</section>
 		
@@ -262,7 +191,7 @@ numpy and random Python libraries are used to build this game.</p>
               <div class="block-21 mb-5 d-flex">
                 <a class="blog-img mr-4" style="background-image: url('{% static 'images/image_2.jpg' %}');"></a>
                 <div class="text">
-                  <h3 class="heading"><a href="{%url 'blog_single' %}">Ruby vs. Python: What’s the Difference?</a></h3>
+                  <h3 class="heading"><a href="{%url 'post_detail' blog_id=1 %}">Ruby vs. Python: What’s the Difference?</a></h3>
                   <div class="meta">
                     <div><a href="#"><span class="icon-calendar"></span> Feb. 1, 2020</a></div>
                     <div><a href="#"><span class="icon-person"></span> Trixy</a></div>
@@ -299,7 +228,7 @@ numpy and random Python libraries are used to build this game.</p>
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
-
+  <script src="{%static 'js/prism.js' %}"></script>
   <script src="{% static 'js/jquery.min.js' %}"></script>
 	<script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
 	<script src="{% static 'js/popper.min.js' %}"></script>
