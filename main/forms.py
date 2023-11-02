@@ -161,12 +161,13 @@ class CommentForm(forms.ModelForm):
 class ProjectModelForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ('title', 'video', 'video_url', 'intro','picture','conclusion','code','code_language')
+        fields = ('title', 'video', 'video_url', 'intro','body','picture','conclusion','code','code_language')
         labels = {
             'title': 'Project Name',
             'video': 'Video file',
             'video_url': 'Video URL',
             'intro': 'Introduction',
+            'body':'Body',
             'picture': 'Picture',
             'conclusion': 'Conclusion',
             'code': 'Code',
@@ -190,6 +191,10 @@ class ProjectModelForm(forms.ModelForm):
             'intro': forms.Textarea(attrs={
                 'class': 'form-control',
                 'placeholder': 'Enter Project Introduction here'
+            }),
+            'body': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Project Body here'
             }),
             'picture': forms.FileInput(attrs={
                 'class': 'form-control-file',

@@ -121,7 +121,9 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 ftco-animate">
-          <h2 class="mb-3">{{ project.title }}</h2>
+          <center><h2 class="mb-3">{{ project.title }}</h2></center>
+          <p>{{ project.intro }}</p>
+          <br>
           <p>{{ project.intro }}</p>
           <p><img src="{{ project.picture.url }}" alt="" class="img-fluid"></p>
           {% for step in project_steps %}

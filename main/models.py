@@ -153,6 +153,7 @@ class Project(models.Model):
     video = models.FileField(upload_to='image/videos/', null=True, blank=True, help_text="Upload a video file (or)")
     video_url = models.URLField(null=True, blank=True, help_text="Enter a video URL (or)")
     intro=models.TextField()
+    body=models.TextField()
     conclusion=models.TextField()
     code=models.TextField(null=True)
     code_language=models.CharField(max_length=20,null=True,choices=CODE_LANGUAGE_CHOICES)

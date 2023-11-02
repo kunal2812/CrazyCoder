@@ -193,6 +193,9 @@ $(document).on('click', '.remove-form-row', function(e){
                         {{ bookform.picture }}
                     </div>
                 </div>
+                <div class="form-group col-12">
+                    {{ bookform.body }}
+                </div>
                 {{ formset.management_form }}
         {% for form in formset %}
         <div class="row form-row spacer">
