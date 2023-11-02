@@ -214,6 +214,7 @@ ProjectStepFormset = modelformset_factory(
     extra=1,
     widgets={
         'order': forms.NumberInput(attrs={
+            'class': 'custom-width',
             'min': '1',
             'max': '100',
             'placeholder':'Enter order number here'

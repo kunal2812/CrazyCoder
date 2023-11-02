@@ -86,7 +86,11 @@ $(document).on('click', '.remove-form-row', function(e){
 });
 
 </script>
-
+<style>
+    .custom-width {
+        width: 90%; 
+    }
+</style>
 </head>
 <body>
     <div class="bg-top navbar-light d-flex flex-column-reverse">
@@ -189,18 +193,15 @@ $(document).on('click', '.remove-form-row', function(e){
                         {{ bookform.picture }}
                     </div>
                 </div>
-                <div class="form-group col-12">
-                    {{ bookform.conclusion }}
-                </div>
                 {{ formset.management_form }}
         {% for form in formset %}
         <div class="row form-row spacer">
             <div class="col-2">
                 <label>{{ form.course_name.label }}</label>
             </div>
-            <div class="col-6">
+            <div class="col-8">
                 <div class="input-group">
-                    <div class="form-group col-10">
+                    <div class="form-group custom-width">
                         {{ form.order }}
                     </div>
                     <div class="form-group col-10">
