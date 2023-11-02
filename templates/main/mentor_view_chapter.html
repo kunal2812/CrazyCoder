@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Chapter1-Introduction</title>
+    <title>{{ chapter.chapter_name }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -23,33 +23,6 @@
     <link rel="stylesheet" href="{% static 'css/self.css' %}">
     <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <style>
-      .services-2 {
-      display: inline;
-      max-width: 100%; /* Adjust the max-width based on your design */
-      }
-      .question {
-        font-size: 16px;
-      }
-      .question-link {
-        font-size: 16px;
-          max-width: 100%;
-          overflow-wrap: break-word;
-          white-space: normal; /* Allow text to wrap */
-      }
-
-      .answer {
-          max-height: 0;
-          overflow: hidden;
-          transition: max-height 0.3s ease-in-out;
-      }
-
-      .answer.show {
-          max-height: 100px; /* Adjust this value based on your design */
-      }
-
-
-    </style>
   </head>
   <body>
 	  <div class="bg-top navbar-light d-flex flex-column-reverse">
@@ -102,7 +75,8 @@
 		  	</div>
 		  </div>
     </div>
-	  {% include "./navbar.html" %}
+	
+	{% include "./navbar.html" %}
     <!-- END nav -->
     
     <section class="hero-wrap hero-wrap-2" style="background-image: url('{% static 'images/bg_1.jpg' %}');">
@@ -111,7 +85,7 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
             <h1 class="mb-2 bread">{{ course.course_name }}</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span> Courses <i class="ion-ios-arrow-forward"></i></span><span> {{ course.course_name }} <i class="ion-ios-arrow-forward"></i></span><span> {{ chapter.chapter_name }} <i class="ion-ios-arrow-forward"></i></span></p>
+            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span> Courses <i class="ion-ios-arrow-forward"></i></span><span> {{ course.course_name }} <i class="ion-ios-arrow-forward"></i></span><span>{{ chapter.chapter_name }}<i class="ion-ios-arrow-forward"></i></span></p>
           </div>
         </div>
       </div>
@@ -120,36 +94,34 @@
     <section class="ftco-section ftco-no-pb">
     	<div class="container">
     		<div class="row justify-content-center mb-5">
-          <div class="col-md-8 text-center heading-section ftco-animate">
-          	<span class="subheading">{{ course.course_name }}</span>
-            <h2 class="mb-4">{{ chapter.chapter_name }}</h2>
-            <p>{{ chapter.description }}</p>
-          </div>
-        </div>
-		<div class="row tabulation mt-4 ftco-animate">
-			<div class="col-md-4">
-			  <ul class="nav nav-pills nav-fill d-md-flex d-block flex-column">
-				{% for title in titles %}
-				  <li class="nav-item text-left">
-					<a class="nav-link py-4" data-toggle="tab" href="#title-{{ title.id }}">{{ title.title_name }}</a>
-				  </li>
-				{% endfor %}
-			  </ul>
-			</div>
-			<div class="col-md-8">
-			  <div class="tab-content">
-				{% for title in titles %}
-				  <div class="tab-pane container p-0 fade" id="title-{{ title.id }}">
-					<h3><a href="#">{{ title.title_name }}</a></h3>
-					<p>{{ title.description }}</p>
-          {% if user.role == 'Mentor' %}
-            <p> <a href="{% url 'title_edit' pk=title.id %}">Edit Title Details</a> </p>
-          {% endif %}
-				  </div>
-				{% endfor %}
-			  </div>
-			</div>
-		  </div>
+          		<div class="col-md-8 text-center heading-section ftco-animate">
+          			<span class="subheading">{{ course.course_name }}</span>
+            		<h2 class="mb-4">{{ chapter.chapter_name }}</h2>
+            		<p>{{ chapter.description }}</p>
+          		</div>
+        	</div>
+			<div class="row tabulation mt-4 ftco-animate">
+				<div class="col-md-4">
+			  		<ul class="nav nav-pills nav-fill d-md-flex d-block flex-column">
+						{% for title in titles %}
+						<li class="nav-item text-left">
+							<a class="nav-link py-4" data-toggle="tab" href="#title-{{ title.id }}">{{ title.title_name }}</a>
+						</li>
+						{% endfor %}
+			  		</ul>
+				</div>
+				<div class="col-md-8">
+			  		<div class="tab-content">
+						{% for title in titles %}
+						<div class="tab-pane container p-0 fade" id="title-{{ title.id }}">
+							<h3><a href="#">{{ title.title_name }}</a></h3>
+							<p>{{ title.description }}</p>
+              <p> <a href="{% url 'title_edit' pk=title.id %}">Edit Title Details</a> </p>
+						</div>
+						{% endfor %}
+			  		</div>
+				</div>
+		  	</div>
     	</div>
     </section>
     <section class="ftco-section testimony-section">
@@ -161,29 +133,24 @@
               </div>
             </div>
           </div>
-    </section>
-<section class="ftco-section">
-  <div class="container">
-      <div class="row">
-          {% for question in questions %}
-          <div class="col-lg-4 d-flex">
-              <div class="services-2 border rounded text-center ftco-animate">
-                  <div class="mt-2 d-flex justify-content-center align-items-center">
-                      <div class="question-link">
-                          <span class="question">{{ question.question }}</span>
-                      </div>
-                  </div>
-                  <div class="text media-body">
-                      <div class="answer">
-                          <p>{{ question.answer }}</p>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          {% endfor %}
-      </div>
-  </div>
 </section>
+    <section class="ftco-section">
+			<div class="container">
+				<div class="row">
+					
+					{% for question in questions %}
+					<div class="col-lg-4 d-flex">
+						<div class="services-2 border rounded text-center ftco-animate">
+							<div class="icon mt-2 d-flex justify-content-center align-items-center"></div>
+							<div class="text media-body">
+								<h3>{{ question.question }}</h3>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</section>
 
 
      <section class="ftco-section ftco-consult ftco-no-pt ftco-no-pb" style="background-image: url(images/bg_3.jpg);" data-stellar-background-ratio="0.5">
@@ -424,16 +391,6 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="{% static 'js/google-map.js' %}"></script>
 	<script src="{% static 'js/main.js' %}"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-    $(document).ready(function() {
-        $('.question-link').click(function() {
-            var answer = $(this).closest('.services-2').find('.answer');
-            answer.toggleClass('show');
-        });
-    });
-  </script>
-
+    
   </body>
 </html>

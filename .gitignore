@@ -2,3 +2,6 @@ env
 main/__pycache__
 youdemy/__pycache__
 db.sqlite3
+static/images/Courses
+media/images
+media/image

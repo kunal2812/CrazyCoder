@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Basics of C</title>
+    <title>{{ course.course_name }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -76,34 +76,7 @@
         </div>
       </div>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco-navbar-light" id="ftco-navbar">
-      <div class="container d-flex align-items-center">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="oi oi-menu"></span> Menu
-        </button>
-        <form action="#" class="searchform order-lg-last">
-          <div class="form-group d-flex">
-            <input type="text" class="form-control pl-3" placeholder="Search">
-            <button type="submit" placeholder="" class="form-control search"><span class="ion-ios-search"></span></button>
-          </div>
-        </form>
-        <div class="collapse navbar-collapse" id="ftco-nav">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
-            <li class="nav-item active"><a href="{% url 'courses' %}" class="nav-link">Courses</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Problems</a></li>
-            <li class="nav-item"><a href="{% url 'projects' %}" class="nav-link">Projects</a></li>
-            <li class="nav-item"><a href="{% url 'blog' %}" class="nav-link">Blog</a></li>
-                  <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
-                  
-            {% if user.is_authenticated %}
-                  <li class="nav-item"><a href="" class="nav-link">{{fname}}</a></li>
-            <li class="nav-item"><a href="/signout" class="nav-link">Sign Out</a></li>
-            {% endif %}
-              </ul>
-        </div>
-      </div>
-    </nav>
+    {% include "./navbar.html" %}
     <!-- END nav -->
     <section class="home-slider owl-carousel">
       <div class="slider-item" style="background-image:url('{% static 'images/project-1.png' %}');">
@@ -113,8 +86,8 @@
           <div class="row no-gutters slider-text align-items-center justify-content-end" data-scrollax-parent="true">
           <div class="col-md-7 ftco-animate mb-md-5">
             <span class="subheading">Youdemy</span>
-            <h1 class="mb-4">Basics of C</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'home' %}">Courses <i class="ion-ios-arrow-forward"></i></a></span> <span>Basics of C <i class="ion-ios-arrow-forward"></i></span></p>
+            <h1 class="mb-4">{{ course.course_name }}</h1>
+            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'home' %}">Courses <i class="ion-ios-arrow-forward"></i></a></span> <span>{{ course.course_name }} <i class="ion-ios-arrow-forward"></i></span></p>
           </div>
         </div>
         </div>
@@ -128,7 +101,7 @@
           <div class="col-md-7 ftco-animate mb-md-5">
             <span class="subheading">Youdemy</span>
             <h1 class="mb-4">CHAPTERS</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'home' %}">Courses <i class="ion-ios-arrow-forward"></i></a></span> <span>Basics of C <i class="ion-ios-arrow-forward"></i></span></p>
+            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="{% url 'home' %}">Courses <i class="ion-ios-arrow-forward"></i></a></span> <span>{{ course.course_name }}<i class="ion-ios-arrow-forward"></i></span></p>
           </div>
         </div>
         </div>
@@ -137,260 +110,37 @@
      <section class="ftco-section">
       <div class="container">
         <div class="row">
+          {% for chapter in chapters %}
           <div class="col-md-6 col-lg-3 ftco-animate">
             <div class="staff border">
               <div class="img-wrap d-flex align-items-stretch">
-                <div class="img align-self-stretch" style="background-image: url('{% static 'images/course1.png' %}');"></div>
+                
+                <div class="img align-self-stretch" style="background-image: url('{{ chapter.chapter_pictire.url }}');"></div>
               </div>
               <div class="text pt-3 px-3 pb-4 text-center">
-
-                <a href="{% url 'chapter1' %}"><h3>Introduction</h3></a>
+                <a href="{% url 'view_chapters' chapter_id=chapter.id course_id=course.id %}"><h3>{{ chapter.chapter_name }}</h3></a>
                 <div class="faded">
-                  <p>Programming Language, Anatomy of Program, Instructions and Procedures</p>
-                  
+                  <p>{{ chapter.description }}</p>
+                  {% if user.role == 'Mentor' %}
+                    
+                    
+                    <a href="{% url 'create_title_model_form' chapter_id=chapter.id %}">Add Titles</a>
+                    <div>
+                      <a href="{% url 'create_question' chapter_id=chapter.id %}">Add Question</a>
+                    </div>
+                    <div>
+                      <a href="{% url 'chapter_edit' pk=chapter.id %}">Edit Chapter Details</a>
+                    </div>
+                    <div>
+                      <a href="{% url 'chapter_delete' chapter_id=chapter.id %}">Delete Chapter</a>
+                    </div>
+                  {% endif %}
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="staff border">
-              <div class="img-wrap d-flex align-items-stretch">
-                <div class="img align-self-stretch" style="background-image: url('{% static 'images/course1.png' %}');"></div>
-              </div>
-              <div class="text pt-3 px-3 pb-4 text-center">
-                <a href="#"><h3>Basic Concepts</h3></a>
-                
-                <div class="faded">
-                  <p>Identifiers and Keywords, Variables and Constants, Data Types, Functions</p>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="staff border">
-              <div class="img-wrap d-flex align-items-stretch">
-                <div class="img align-self-stretch" style="background-image: url('{% static 'images/course1.png' %}');"></div>
-              </div>
-              <div class="text pt-3 px-3 pb-4 text-center"><a href="chapter3.html">
-                <h3>Problem Solving</h3>
-                <div class="faded"></a>
-                  <p>Algorithm/Flowchart, Pseudocode, Approach of Solving</p>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="staff border">
-              <div class="img-wrap d-flex align-items-stretch">
-                <div class="img align-self-stretch" style="background-image: url('{% static 'images/course1.png' %}');"></div>
-              </div>
-              <div class="text pt-3 px-3 pb-4 text-center"><a href="#">
-                <h3>Expression & Statements</h3>
-                <div class="faded"></a>
-                  <p>Expressions, Statements, Operators, Precedence Order</p>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="staff border">
-              <div class="img-wrap d-flex align-items-stretch">
-                <div class="img align-self-stretch" style="background-image: url('{% static 'images/course1.png' %}');"></div>
-              </div>
-              <div class="text pt-3 px-3 pb-4 text-center"><a href="#">
-                <h3>Control Statements</h3></a>
-                
-                <div class="faded">
-                  <p>Branching: if-else, switch ; Conditional Operator, continue and break</p>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="staff border">
-              <div class="img-wrap d-flex align-items-stretch">
-                <div class="img align-self-stretch" style="background-image: url('{% static 'images/course1.png' %}');"></div>
-              </div>
-              <div class="text pt-3 px-3 pb-4 text-center"><a href="#">
-                <h3>Branching and Looping</h3></a>
-                <div class="faded">
-                  <p>Branching: goto; Looping: while, do-while, for</p>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="staff border">
-              <div class="img-wrap d-flex align-items-stretch">
-                <div class="img align-self-stretch" style="background-image: url('{% static 'images/course1.png' %}');"></div>
-              </div>
-
-              <div class="text pt-3 px-3 pb-4 text-center"><a href="#">
-                <h3>Function</h3></a>
-               
-                <div class="faded">
-                  <p>Motivation, Basic Properties, Parameter Passing, Type of Functions</p>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="staff border">
-              <div class="img-wrap d-flex align-items-stretch">
-                <div class="img align-self-stretch" style="background-image: url('{% static 'images/course1.png' %}');"></div>
-              </div>
-              <div class="text pt-3 px-3 pb-4 text-center"><a href="#">
-                <h3>Arrays</h3></a>
-               
-                <div class="faded">
-                  <p>Defining & Processing, 2-D Arrays, Character Arrays- Strings, 3-D Arrays</p>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="staff border">
-              <div class="img-wrap d-flex align-items-stretch">
-                <div class="img align-self-stretch" style="background-image: url('{% static 'images/course1.png' %}');"></div>
-              </div>
-              <div class="text pt-3 px-3 pb-4 text-center"><a href="#">
-                <h3>Pointers</h3></a>
-                
-                <div class="faded">
-                  <p>Type of Pointers, Pointer to Function, Pointer Arithmetic, Dynamic Memory Allocation</p>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="staff border">
-              <div class="img-wrap d-flex align-items-stretch">
-                <div class="img align-self-stretch" style="background-image: url('{% static 'images/course1.png' %}');"></div>
-              </div>
-              <div class="text pt-3 px-3 pb-4 text-center"><a href="#">
-                <h3>Structures & Unions</h3></a>
-                
-                <div class="faded">
-                  <p>Array of Structure, Pointer & Structure, Self Refereential Structure, Linked List</p>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="staff border">
-              <div class="img-wrap d-flex align-items-stretch">
-                <div class="img align-self-stretch" style="background-image: url('{% static 'images/course1.png' %}');"></div>
-              </div>
-              <div class="text pt-3 px-3 pb-4 text-center"><a href="#">
-                <h3>Sorting</h3></a>
-                
-                <div class="faded">
-                  <p>Different Algorithms for Sorting: Merge Sort, Bubble Sort, Selection Sort etc.</p>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="staff border">
-              <div class="img-wrap d-flex align-items-stretch">
-                <div class="img align-self-stretch" style="background-image: url('{% static 'images/course1.png' %}');"></div>
-              </div>
-              <div class="text pt-3 px-3 pb-4 text-center"><a href="#">
-                <h3>Searching</h3></a>
-                
-                <div class="faded">
-                  <p>Searching of particular element in a sorted array: Linear Search, Binary Search</p>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="staff border">
-              <div class="img-wrap d-flex align-items-stretch">
-                <div class="img align-self-stretch" style="background-image: url('{% static 'images/course1.png' %}');"></div>
-              </div>
-              <div class="text pt-3 px-3 pb-4 text-center"><a href="#">
-                <h3>File Handling</h3></a>
-                
-                <div class="faded">
-                  <p>Data File, File Pointer Specs., Opening and Reading File, Command Line Arguments</p>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="staff border">
-              <div class="img-wrap d-flex align-items-stretch">
-                <div class="img align-self-stretch" style="background-image: url('{% static 'images/course1.png' %}');"></div>
-              </div>
-              <div class="text pt-3 px-3 pb-4 text-center"><a href="#">
-                <h3>Performance of Algorithms</h3></a>
-                
-                <div class="faded">
-                  <p>Space and Time Complexity, Asymptotics</p>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="staff border">
-              <div class="img-wrap d-flex align-items-stretch">
-                <div class="img align-self-stretch" style="background-image: url('{% static 'images/course1.png' %}');"></div>
-              </div>
-              <div class="text pt-3 px-3 pb-4 text-center"><a href="#">
-                <h3>Fundamental Data Structures</h3></a>
-                
-                <div class="faded">
-                  <p>Matrices, Stacks, Queues, Binary Trees, Tree Traversals</p>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="staff border">
-              <div class="img-wrap d-flex align-items-stretch">
-                <div class="img align-self-stretch" style="background-image: url('{% static 'images/course1.png' %}');"></div>
-              </div>
-              <div class="text pt-3 px-3 pb-4 text-center"><a href="#">
-                <h3>Queues & Graphs</h3></a>
-                
-                <div class="faded">
-                  <p>Lists, Heaps, Graph Representation, Depth First Search, Breadth First Search</p>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="staff border">
-              <div class="img-wrap d-flex align-items-stretch">
-                <div class="img align-self-stretch" style="background-image: url('{% static 'images/course1.png' %}');"></div>
-              </div>
-              <div class="text pt-3 px-3 pb-4 text-center"><a href="#">
-                <h3>Hashing and Search Trees</h3></a>
-                
-                <div class="faded">
-                  <p>Separate Chaining, Linear Probing, Quadratic Probing, Binary Search Trees, B-Trees</p>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
+          {% endfor %}
+          
         </div>
       </div>
     </section>

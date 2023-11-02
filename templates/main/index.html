@@ -3,496 +3,645 @@
 <html lang="en">
   <head>
     <title>Youdemy</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no"/>
 
-    <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
-    
-    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" />
 
-    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}" />
 
-    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
-    
-    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
-    <link rel="stylesheet" href="{% static 'css/self.css' %}">
-    <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" />
+    <link rel="stylesheet"  href="{% static 'css/owl.theme.default.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/self.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/icomoon.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   </head>
   <body>
-	  <div class="bg-top navbar-light d-flex flex-column-reverse">
-    	<div class="container py-3">
-    		<div class="row no-gutters d-flex align-items-center align-items-stretch">
-    			<div class="col-md-4 d-flex align-items-center py-4">
-    				<a class="navbar-brand" href="{% url 'home' %}">Youdemy<span>.COM</span></a>
-    			</div>
-	    		<div class="col-lg-8 d-block">
-		    		<div class="row d-flex">
-					    <div class="col-md d-flex topper align-items-center align-items-stretch py-md-4">
-					    	<div class="icon d-flex justify-content-center align-items-center"><span class="ion-ios-paper-plane"></span></div>
-					    	<div class="text">
-					    		<span>Email</span>
-						    	<span>support@youdemy.co</span>
-						    </div>
-					    </div>
-					    <div class="col-md d-flex topper align-items-center align-items-stretch py-md-4">
-					    	<div class="icon d-flex justify-content-center align-items-center"><span class="ion-ios-call"></span></div>
-						    <div class="text">
-						    	<span>Call</span>
-						    	<span>+91 1234567890</span>
-						    </div>
-					    </div>
-					    <div class="col-md d-flex topper align-items-center align-items-stretch py-md-4">
-					    	<div class="icon d-flex justify-content-center align-items-center"><span class="ion-logo-facebook"></span></div>
-						    <div class="text">
-						    	<span>Facebook</span>
-						    	<span>www.facebook.com/Youdemy</span>
-						    </div>
-					    </div>
-				    </div>
-			    </div>
-		    </div>
-		  </div>
-		  <div class="top-social-menu py-2 bg-light">
-		  	<div class="container">
-		  		<div class="row">
-			    	<div class="col">
-			    		<p class="social mb-0">
-			    			<a href="#"><i class="ion-logo-facebook"></i><span class="sr-only">Facebook</span></a>
-			    			<a href="#"><i class="ion-logo-twitter"></i><span class="sr-only">Twitter</span></a>
-			    			<a href="#"><i class="ion-logo-googleplus"></i><span class="sr-only">Googleplus</span></a>
-			    		</p>
-			    	</div>
-			    	<div class="col text-right">
-			    		<a href="#" class="btn-link">Request A Call</a>
-			    	</div>
-			    </div>
-		  	</div>
-		  </div>
-    </div>
-	{% for message in messages %}
-	<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-		{{ message }} 
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		<span aria-hidden="true">&times;</span></button>
-	</div>
-	{% endfor %}
-	  <nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container d-flex align-items-center">
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
-	      <form action="#" class="searchform order-lg-last">
-          <div class="form-group d-flex">
-            <input type="text" class="form-control pl-3" placeholder="Search">
-            <button type="submit" placeholder="" class="form-control search"><span class="ion-ios-search"></span></button>
+    <script src="{%static '/js/form.js' %}"></script>
+    <div class="bg-top navbar-light d-flex flex-column-reverse">
+      <div class="container py-3">
+        <div class="row no-gutters d-flex align-items-center align-items-stretch">
+          <div class="col-md-4 d-flex align-items-center py-4">
+            <a class="navbar-brand" href="{% url 'home' %}">Youdemy<span>.COM</span></a>
           </div>
-        </form>
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
-				<li class="nav-item"><a href="{% url 'courses' %}" class="nav-link">Courses</a></li>
-				<li class="nav-item"><a href="#" class="nav-link">Problems</a></li>
-				<li class="nav-item"><a href="{% url 'projects' %}" class="nav-link">Projects</a></li>
-				<li class="nav-item"><a href="{% url 'blog' %}" class="nav-link">Blog</a></li>
-	            <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
-	            
-			  {% if user.is_authenticated %}
-	          	<li class="nav-item"><a href="" class="nav-link">{{fname}}</a></li>
-				<li class="nav-item"><a href="/signout" class="nav-link">Sign Out</a></li>
-			  {% endif %}
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
-    <!-- END nav -->
-    
-    <section class="home-slider owl-carousel">
-
-      <div class="slider-item" style="background-image:url('{% static 'images/bg_1.jpg' %}');">
-      	<div class="overlay"></div>
-        <div class="container">
-          <div class="row no-gutters slider-text align-items-center justify-content-end" data-scrollax-parent="true">
-          <div class="col-md-7 ftco-animate mb-md-5">
-          	<span class="subheading">Youdemy</span>
-            <h1 class="mb-4">Achieve Your Goals With Youdemy</h1>
-            <p><a href="{% url 'courses' %}" class="btn btn-primary px-4 py-3 mt-3">Courses</a></p>
+          <div class="col-lg-8 d-block">
+            <div class="row d-flex">
+              <div class="col-md d-flex topper align-items-center align-items-stretch py-md-4">
+                <div class="icon d-flex justify-content-center align-items-center">
+                  <span class="ion-ios-paper-plane"></span>
+                </div>
+                <div class="text">
+                  <span>Email</span>
+                  <span>support@youdemy.co</span>
+                </div>
+              </div>
+             <div class="col-md d-flex topper align-items-center align-items-stretch py-md-4" >
+            <div class="icon d-flex justify-content-center align-items-center">
+                  <span class="ion-ios-call"></span>
+                </div>
+                <div class="text">
+                  <span>Call</span>
+                  <span>+91 1234567890</span>
+                </div>
+              </div>
+              <div class="col-md d-flex topper align-items-center align-items-stretch py-md-4">
+                <div class="icon d-flex justify-content-center align-items-center">
+                  <span class="ion-logo-facebook"></span>
+                </div>
+                <div class="text">
+                  <span>Facebook</span>
+                  <span>www.facebook.com/Youdemy</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+      <div class="top-social-menu py-2 bg-light">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <p class="social mb-0">
+                <a href="#"
+                  ><i class="ion-logo-facebook"></i
+                  ><span class="sr-only">Facebook</span></a
+                >
+                <a href="#"
+                  ><i class="ion-logo-twitter"></i
+                  ><span class="sr-only">Twitter</span></a
+                >
+                <a href="#"
+                  ><i class="ion-logo-googleplus"></i
+                  ><span class="sr-only">Googleplus</span></a
+                >
+              </p>
+            </div>
+            <div class="col text-right">
+              <a href="#" class="btn-link">Request A Call</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% for message in messages %}
+    <div
+      class="alert alert-{{ message.tags }} alert-dismissible fade show"
+      role="alert"
+    >
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+
+    {% include "./navbar.html" %}
+
+    <section class="home-slider owl-carousel">
+      <div class="slider-item" style="background-image: url('{% static 'images/bg_1.jpg' %}')">
+        <div class="overlay"></div>
+        <div class="container">
+      <div class="row no-gutters slider-text align-items-center justify-content-end" data-scrollax-parent="true">
+            <div class="col-md-7 ftco-animate mb-md-5">
+              <span class="subheading">Youdemy</span>
+              <h1 class="mb-4">Achieve Your Goals With Youdemy</h1>
+              <p>
+            <a href="{% url 'courses' %}" class="btn btn-primary px-4 py-3 mt-3">Courses</a>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="slider-item" style="background-image:url('{% static 'images/bg_2.jpg' %}');">
-      	<div class="overlay"></div>
+      <div class="slider-item" style="background-image: url('{% static 'images/bg_2.jpg' %}')">
+        <div class="overlay"></div>
         <div class="container">
-          <div class="row no-gutters slider-text align-items-center justify-content-end" data-scrollax-parent="true">
-          <div class="col-md-7 ftco-animate mb-md-5">
-          	<span class="subheading">Youdemy</span>
-            <h1 class="mb-4">A Learning Platform For Beginners</h1>
-            <p><a href="{% url 'courses' %}" class="btn btn-primary px-4 py-3 mt-3">Courses</a></p>
+     <div class="row no-gutters slider-text align-items-center justify-content-end" data-scrollax-parent="true">
+            <div class="col-md-7 ftco-animate mb-md-5">
+              <span class="subheading">Youdemy</span>
+              <h1 class="mb-4">A Learning Platform For Beginners</h1>
+              <p>
+                <a
+                  href="{% url 'courses' %}"
+                  class="btn btn-primary px-4 py-3 mt-3"
+                  >Courses</a
+                >
+              </p>
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </section>
+    {% if user.is_authenticated %}
 
-		<section class="ftco-section ftco-no-pt ftco-no-pb ftco-consult">
-			<div class="container">
-				<div class="row d-flex no-gutters align-items-stretch	consult-wrap">
-					<div class="col-md-5 wrap-about align-items-stretch d-flex">
-						<div class="ftco-animate bg-primary align-self-stretch px-4 py-5 w-100">
-							<h2 class="heading-white mb-4">Sign Up On Youdemy</h2>
-							<form action="/account" method="post" class="appointment-form ftco-animate">
-								{% csrf_token %}
-							<div class="form-group">
-								<input type="text" class="form-control" name="uname" placeholder="User Name">
-							</div>
-		    				<div class="form-group">
-		    					<input type="text" class="form-control" name="fname" placeholder="First Name">
-		    				</div>
-		    				<div class="form-group">
-		    					<input type="text" class="form-control" name="lname" placeholder="Last Name">
-		    				</div>
-	    					<div class="form-group">
-		    					<div class="form-field">
-	        					<div class="select-wrap">
-	                    <div class="icon"><span class=""></span></div>
-	                    {% comment %} <select name="" id="" class="form-control">
-	                    	<option value="">Select Preferred Course</option>
-	                    	<div class="optioncode">
-	                      <option style="color: black;" value="">C</option>
-	                      <option style="color: black;" value="">C++</option>
-	                      <option style="color: black;" value="">Python</option>
-	                      <option style="color: black;" value="">Ruby</option>
-	                      <option style="color: black;" value="">Javascript</option>
-	                      </div>
-	                    </select> {% endcomment %}
-	                  </div>
-		              </div>
-		    				</div>
-	    					<div class="form-group">
-		    					<input type="email" name="email" class="form-control" placeholder="Email">
-		    				</div>
-					<div class="form-group">
-						<input type="password" name="pass1" class="form-control" placeholder="Password">
-					</div>
-					<div class="form-group">
-						<input type="password" name="pass2" class="form-control" placeholder="Confirm Password">
-					</div>
-		            <div class="form-group">
-						<div class="mb-3">
-							<button type="submit" name="submit_action" value="signup" class="btn btn-secondary py-3 px-4">
-								Sign Up
-							</button>		
-						</div>
-						
-						<div class="mb-3">
-							<button type="submit" name="submit_action" value="signin" class="btn btn-secondary py-3 px-4">
-								Sign In
-							</button>
-						</div>
-										
-		            </div>
+    {% else  %}
+    <section class="ftco-section ftco-no-pt ftco-no-pb ftco-consult">
+      <div class="container">
+        <div class="row d-flex no-gutters align-items-stretch consult-wrap">   
+          <div class="col-md-5 wrap-about align-items-stretch d-flex">
+            <div
+              class="ftco-animate bg-primary align-self-stretch px-4 py-5 w-100"
+            >
+              <h2 class="heading-white mb-4" id="form-heading">
+                Sign Up On Youdemy
+              </h2>
+              <div class="form-container">
+                <div class="form-toggle">
+                  <a href="#" id="signup-link" style="color: white">Sign Up</a>
+                  |
+                  <a href="#" id="signin-link" style="color: white">Sign In</a>
+                </div>
 
-		    			</form>
-						</div>
-					</div>
-					<div class="col-md-7 wrap-about ftco-animate align-items-stretch d-flex">
-						<div class="bg-white p-5">
-							<h2 class="mb-4">Youdemy.Com <br>A Learning Hub</h2>
-							<div class="row">
-								<div class="col-lg-6">
-									<div class="services">
-										<div class="icon mt-2 d-flex align-items-center"><span class="flaticon-collaboration"></span></div>
-										<div class="text media-body">
-											<h3>Learn The Latest Skills</h3>
-											<p>Get Python , C , JAVA , C++ all at your tips.</p>
-										</div>
-									</div>
-									<div class="services">
-										<div class="icon mt-2"><span class="flaticon-analysis"></span></div>
-										<div class="text media-body">
-											<h3>Get Instant Solutions</h3>
-											<p>Questions are everywhere , Solutions on Youdemy </p>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-6">
-									<div class="services">
-										<div class="icon mt-2"><span class="flaticon-search-engine"></span></div>
-										<div class="text media-body">
-											<h3>Get Ready For Career</h3>
-											<p>Learn in high-demand fields like IT , AI, ML and Cloud Computing.</p>
-										</div>
-									</div>
-									<div class="services">
-										<div class="icon mt-2"><span class="flaticon-rating"></span></div>
-										<div class="text media-body">
-											<h3>Stay Up To Date</h3>
-											<p>Stay in touch with in demand and highly needed skills.</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		
-		<section class="ftco-intro ftco-no-pb img" style="background-image: url('{% static 'images/bg_3.jpg' %}');">
-    	<div class="container">
-    		<div class="row justify-content-center">
-          <div class="col-md-10 text-center heading-section heading-section-white ftco-animate">
+                <form
+                  id="signup-form"
+                  action="{% url 'signup' %}"
+                  method="post"
+                  class="appointment-form ftco-animate"
+                >
+                  {% csrf_token %}
+                  <!-- Signup form fields -->
+                  <div class="form-group">
+              <input type="text" class="form-control" name="uname" placeholder="User Name"/>
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="fname" placeholder="First Name"/>
+                  </div>
+                  <div class="form-group">
+              <input type="text" class="form-control" name="lname" placeholder="Last Name" />
+                  </div>
+                  <div class="form-group">
+                    <select name="role" id="role" class="form-control">
+                      <option value="Student" style="color: black">
+                        Student
+                      </option>
+                      <option value="Mentor" style="color: black">
+                        Mentor
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-field">
+                      <div class="select-wrap">
+                        <div class="icon"><span class=""></span></div>
+                        {% comment %}
+                        <select name="" id="" class="form-control">
+                          <option value="">Select Preferred Course</option>
+                          <div class="optioncode">
+                            <option style="color: black" value="">C</option>
+                            <option style="color: black" value="">C++</option>
+                            <option style="color: black" value="">
+                              Python
+                            </option>
+                            <option style="color: black" value="">Ruby</option>
+                            <option style="color: black" value="">
+                              Javascript
+                            </option>
+                          </div>
+                        </select>
+                        {% endcomment %}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+              <input type="email" name="email" class="form-control" placeholder="Email"/>
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="pass1" class="form-control" placeholder="Password"/>
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="pass2" class="form-control" placeholder="Confirm Password"/>
+                  </div>
+
+                  <div class="form-group">
+                    <button type="submit" name="submit_action" value="signup" class="btn btn-secondary py-3 px-4">
+                      Sign Up
+                    </button>
+                  </div>
+                </form>
+
+                <form id="signin-form" action="{% url 'signin' %}" method="post" class="appointment-form ftco-animate" style="display: none">
+                  {% csrf_token %}
+                  <!-- Signin form fields -->
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="email" placeholder="Email"/>
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="pass1" class="form-control" placeholder="Password"/>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" name="submit_action" value="signin" class="btn btn-secondary py-3 px-4">
+                      Sign In
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>       
+          <div
+            class="col-md-7 wrap-about ftco-animate align-items-stretch d-flex"
+          >
+            <div class="bg-white p-5">
+              <h2 class="mb-4">Youdemy.Com <br />A Learning Hub</h2>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="services">
+                    <div class="icon mt-2 d-flex align-items-center">
+                      <span class="flaticon-collaboration"></span>
+                    </div>
+                    <div class="text media-body">
+                      <h3>Learn The Latest Skills</h3>
+                      <p>Get Python , C , JAVA , C++ all at your tips.</p>
+                    </div>
+                  </div>
+                  <div class="services">
+                    <div class="icon mt-2">
+                      <span class="flaticon-analysis"></span>
+                    </div>
+                    <div class="text media-body">
+                      <h3>Get Instant Solutions</h3>
+                      <p>Questions are everywhere , Solutions on Youdemy</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="services">
+                    <div class="icon mt-2">
+                      <span class="flaticon-search-engine"></span>
+                    </div>
+                    <div class="text media-body">
+                      <h3>Get Ready For Career</h3>
+                      <p>
+                        Learn in high-demand fields like IT , AI, ML and Cloud
+                        Computing.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="services">
+                    <div class="icon mt-2">
+                      <span class="flaticon-rating"></span>
+                    </div>
+                    <div class="text media-body">
+                      <h3>Stay Up To Date</h3>
+                      <p>
+                        Stay in touch with in demand and highly needed skills.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    <section
+      class="ftco-intro ftco-no-pb img"
+      style="background-image: url('{% static 'images/bg_3.jpg' %}')"
+    >
+      <div class="container">
+        <div class="row justify-content-center">
+          <div
+            class="col-md-10 text-center heading-section heading-section-white ftco-animate"
+          >
             <h2 class="mb-0">We <3 people who <3 to code</h2>
           </div>
-        </div>	
-    	</div>
+        </div>
+      </div>
     </section>
 
-    <section class="ftco-section ftco-about ftco-no-pt ftco-no-pb ftco-counter" id="section-counter">
-			<div class="container consult-wrap">
-				<div class="row d-flex align-items-stretch">
-					<div class="col-md-6 wrap-about align-items-stretch d-flex">
-						<div class="img" style="background-image: url('{% static 'images/about.jpg' %}');"></div>
-					</div>
-					<div class="col-md-6 wrap-about ftco-animate py-md-5 pl-md-5">
-						<div class="heading-section mb-4">
-							<span class="subheading">Welcome To Coding</span>
-							<h2>Be The Developer You Always Wanted To Be</h2>
-						</div>
-						<p>Explore 5 different programming languages, solve over 500 coding problems, do projects and achieve your career goals.</p>
-						<div class="tabulation-2 mt-4">
-							<ul class="nav nav-pills nav-fill d-md-flex d-block">
-							  <li class="nav-item">
-							    <a class="nav-link active py-2" data-toggle="tab" href="#home1"><span class="ion-ios-home mr-2"></span> Our Mission</a>
-							  </li>
-							  <li class="nav-item px-lg-2">
-							    <a class="nav-link py-2" data-toggle="tab" href="#home2"><span class="ion-ios-person mr-2"></span> Our Vision</a>
-							  </li>
-							  <li class="nav-item">
-							    <a class="nav-link py-2" data-toggle="tab" href="#home3"><span class="ion-ios-mail mr-2"></span> Our Value</a>
-							  </li>
-							</ul>
-							<div class="tab-content bg-light rounded mt-2">
-							  <div class="tab-pane container p-0 active" id="home1">
-							  	<p>To help new programmers write the script of the future.</p>
-							  </div>
-							  <div class="tab-pane container p-0 fade" id="home2">
-							  	<p>World-class learning for anyone, anywhere.</p>
-							  </div>
-							  <div class="tab-pane container p-0 fade" id="home3">
-							  	<p>We are agile and responsive to your feedback.</p>
-							  </div>
-							</div>
-						</div>
-    				<div class="row mt-5">
-		          <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-		            <div class="block-18">
-		            	<div class="icon"><span class="flaticon-doctor"></span></div>
-		              <div class="text">
-		                <strong class="number" data-number="225">0</strong>
-		                <span>Happy Learners</span>
-		              </div>
-		            </div>
-		          </div>
-		          <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-		            <div class="block-18">
-		            	<div class="icon"><span class="flaticon-doctor"></span></div>
-		              <div class="text">
-		                <strong class="number" data-number="72">0</strong>
-		                <span>Success Reports</span>
-		              </div>
-		            </div>
-		          </div>
-		          <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-		            <div class="block-18">
-		            	<div class="icon"><span class="flaticon-doctor"></span></div>
-		              <div class="text">
-		                <strong class="number" data-number="35">0</strong>
-		                <span>Experienced</span>
-		              </div>
-		            </div>
-		          </div>
-	          </div>
-					</div>
-				</div>
-			</div>
-		</section>
+    <section
+      class="ftco-section ftco-about ftco-no-pt ftco-no-pb ftco-counter"
+      id="section-counter"
+    >
+      <div class="container consult-wrap">
+        <div class="row d-flex align-items-stretch">
+          <div class="col-md-6 wrap-about align-items-stretch d-flex">
+            <div
+              class="img"
+              style="background-image: url('{% static 'images/about.jpg' %}')"
+            ></div>
+          </div>
+          <div class="col-md-6 wrap-about ftco-animate py-md-5 pl-md-5">
+            <div class="heading-section mb-4">
+              <span class="subheading">Welcome To Coding</span>
+              <h2>Be The Developer You Always Wanted To Be</h2>
+            </div>
+            <p>
+              Explore 5 different programming languages, solve over 500 coding
+              problems, do projects and achieve your career goals.
+            </p>
+            <div class="tabulation-2 mt-4">
+              <ul class="nav nav-pills nav-fill d-md-flex d-block">
+                <li class="nav-item">
+                  <a
+                    class="nav-link active py-2"
+                    data-toggle="tab"
+                    href="#home1"
+                    ><span class="ion-ios-home mr-2"></span> Our Mission</a
+                  >
+                </li>
+                <li class="nav-item px-lg-2">
+                  <a class="nav-link py-2" data-toggle="tab" href="#home2"
+                    ><span class="ion-ios-person mr-2"></span> Our Vision</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link py-2" data-toggle="tab" href="#home3"
+                    ><span class="ion-ios-mail mr-2"></span> Our Value</a
+                  >
+                </li>
+              </ul>
+              <div class="tab-content bg-light rounded mt-2">
+                <div class="tab-pane container p-0 active" id="home1">
+                  <p>To help new programmers write the script of the future.</p>
+                </div>
+                <div class="tab-pane container p-0 fade" id="home2">
+                  <p>World-class learning for anyone, anywhere.</p>
+                </div>
+                <div class="tab-pane container p-0 fade" id="home3">
+                  <p>We are agile and responsive to your feedback.</p>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div
+                class="col-md d-flex justify-content-center counter-wrap ftco-animate"
+              >
+                <div class="block-18">
+                  <div class="icon"><span class="flaticon-doctor"></span></div>
+                  <div class="text">
+                    <strong class="number" data-number="225">0</strong>
+                    <span>Happy Learners</span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="col-md d-flex justify-content-center counter-wrap ftco-animate"
+              >
+                <div class="block-18">
+                  <div class="icon"><span class="flaticon-doctor"></span></div>
+                  <div class="text">
+                    <strong class="number" data-number="72">0</strong>
+                    <span>Success Reports</span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="col-md d-flex justify-content-center counter-wrap ftco-animate"
+              >
+                <div class="block-18">
+                  <div class="icon"><span class="flaticon-doctor"></span></div>
+                  <div class="text">
+                    <strong class="number" data-number="35">0</strong>
+                    <span>Experienced</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-		<section class="ftco-section">
-			<div class="container">
-				<div class="row no-gutters justify-content-center mb-5">
+    <section class="ftco-section">
+      <div class="container">
+        <div class="row no-gutters justify-content-center mb-5">
           <div class="col-md-6 text-center heading-section ftco-animate">
-          	<span class="subheading">Youdemy.Com</span>
+            <span class="subheading">Youdemy.Com</span>
             <h2 class="mb-4">Courses</h2>
-            <p>LEARN TO CODE , LEARN TO BE CREATIVE <br>Making possible for anyone to learn on their own. Learn the skills required in the real world.</p>
+            <p>
+              LEARN TO CODE , LEARN TO BE CREATIVE <br />Making possible for
+              anyone to learn on their own. Learn the skills required in the
+              real world.
+            </p>
             <p></p>
           </div>
         </div>
         <div class="row">
-        	<div class="col-md-4">
-        		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-1.png' %}');"></div>
-        			<div class="text w-100 text-center">
-        				<span class="cat">C Language</span>
-        				<h3><a href="{% url 'course1' %}">Basics Of C</a></h3>
-        				<p>C is a general-purpose, procedural computer programming language supporting structured programming, and recursion, while a static type system prevents unintended operations.</p>
-        			</div>
-        		</div>
-        	</div>
-        	<div class="col-md-4">
-        		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-2.jpg' %}');"></div>
-        			<div class="text w-100 text-center">
-        				<span class="cat">Python</span>
-        				<h3><a href="{% url 'course2' %}">Python and Packages</a></h3>
-        				<p>Python is an interpreted, high-level, general-purpose programming language.Its language constructs an object-oriented approach aim to help programmers write clear, logical code.</p>
-        			</div>
-        		</div>
-        	</div>
-        	<div class="col-md-4">
-        		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-3.jpg' %}');"></div>
-        			<div class="text w-100 text-center">
-        				<span class="cat">Java</span>
-        				<h3><a href="{% url 'course3' %}">Object-Oriented Programming</a></h3>
-        				<p>Java is a general-purpose programming language that is class-based, object-oriented, and designed to have as few implementation dependencies as possible.</p>
-        			</div>
-        		</div>
-        	</div>
-        	<div class="col-md-4">
-        		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-4.jpg' %}');"></div>
-        			<div class="text w-100 text-center">
-        				<span class="cat">C++</span>
-        				<h3><a href="#">C with classes</a></h3>
-        				<p>C++ is a general-purpose programming language which has object-oriented, generic, and functional features in addition to facilities for low-level memory manipulation.</p>
-        			</div>
-        		</div>
-        	</div>
-        	<div class="col-md-4">
-        		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-5.jpg' %}');"></div>
-        			<div class="text w-100 text-center">
-        				<span class="cat">Ruby</span>
-        				<h3><a href="#">Ruby on Rails</a></h3>
-        				<p>Ruby is an interpreted, high-level, general-purpose programming language.
-Ruby is dynamically typed and uses garbage collection.</p>
-        			</div>
-        		</div>
-        	</div>
-        	<div class="col-md-4">
-        		<div class="project">
-        			<div class="img rounded mb-4" style="background-image: url('{% static 'images/project-6.jpg' %}');"></div>
-        			<div class="text w-100 text-center">
-        				<span class="cat">JavaScript</span>
-        				<h3><a href="#">Logics with JavaScript</a></h3>
-        				<p>JavaScript is a high-level, just-in-time compiled, multi-paradigm programming language. JavaScript has curly-bracket syntax, dynamic typing and first-class functions.</p>
-        			</div>
-        		</div>
-        	</div>
-        </div>
-			</div>
-		</section>
 
-    <section class="ftco-section ftco-no-pt">
-    	<div class="container">
-    		<div class="row justify-content-center mb-5">
-          <div class="col-md-8 text-center heading-section ftco-animate">
-          	<span class="subheading">Projects</span>
-            <h2 class="mb-4">Challenges & Projects</h2>
-            <p>Join over 7 thousand developers in solving code challenges on Youdemy. Study from Youdemy and then check your grasp by completing projects and challenges.</p>
+
+          {% for course in courses %}
+          <div class="col-md-4">
+            <div class="project">
+              <div
+                class="img rounded mb-4"
+                style="
+                  background-image: url('{{ course.course_pictire.url }}');
+                "
+              ></div>
+              <div class="text w-100 text-center">
+                <span class="cat">{{ course.course_language }}</span>
+                <h3><a href="{% url 'view_course' course_id=course.id %}">{{ course.course_name }}</a></h3>
+                <p>
+                  {{ course.description }}
+                </p>
+              </div>
+            </div>
           </div>
+          {% endfor %}
         </div>
-  			<div class="row tabulation mt-4 ftco-animate">
-  				<div class="col-md-4">
-						<ul class="nav nav-pills nav-fill d-md-flex d-block flex-column">
-						  <li class="nav-item text-left">
-						    <a class="nav-link active py-4" data-toggle="tab" href="#services-1"><span class="mr-2"></span>Tic-Tac-Toe</a>
-						  </li>
-						  <li class="nav-item text-left">
-						    <a class="nav-link py-4" data-toggle="tab" href="#services-2"><span class="mr-2"></span>Calculator WebApp</a>
-						  </li>
-						  <li class="nav-item text-left">
-						    <a class="nav-link py-4" data-toggle="tab" href="#services-3"><span class="mr-2"></span>ChatBot</a>
-						  </li>
-						  <li class="nav-item text-left">
-						    <a class="nav-link py-4" data-toggle="tab" href="#services-4"><span class="mr-2"></span>Website with Django</a>
-						  </li>
-						  <li class="nav-item text-left">
-						    <a class="nav-link py-4" data-toggle="tab" href="#services-5"><span class="mr-2"></span>Personal Assistant</a>
-						  </li>
-						  <li class="nav-item text-left">
-						    <a class="nav-link py-4" data-toggle="tab" href="#services-6"><span class="mr-2"></span>Instagram Bot</a>
-						  </li>
-						</ul>
-					</div>
-					<div class="col-md-8">
-						<div class="tab-content">
-						  <div class="tab-pane container p-0 active" id="services-1">
-						  	<div class="img" style="background-image: url('{% static 'images/project-7.jpg' %}');"></div>
-						  	<h3><a href="#">Tic-Tac-Toe</a></h3>
-						  	<p>The game is automatically played by the program and hence, no user input is needed. Still, developing a automatic game will be lots of fun. Let’s see how to do this.
-numpy and random Python libraries are used to build this game. Instead of asking the user to put a mark on the board, code randomly chooses a place on the board and put the mark.</p>
-						  </div>
-						  <div class="tab-pane container p-0 fade" id="services-2">
-						  	<div class="img" style="background-image: url('{% static 'images/project-8.jpg' %}');"></div>
-						  	<h3><a href="#">Calculator Webapp</a></h3>
-						  	<p>In our JavaScript calculator, we’ll be using Internal CSS. First, we need to figure out how many buttons we are going to need. For now, we stick to the minimum viable functionalities for our basic calculator.</p>
-						  </div>
-						  <div class="tab-pane container p-0 fade" id="services-3">
-						  	<div class="img" style="background-image: url('{% static 'images/project-9.jpg' %}');"></div>
-						  	<h3><a href="#">ChatBot</a></h3>
-						  	<p>The model deals on a real time basis with the students clearing the rings of doubts in minds of students over the whole admission procedure. Currently students rely on the knowledge of parents, relatives and acquaintances and obviously the ranking institutes as well questionnaire sites like Quora, to know about any specific institute. It is not practically feasible for the institutes to fix up a real time doubt clearing assistant to assist the admission seekers. This is where our chat bot comes to the aid. </p>
-						  </div>
-						  <div class="tab-pane container p-0 fade" id="services-4">
-						  	<div class="img" style="background-image: url('{% static 'images/project-10.jpg' %}');"></div>
-						  	<h3><a href="#">Website with Django</a></h3>
-						  	<p>A Django website consists of a single project that is split into separate apps. The idea is that each app handles a self-contained function that the site needs to perform. As an example, imagine an application like Instagram.</p>
-						  </div>
-						  <div class="tab-pane container p-0 fade" id="services-5">
-						  	<div class="img" style="background-image: url('{% static 'images/project-11.jpg' %}');"></div>
-						  	<h3><a href="#">Personal Assistant</a></h3>
-						  	<p>As we know Python is a suitable language for script writers and developers. Let’s write a script for Personal Voice Assistant using Python. The query for the assistant can be manipulated as per the user’s need.
-The implemented assistant can open up the application, search Google, Wikipedia and YouTube about the query etc by just giving the voice command. We can process the data as per the need or can add the functionality, depends upon how we code things.</p>
-						  </div>
-						  <div class="tab-pane container p-0 fade" id="services-6">
-						  	<div class="img" style="background-image: url('{% static 'images/project-12.jpg' %}');"></div>
-						  	<h3><a href="#">Instagram Bot</a></h3>
-						  	<p>Let’s build an Instagram bot to gain more followers! — I know, I know. That doesn’t sound very ethical, does it? But it’s all justified for educational purposes.Coding is a super power</p>
-						  </div>
-						</div>
-					</div>
-				</div>
-    	</div>
+      </div>
     </section>
 
-    <section class="ftco-intro ftco-no-pb img" style="background-image: url('{% static 'images/bg_8.jpg' %}');">
-    	<div class="container">
-    		<div class="row justify-content-center">
-          <div class="col-lg-9 col-md-8 d-flex align-items-center heading-section heading-section-white ftco-animate">
+    <section class="ftco-section ftco-no-pt">
+      <div class="container">
+        <div class="row justify-content-center mb-5">
+          <div class="col-md-8 text-center heading-section ftco-animate">
+            <span class="subheading">Projects</span>
+            <h2 class="mb-4">Challenges & Projects</h2>
+            <p>
+              Join over 7 thousand developers in solving code challenges on
+              Youdemy. Study from Youdemy and then check your grasp by
+              completing projects and challenges.
+            </p>
+          </div>
+        </div>
+        <div class="row tabulation mt-4 ftco-animate">
+          <div class="col-md-4">
+            <ul class="nav nav-pills nav-fill d-md-flex d-block flex-column">
+              <li class="nav-item text-left">
+                <a
+                  class="nav-link active py-4"
+                  data-toggle="tab"
+                  href="#services-1"
+                  ><span class="mr-2"></span>Tic-Tac-Toe</a
+                >
+              </li>
+              <li class="nav-item text-left">
+                <a class="nav-link py-4" data-toggle="tab" href="#services-2"
+                  ><span class="mr-2"></span>Calculator WebApp</a
+                >
+              </li>
+              <li class="nav-item text-left">
+                <a class="nav-link py-4" data-toggle="tab" href="#services-3"
+                  ><span class="mr-2"></span>ChatBot</a
+                >
+              </li>
+              <li class="nav-item text-left">
+                <a class="nav-link py-4" data-toggle="tab" href="#services-4"
+                  ><span class="mr-2"></span>Website with Django</a
+                >
+              </li>
+              <li class="nav-item text-left">
+                <a class="nav-link py-4" data-toggle="tab" href="#services-5"
+                  ><span class="mr-2"></span>Personal Assistant</a
+                >
+              </li>
+              <li class="nav-item text-left">
+                <a class="nav-link py-4" data-toggle="tab" href="#services-6"
+                  ><span class="mr-2"></span>Instagram Bot</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-8">
+            <div class="tab-content">
+              <div class="tab-pane container p-0 active" id="services-1">
+                <div
+                  class="img"
+                  style="
+                    background-image: url('{% static 'images/project-7.jpg' %}');
+                  "
+                ></div>
+                <h3><a href="#">Tic-Tac-Toe</a></h3>
+                <p>
+                  The game is automatically played by the program and hence, no
+                  user input is needed. Still, developing a automatic game will
+                  be lots of fun. Let’s see how to do this. numpy and random
+                  Python libraries are used to build this game. Instead of
+                  asking the user to put a mark on the board, code randomly
+                  chooses a place on the board and put the mark.
+                </p>
+              </div>
+              <div class="tab-pane container p-0 fade" id="services-2">
+                <div
+                  class="img"
+                  style="
+                    background-image: url('{% static 'images/project-8.jpg' %}');
+                  "
+                ></div>
+                <h3><a href="#">Calculator Webapp</a></h3>
+                <p>
+                  In our JavaScript calculator, we’ll be using Internal CSS.
+                  First, we need to figure out how many buttons we are going to
+                  need. For now, we stick to the minimum viable functionalities
+                  for our basic calculator.
+                </p>
+              </div>
+              <div class="tab-pane container p-0 fade" id="services-3">
+                <div
+                  class="img"
+                  style="
+                    background-image: url('{% static 'images/project-9.jpg' %}');
+                  "
+                ></div>
+                <h3><a href="#">ChatBot</a></h3>
+                <p>
+                  The model deals on a real time basis with the students
+                  clearing the rings of doubts in minds of students over the
+                  whole admission procedure. Currently students rely on the
+                  knowledge of parents, relatives and acquaintances and
+                  obviously the ranking institutes as well questionnaire sites
+                  like Quora, to know about any specific institute. It is not
+                  practically feasible for the institutes to fix up a real time
+                  doubt clearing assistant to assist the admission seekers. This
+                  is where our chat bot comes to the aid.
+                </p>
+              </div>
+              <div class="tab-pane container p-0 fade" id="services-4">
+                <div
+                  class="img"
+                  style="
+                    background-image: url('{% static 'images/project-10.jpg' %}');
+                  "
+                ></div>
+                <h3><a href="#">Website with Django</a></h3>
+                <p>
+                  A Django website consists of a single project that is split
+                  into separate apps. The idea is that each app handles a
+                  self-contained function that the site needs to perform. As an
+                  example, imagine an application like Instagram.
+                </p>
+              </div>
+              <div class="tab-pane container p-0 fade" id="services-5">
+                <div
+                  class="img"
+                  style="
+                    background-image: url('{% static 'images/project-11.jpg' %}');
+                  "
+                ></div>
+                <h3><a href="#">Personal Assistant</a></h3>
+                <p>
+                  As we know Python is a suitable language for script writers
+                  and developers. Let’s write a script for Personal Voice
+                  Assistant using Python. The query for the assistant can be
+                  manipulated as per the user’s need. The implemented assistant
+                  can open up the application, search Google, Wikipedia and
+                  YouTube about the query etc by just giving the voice command.
+                  We can process the data as per the need or can add the
+                  functionality, depends upon how we code things.
+                </p>
+              </div>
+              <div class="tab-pane container p-0 fade" id="services-6">
+                <div
+                  class="img"
+                  style="
+                    background-image: url('{% static 'images/project-12.jpg' %}');
+                  "
+                ></div>
+                <h3><a href="#">Instagram Bot</a></h3>
+                <p>
+                  Let’s build an Instagram bot to gain more followers! — I know,
+                  I know. That doesn’t sound very ethical, does it? But it’s all
+                  justified for educational purposes.Coding is a super power
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="ftco-intro ftco-no-pb img"
+      style="background-image: url('{% static 'images/bg_8.jpg' %}')"
+    >
+      <div class="container">
+        <div class="row justify-content-center">
+          <div
+            class="col-lg-9 col-md-8 d-flex align-items-center heading-section heading-section-white ftco-animate"
+          >
             <h2 class="mb-3 mb-md-0">You Always Get the Best Guidance</h2>
           </div>
           <div class="col-lg-3 col-md-4 ftco-animate">
-          	<p class="mb-0"><a href="#" class="btn btn-secondary py-3 px-4">Back To Top</a></p>
+            <p class="mb-0">
+              <a href="#" class="btn btn-secondary py-3 px-4">Back To Top</a>
+            </p>
           </div>
-        </div>	
-    	</div>
+        </div>
+      </div>
     </section>
 
     <section class="ftco-section testimony-section">
       <div class="container-fluid px-md-5">
         <div class="row justify-content-center mb-5">
           <div class="col-md-8 text-center heading-section ftco-animate">
-          	<span class="subheading">Testimonies</span>
+            <span class="subheading">Testimonies</span>
             <h2 class="mb-4">Success Stories From Our Users</h2>
-            <p>Hear about inspiring stories of how they first started programming!</p>
+            <p>
+              Hear about inspiring stories of how they first started
+              programming!
+            </p>
           </div>
         </div>
         <div class="row ftco-animate justify-content-center">
@@ -500,13 +649,23 @@ The implemented assistant can open up the application, search Google, Wikipedia 
             <div class="carousel-testimony owl-carousel">
               <div class="item">
                 <div class="testimony-wrap d-flex">
-                  <div class="user-img" style="background-image: url('{% static 'images/person_1.jpg' %}')">
-                  </div>
+                  <div
+                    class="user-img"
+                    style="
+                      background-image: url('{% static 'images/person_1.jpg' %}');
+                    "
+                  ></div>
                   <div class="text pl-4">
-                  	<span class="quote d-flex align-items-center justify-content-center">
+                    <span
+                      class="quote d-flex align-items-center justify-content-center"
+                    >
                       <i class="icon-quote-left"></i>
                     </span>
-                    <p>At first I used to be very weak at programming but after I got to know about Youdemy from my friend , I am pro at programming and DS-Algo are at my tongue.</p>
+                    <p>
+                      At first I used to be very weak at programming but after I
+                      got to know about Youdemy from my friend , I am pro at
+                      programming and DS-Algo are at my tongue.
+                    </p>
                     <p class="name">Alex</p>
                     <span class="position">Student</span>
                   </div>
@@ -514,13 +673,25 @@ The implemented assistant can open up the application, search Google, Wikipedia 
               </div>
               <div class="item">
                 <div class="testimony-wrap d-flex">
-                  <div class="user-img" style="background-image: url('{% static 'images/person_2.jpg' %}')">
-                  </div>
+                  <div
+                    class="user-img"
+                    style="
+                      background-image: url('{% static 'images/person_2.jpg' %}');
+                    "
+                  ></div>
                   <div class="text pl-4">
-                  	<span class="quote d-flex align-items-center justify-content-center">
+                    <span
+                      class="quote d-flex align-items-center justify-content-center"
+                    >
                       <i class="icon-quote-left"></i>
                     </span>
-                    <p>In my First semester of engineering I couldn't do well in exams, so I was searching through online learning sites and I found Youdemy and in next semester I passed all my exams with flying colors because it helped me in building up my concepts.</p>
+                    <p>
+                      In my First semester of engineering I couldn't do well in
+                      exams, so I was searching through online learning sites
+                      and I found Youdemy and in next semester I passed all my
+                      exams with flying colors because it helped me in building
+                      up my concepts.
+                    </p>
                     <p class="name">Brienne</p>
                     <span class="position">Student</span>
                   </div>
@@ -528,13 +699,25 @@ The implemented assistant can open up the application, search Google, Wikipedia 
               </div>
               <div class="item">
                 <div class="testimony-wrap d-flex">
-                  <div class="user-img" style="background-image: url('{% static 'images/person_1.jpg' %}')">
-                  </div>
+                  <div
+                    class="user-img"
+                    style="
+                      background-image: url('{% static 'images/person_1.jpg' %}');
+                    "
+                  ></div>
                   <div class="text pl-4">
-                  	<span class="quote d-flex align-items-center justify-content-center">
+                    <span
+                      class="quote d-flex align-items-center justify-content-center"
+                    >
                       <i class="icon-quote-left"></i>
                     </span>
-                    <p>I had a lot of interest in coding since I was 7 yrs, I had a firm grasp on my concepts and I wanted to try some interesting project so I came across this website, and tried out their projects and these projects were really helpful as I was able to secure a job with high package.</p>
+                    <p>
+                      I had a lot of interest in coding since I was 7 yrs, I had
+                      a firm grasp on my concepts and I wanted to try some
+                      interesting project so I came across this website, and
+                      tried out their projects and these projects were really
+                      helpful as I was able to secure a job with high package.
+                    </p>
                     <p class="name">Shin</p>
                     <span class="position">Employee at TCS</span>
                   </div>
@@ -542,13 +725,23 @@ The implemented assistant can open up the application, search Google, Wikipedia 
               </div>
               <div class="item">
                 <div class="testimony-wrap d-flex">
-                  <div class="user-img" style="background-image: url('{% static 'images/person_2.jpg' %}')">
-                  </div>
+                  <div
+                    class="user-img"
+                    style="
+                      background-image: url('{% static 'images/person_2.jpg' %}');
+                    "
+                  ></div>
                   <div class="text pl-4">
-                  	<span class="quote d-flex align-items-center justify-content-center">
+                    <span
+                      class="quote d-flex align-items-center justify-content-center"
+                    >
                       <i class="icon-quote-left"></i>
                     </span>
-                    <p>I started coding from this website only and I need to say that the site interface is really really good and I have been attached to this site for coding since years.</p>
+                    <p>
+                      I started coding from this website only and I need to say
+                      that the site interface is really really good and I have
+                      been attached to this site for coding since years.
+                    </p>
                     <p class="name">Tom</p>
                     <span class="position">Student</span>
                   </div>
@@ -556,13 +749,23 @@ The implemented assistant can open up the application, search Google, Wikipedia 
               </div>
               <div class="item">
                 <div class="testimony-wrap d-flex">
-                  <div class="user-img" style="background-image: url('{% static 'images/person_1.jpg' %}')">
-                  </div>
+                  <div
+                    class="user-img"
+                    style="
+                      background-image: url('{% static 'images/person_1.jpg' %}');
+                    "
+                  ></div>
                   <div class="text pl-4">
-                  	<span class="quote d-flex align-items-center justify-content-center">
+                    <span
+                      class="quote d-flex align-items-center justify-content-center"
+                    >
                       <i class="icon-quote-left"></i>
                     </span>
-                    <p>I really like this site very much , I learned all my coding from here, and now I have knowledge of around 18 programming languages.</p>
+                    <p>
+                      I really like this site very much , I learned all my
+                      coding from here, and now I have knowledge of around 18
+                      programming languages.
+                    </p>
                     <p class="name">Steve</p>
                     <span class="position">Student</span>
                   </div>
@@ -573,23 +776,44 @@ The implemented assistant can open up the application, search Google, Wikipedia 
         </div>
       </div>
     </section>
- <footer class="ftco-footer ftco-bg-dark ftco-section">
+    <footer class="ftco-footer ftco-bg-dark ftco-section">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-6 col-lg-3">
             <div class="ftco-footer-widget mb-5">
-            	<h2 class="ftco-heading-2">Have a Question?</h2>
-            	<div class="block-23 mb-3">
-	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">Prayagraj</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+91 1234567890</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">support@youdemy.co</span></a></li>
-	              </ul>
-	            </div>
-	            <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
-                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+              <h2 class="ftco-heading-2">Have a Question?</h2>
+              <div class="block-23 mb-3">
+                <ul>
+                  <li>
+                    <span class="icon icon-map-marker"></span
+                    ><span class="text">Prayagraj</span>
+                  </li>
+                  <li>
+                    <a href="#"
+                      ><span class="icon icon-phone"></span
+                      ><span class="text">+91 1234567890</span></a
+                    >
+                  </li>
+                  <li>
+                    <a href="#"
+                      ><span class="icon icon-envelope"></span
+                      ><span class="text">support@youdemy.co</span></a
+                    >
+                  </li>
+                </ul>
+              </div>
+              <ul
+                class="ftco-footer-social list-unstyled float-md-left float-lft mt-3"
+              >
+                <li class="ftco-animate">
+                  <a href="#"><span class="icon-twitter"></span></a>
+                </li>
+                <li class="ftco-animate">
+                  <a href="#"><span class="icon-facebook"></span></a>
+                </li>
+                <li class="ftco-animate">
+                  <a href="#"><span class="icon-instagram"></span></a>
+                </li>
               </ul>
             </div>
           </div>
@@ -597,12 +821,36 @@ The implemented assistant can open up the application, search Google, Wikipedia 
             <div class="ftco-footer-widget mb-5 ml-md-4">
               <h2 class="ftco-heading-2">Links</h2>
               <ul class="list-unstyled">
-				<li><a href="{% url 'home' %}"><span class="ion-ios-arrow-round-forward mr-2"></span>Home</a></li>
-				<li><a href="{% url 'courses' %}"><span class="ion-ios-arrow-round-forward mr-2"></span>Courses</a></li>
-				<li><a href="#"><span class="ion-ios-arrow-round-forward mr-2"></span>Problems</a></li>
-				<li><a href="{% url 'projects' %}"><span class="ion-ios-arrow-round-forward mr-2"></span>Projects</a></li>
-				<li><a href="{% url 'contact' %}"><span class="ion-ios-arrow-round-forward mr-2"></span>Contact</a></li>
-				
+                <li>
+                  <a href="{% url 'home' %}"
+                    ><span class="ion-ios-arrow-round-forward mr-2"></span
+                    >Home</a
+                  >
+                </li>
+                <li>
+                  <a href="{% url 'courses' %}"
+                    ><span class="ion-ios-arrow-round-forward mr-2"></span
+                    >Courses</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><span class="ion-ios-arrow-round-forward mr-2"></span
+                    >Problems</a
+                  >
+                </li>
+                <li>
+                  <a href="{% url 'projects' %}"
+                    ><span class="ion-ios-arrow-round-forward mr-2"></span
+                    >Projects</a
+                  >
+                </li>
+                <li>
+                  <a href="{% url 'contact' %}"
+                    ><span class="ion-ios-arrow-round-forward mr-2"></span
+                    >Contact</a
+                  >
+                </li>
               </ul>
             </div>
           </div>
@@ -610,24 +858,59 @@ The implemented assistant can open up the application, search Google, Wikipedia 
             <div class="ftco-footer-widget mb-5">
               <h2 class="ftco-heading-2">Recent Blog</h2>
               <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url('{% static 'images/image_1.jpg' %}');"></a>
+                <a
+                  class="blog-img mr-4"
+                  style="
+                    background-image: url('{% static 'images/image_1.jpg' %}');
+                  "
+                ></a>
                 <div class="text">
-                  <h3 class="heading"><a href="#">Coding for kids: Reasons kids should get started, and how they can find success</a></h3>
+                  <h3 class="heading">
+                    <a href="#"
+                      >Coding for kids: Reasons kids should get started, and how
+                      they can find success</a
+                    >
+                  </h3>
                   <div class="meta">
-                    <div><a href="#"><span class="icon-calendar"></span> Jan. 29, 2020</a></div>
-                    <div><a href="#"><span class="icon-person"></span> Alex</a></div>
-                    <div><a href="#"><span class="icon-chat"></span> 13</a></div>
+                    <div>
+                      <a href="#"
+                        ><span class="icon-calendar"></span> Jan. 29, 2020</a
+                      >
+                    </div>
+                    <div>
+                      <a href="#"><span class="icon-person"></span> Alex</a>
+                    </div>
+                    <div>
+                      <a href="#"><span class="icon-chat"></span> 13</a>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="block-21 mb-5 d-flex">
-                <a class="blog-img mr-4" style="background-image: url('{% static 'images/image_2.jpg' %}');"></a>
+                <a
+                  class="blog-img mr-4"
+                  style="
+                    background-image: url('{% static 'images/image_2.jpg' %}');
+                  "
+                ></a>
                 <div class="text">
-                  <h3 class="heading"><a href="{% static 'blog_single' %}">Ruby vs. Python: What’s the Difference?</a></h3>
+                  <h3 class="heading">
+                    <a href="{% static 'blog_single' %}"
+                      >Ruby vs. Python: What’s the Difference?</a
+                    >
+                  </h3>
                   <div class="meta">
-                    <div><a href="#"><span class="icon-calendar"></span> Feb. 1, 2020</a></div>
-                    <div><a href="#"><span class="icon-person"></span> Trixy</a></div>
-                    <div><a href="#"><span class="icon-chat"></span> 6</a></div>
+                    <div>
+                      <a href="#"
+                        ><span class="icon-calendar"></span> Feb. 1, 2020</a
+                      >
+                    </div>
+                    <div>
+                      <a href="#"><span class="icon-person"></span> Trixy</a>
+                    </div>
+                    <div>
+                      <a href="#"><span class="icon-chat"></span> 6</a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -635,11 +918,19 @@ The implemented assistant can open up the application, search Google, Wikipedia 
           </div>
           <div class="col-md-6 col-lg-3">
             <div class="ftco-footer-widget mb-5">
-            	<h2 class="ftco-heading-2">Subscribe Us!</h2>
+              <h2 class="ftco-heading-2">Subscribe Us!</h2>
               <form action="#" class="subscribe-form">
                 <div class="form-group">
-                  <input type="text" class="form-control mb-2 text-center" placeholder="Enter email address">
-                  <input type="submit" value="Subscribe" class="form-control submit px-3">
+                  <input
+                    type="text"
+                    class="form-control mb-2 text-center"
+                    placeholder="Enter email address"
+                  />
+                  <input
+                    type="submit"
+                    value="Subscribe"
+                    class="form-control submit px-3"
+                  />
                 </div>
               </form>
             </div>
@@ -647,34 +938,57 @@ The implemented assistant can open up the application, search Google, Wikipedia 
         </div>
         <div class="row">
           <div class="col-md-12 text-center">
-
             <p>
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved</p>
+              Copyright &copy;
+              <script>
+                document.write(new Date().getFullYear());
+              </script>
+              All rights reserved
+            </p>
           </div>
         </div>
       </div>
     </footer>
-    
-  
 
-  <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen">
+      <svg class="circular" width="48px" height="48px">
+        <circle
+          class="path-bg"
+          cx="24"
+          cy="24"
+          r="22"
+          fill="none"
+          stroke-width="4"
+          stroke="#eeeeee"
+        />
+        <circle
+          class="path"
+          cx="24"
+          cy="24"
+          r="22"
+          fill="none"
+          stroke-width="4"
+          stroke-miterlimit="10"
+          stroke="#F96D00"
+        />
+      </svg>
+    </div>
 
-  <script src="{% static 'js/jquery.min.js' %}"></script>
-	<script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
-	<script src="{% static 'js/popper.min.js' %}"></script>
-	<script src="{% static 'js/bootstrap.min.js' %}"></script>
-	<script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
-	<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
-	<script src="{% static 'js/jquery.stellar.min.js' %}"></script>
-	<script src="{% static 'js/owl.carousel.min.js' %}"></script>
-	<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
-	<script src="{% static 'js/aos.js' %}"></script>
-	<script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
-	<script src="{% static 'js/scrollax.min.js' %}"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-	<script src="{% static 'js/google-map.js' %}"></script>
-	<script src="{% static 'js/main.js' %}"></script>
-    
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/aos.js' %}"></script>
+    <script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+    <script src="{% static 'js/scrollax.min.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="{% static 'js/google-map.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
   </body>
 </html>
